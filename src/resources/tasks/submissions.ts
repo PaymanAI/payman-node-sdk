@@ -9,25 +9,28 @@ export class Submissions extends APIResource {
   /**
    * Get all submissions for a task
    */
-  list(
+  listTaskSubmissions(
     id: string,
-    query?: SubmissionListParams,
+    query?: SubmissionListTaskSubmissionsParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<SubmissionListResponse>;
-  list(id: string, options?: Core.RequestOptions): Core.APIPromise<SubmissionListResponse>;
-  list(
+  ): Core.APIPromise<SubmissionListTaskSubmissionsResponse>;
+  listTaskSubmissions(
     id: string,
-    query: SubmissionListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<SubmissionListResponse> {
+  ): Core.APIPromise<SubmissionListTaskSubmissionsResponse>;
+  listTaskSubmissions(
+    id: string,
+    query: SubmissionListTaskSubmissionsParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<SubmissionListTaskSubmissionsResponse> {
     if (isRequestOptions(query)) {
-      return this.list(id, {}, query);
+      return this.listTaskSubmissions(id, {}, query);
     }
     return this._client.get(`/tasks/${id}/submissions`, { query, ...options });
   }
 }
 
-export interface SubmissionListResponse {
+export interface SubmissionListTaskSubmissionsResponse {
   /**
    * Whether there are more results available
    */
@@ -41,10 +44,10 @@ export interface SubmissionListResponse {
   /**
    * The list of results for the current page
    */
-  results?: Array<SubmissionListResponse.Result>;
+  results?: Array<SubmissionListTaskSubmissionsResponse.Result>;
 }
 
-export namespace SubmissionListResponse {
+export namespace SubmissionListTaskSubmissionsResponse {
   /**
    * The list of results for the current page
    */
@@ -349,7 +352,7 @@ export namespace SubmissionListResponse {
   }
 }
 
-export interface SubmissionListParams {
+export interface SubmissionListTaskSubmissionsParams {
   limit?: number;
 
   page?: number;
@@ -366,6 +369,6 @@ export interface SubmissionListParams {
 }
 
 export namespace Submissions {
-  export import SubmissionListResponse = SubmissionsAPI.SubmissionListResponse;
-  export import SubmissionListParams = SubmissionsAPI.SubmissionListParams;
+  export import SubmissionListTaskSubmissionsResponse = SubmissionsAPI.SubmissionListTaskSubmissionsResponse;
+  export import SubmissionListTaskSubmissionsParams = SubmissionsAPI.SubmissionListTaskSubmissionsParams;
 }

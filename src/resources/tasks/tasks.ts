@@ -16,45 +16,51 @@ export class Tasks extends APIResource {
   /**
    * Creates a new task
    */
-  create(body: TaskCreateParams, options?: Core.RequestOptions): Core.APIPromise<TaskCreateResponse> {
+  createTask(
+    body: TaskCreateTaskParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<TaskCreateTaskResponse> {
     return this._client.post('/tasks', { body, ...options });
   }
 
   /**
    * Get a task by ID
    */
-  retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<TaskRetrieveResponse> {
+  getTask(id: string, options?: Core.RequestOptions): Core.APIPromise<TaskGetTaskResponse> {
     return this._client.get(`/tasks/${id}`, options);
-  }
-
-  /**
-   * Updates an existing task.
-   */
-  update(
-    id: string,
-    body: TaskUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<TaskUpdateResponse> {
-    return this._client.put(`/tasks/${id}`, { body, ...options });
   }
 
   /**
    * Get all tasks for the current organization
    */
-  list(query?: TaskListParams, options?: Core.RequestOptions): Core.APIPromise<TaskListResponse>;
-  list(options?: Core.RequestOptions): Core.APIPromise<TaskListResponse>;
-  list(
-    query: TaskListParams | Core.RequestOptions = {},
+  listTasks(
+    query?: TaskListTasksParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<TaskListResponse> {
+  ): Core.APIPromise<TaskListTasksResponse>;
+  listTasks(options?: Core.RequestOptions): Core.APIPromise<TaskListTasksResponse>;
+  listTasks(
+    query: TaskListTasksParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<TaskListTasksResponse> {
     if (isRequestOptions(query)) {
-      return this.list({}, query);
+      return this.listTasks({}, query);
     }
     return this._client.get('/tasks', { query, ...options });
   }
+
+  /**
+   * Updates an existing task.
+   */
+  updateTask(
+    id: string,
+    body: TaskUpdateTaskParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<TaskUpdateTaskResponse> {
+    return this._client.put(`/tasks/${id}`, { body, ...options });
+  }
 }
 
-export interface TaskCreateResponse {
+export interface TaskCreateTaskResponse {
   /**
    * The task category this task should be shown under. Defaults to 'Other'.
    */
@@ -114,7 +120,7 @@ export interface TaskCreateResponse {
   /**
    * The currency in which the payout is denominated.
    */
-  currency?: TaskCreateResponse.Currency;
+  currency?: TaskCreateTaskResponse.Currency;
 
   /**
    * The deadline for this task. If this is set, the task will be closed after this
@@ -156,10 +162,10 @@ export interface TaskCreateResponse {
    * The configuration to be applied during task verification. The Payman
    * verification enginewill use this to customize the verification of this task.
    */
-  verificationConfiguration?: TaskCreateResponse.VerificationConfiguration;
+  verificationConfiguration?: TaskCreateTaskResponse.VerificationConfiguration;
 }
 
-export namespace TaskCreateResponse {
+export namespace TaskCreateTaskResponse {
   /**
    * The currency in which the payout is denominated.
    */
@@ -225,7 +231,7 @@ export namespace TaskCreateResponse {
   }
 }
 
-export interface TaskRetrieveResponse {
+export interface TaskGetTaskResponse {
   /**
    * The task category this task should be shown under. Defaults to 'Other'.
    */
@@ -285,7 +291,7 @@ export interface TaskRetrieveResponse {
   /**
    * The currency in which the payout is denominated.
    */
-  currency?: TaskRetrieveResponse.Currency;
+  currency?: TaskGetTaskResponse.Currency;
 
   /**
    * The deadline for this task. If this is set, the task will be closed after this
@@ -327,10 +333,10 @@ export interface TaskRetrieveResponse {
    * The configuration to be applied during task verification. The Payman
    * verification enginewill use this to customize the verification of this task.
    */
-  verificationConfiguration?: TaskRetrieveResponse.VerificationConfiguration;
+  verificationConfiguration?: TaskGetTaskResponse.VerificationConfiguration;
 }
 
-export namespace TaskRetrieveResponse {
+export namespace TaskGetTaskResponse {
   /**
    * The currency in which the payout is denominated.
    */
@@ -396,178 +402,7 @@ export namespace TaskRetrieveResponse {
   }
 }
 
-export interface TaskUpdateResponse {
-  /**
-   * The task category this task should be shown under. Defaults to 'Other'.
-   */
-  category:
-    | 'MARKETING'
-    | 'ENGINEERING'
-    | 'SALES'
-    | 'DATA_ANALYTICS'
-    | 'DESIGN'
-    | 'PRODUCT_MANAGEMENT'
-    | 'LEGAL'
-    | 'MEDICAL'
-    | 'FINANCE'
-    | 'OTHER';
-
-  /**
-   * A detailed description of the task. This should include enough information for
-   * the user to complete the task to the expected standard.
-   */
-  description: string;
-
-  /**
-   * The unique identifier for the organization that owns this task
-   */
-  organizationId: string;
-
-  /**
-   * The amount being offered for each approved submission on this task. Note the
-   * amount is denominated in base units of the currency, so a payout of 100 in USD
-   * would mean the payout would be $1.00
-   */
-  payout: number;
-
-  /**
-   * The number of submissions required before this task is closed. If this is set to
-   * 1, the task will be closed after the first submission is received and approved.
-   * Defaults to 1.
-   */
-  requiredSubmissions: number;
-
-  /**
-   * The policy determining who may submit solutions for this task.
-   */
-  submissionPolicy:
-    | 'OPEN_SUBMISSIONS_ONE_PER_USER'
-    | 'OPEN_SUBMISSIONS_MANY_PER_USER'
-    | 'PRE_ASSIGNED_SUBMISSIONS'
-    | 'OPEN_ASSIGNED_SUBMISSIONS';
-
-  /**
-   * A descriptive title for this task
-   */
-  title: string;
-
-  id?: string;
-
-  /**
-   * The currency in which the payout is denominated.
-   */
-  currency?: TaskUpdateResponse.Currency;
-
-  /**
-   * The deadline for this task. If this is set, the task will be closed after this
-   * time regardless of the number of submissions received and approved.
-   */
-  deadline?: string;
-
-  /**
-   * The ID of the wallet to be used to pay out rewards for this task. This wallet
-   * must be owned by the organization that owns this task, the agent creating the
-   * task must have access to the wallet, it must have sufficient funds to cover the
-   * payouts, and must be in the same currency as the currency of this task.
-   */
-  payoutWalletId?: string;
-
-  /**
-   * Notes from the Payman review process about the task. This is used to store any
-   * additional information concerning a task's review status (e.g. rejection
-   * reasons).
-   */
-  reviewNotes?: string;
-
-  /**
-   * The current status of this task.
-   */
-  status?:
-    | 'IN_REVIEW_BY_DEVELOPER'
-    | 'IN_REVIEW_BY_AI'
-    | 'IN_REVIEW_BY_SYSTEM_USER'
-    | 'REJECTED'
-    | 'OPEN'
-    | 'STARTED'
-    | 'COMPLETED'
-    | 'CANCELLED'
-    | 'SUSPENDED'
-    | 'EXPIRED';
-
-  /**
-   * The configuration to be applied during task verification. The Payman
-   * verification enginewill use this to customize the verification of this task.
-   */
-  verificationConfiguration?: TaskUpdateResponse.VerificationConfiguration;
-}
-
-export namespace TaskUpdateResponse {
-  /**
-   * The currency in which the payout is denominated.
-   */
-  export interface Currency {
-    /**
-     * The name of this currency's fractional unit
-     */
-    fractionalUnitName: string;
-
-    /**
-     * The name of this currency
-     */
-    name: string;
-
-    /**
-     * The currency symbol to use
-     */
-    symbol: string;
-
-    type: 'CRYPTOCURRENCY' | 'FIAT';
-
-    active?: boolean;
-
-    /**
-     * The unique short code for this currency
-     */
-    code?: string;
-
-    /**
-     * The number of decimal places this currency supports.
-     */
-    decimalPlaces?: number;
-
-    /**
-     * A longer form description of the item
-     */
-    description?: string;
-
-    /**
-     * The number of decimal places to show when rendering an amount of this currency.
-     */
-    displayDecimalPlaces?: number;
-
-    /**
-     * A descriptive label of the item
-     */
-    label?: string;
-
-    /**
-     * The value of the item
-     */
-    value?: string;
-  }
-
-  /**
-   * The configuration to be applied during task verification. The Payman
-   * verification enginewill use this to customize the verification of this task.
-   */
-  export interface VerificationConfiguration {
-    customPrompt?: string;
-
-    handler?: string;
-  }
-}
-
-export interface TaskListResponse {
+export interface TaskListTasksResponse {
   /**
    * Whether there are more results available
    */
@@ -581,10 +416,10 @@ export interface TaskListResponse {
   /**
    * The list of results for the current page
    */
-  results?: Array<TaskListResponse.Result>;
+  results?: Array<TaskListTasksResponse.Result>;
 }
 
-export namespace TaskListResponse {
+export namespace TaskListTasksResponse {
   export interface Result {
     /**
      * The task category this task should be shown under. Defaults to 'Other'.
@@ -757,7 +592,178 @@ export namespace TaskListResponse {
   }
 }
 
-export interface TaskCreateParams {
+export interface TaskUpdateTaskResponse {
+  /**
+   * The task category this task should be shown under. Defaults to 'Other'.
+   */
+  category:
+    | 'MARKETING'
+    | 'ENGINEERING'
+    | 'SALES'
+    | 'DATA_ANALYTICS'
+    | 'DESIGN'
+    | 'PRODUCT_MANAGEMENT'
+    | 'LEGAL'
+    | 'MEDICAL'
+    | 'FINANCE'
+    | 'OTHER';
+
+  /**
+   * A detailed description of the task. This should include enough information for
+   * the user to complete the task to the expected standard.
+   */
+  description: string;
+
+  /**
+   * The unique identifier for the organization that owns this task
+   */
+  organizationId: string;
+
+  /**
+   * The amount being offered for each approved submission on this task. Note the
+   * amount is denominated in base units of the currency, so a payout of 100 in USD
+   * would mean the payout would be $1.00
+   */
+  payout: number;
+
+  /**
+   * The number of submissions required before this task is closed. If this is set to
+   * 1, the task will be closed after the first submission is received and approved.
+   * Defaults to 1.
+   */
+  requiredSubmissions: number;
+
+  /**
+   * The policy determining who may submit solutions for this task.
+   */
+  submissionPolicy:
+    | 'OPEN_SUBMISSIONS_ONE_PER_USER'
+    | 'OPEN_SUBMISSIONS_MANY_PER_USER'
+    | 'PRE_ASSIGNED_SUBMISSIONS'
+    | 'OPEN_ASSIGNED_SUBMISSIONS';
+
+  /**
+   * A descriptive title for this task
+   */
+  title: string;
+
+  id?: string;
+
+  /**
+   * The currency in which the payout is denominated.
+   */
+  currency?: TaskUpdateTaskResponse.Currency;
+
+  /**
+   * The deadline for this task. If this is set, the task will be closed after this
+   * time regardless of the number of submissions received and approved.
+   */
+  deadline?: string;
+
+  /**
+   * The ID of the wallet to be used to pay out rewards for this task. This wallet
+   * must be owned by the organization that owns this task, the agent creating the
+   * task must have access to the wallet, it must have sufficient funds to cover the
+   * payouts, and must be in the same currency as the currency of this task.
+   */
+  payoutWalletId?: string;
+
+  /**
+   * Notes from the Payman review process about the task. This is used to store any
+   * additional information concerning a task's review status (e.g. rejection
+   * reasons).
+   */
+  reviewNotes?: string;
+
+  /**
+   * The current status of this task.
+   */
+  status?:
+    | 'IN_REVIEW_BY_DEVELOPER'
+    | 'IN_REVIEW_BY_AI'
+    | 'IN_REVIEW_BY_SYSTEM_USER'
+    | 'REJECTED'
+    | 'OPEN'
+    | 'STARTED'
+    | 'COMPLETED'
+    | 'CANCELLED'
+    | 'SUSPENDED'
+    | 'EXPIRED';
+
+  /**
+   * The configuration to be applied during task verification. The Payman
+   * verification enginewill use this to customize the verification of this task.
+   */
+  verificationConfiguration?: TaskUpdateTaskResponse.VerificationConfiguration;
+}
+
+export namespace TaskUpdateTaskResponse {
+  /**
+   * The currency in which the payout is denominated.
+   */
+  export interface Currency {
+    /**
+     * The name of this currency's fractional unit
+     */
+    fractionalUnitName: string;
+
+    /**
+     * The name of this currency
+     */
+    name: string;
+
+    /**
+     * The currency symbol to use
+     */
+    symbol: string;
+
+    type: 'CRYPTOCURRENCY' | 'FIAT';
+
+    active?: boolean;
+
+    /**
+     * The unique short code for this currency
+     */
+    code?: string;
+
+    /**
+     * The number of decimal places this currency supports.
+     */
+    decimalPlaces?: number;
+
+    /**
+     * A longer form description of the item
+     */
+    description?: string;
+
+    /**
+     * The number of decimal places to show when rendering an amount of this currency.
+     */
+    displayDecimalPlaces?: number;
+
+    /**
+     * A descriptive label of the item
+     */
+    label?: string;
+
+    /**
+     * The value of the item
+     */
+    value?: string;
+  }
+
+  /**
+   * The configuration to be applied during task verification. The Payman
+   * verification enginewill use this to customize the verification of this task.
+   */
+  export interface VerificationConfiguration {
+    customPrompt?: string;
+
+    handler?: string;
+  }
+}
+
+export interface TaskCreateTaskParams {
   /**
    * A detailed description of the task. This should include enough information for
    * the user to complete the task to the expected standard.
@@ -839,7 +845,19 @@ export interface TaskCreateParams {
     | 'OPEN_ASSIGNED_SUBMISSIONS';
 }
 
-export interface TaskUpdateParams {
+export interface TaskListTasksParams {
+  /**
+   * The number of items per page
+   */
+  limit?: number;
+
+  /**
+   * The page number to retrieve
+   */
+  page?: number;
+}
+
+export interface TaskUpdateTaskParams {
   /**
    * A detailed description of the task. This should include enough information for
    * the user to complete the task to the expected standard.
@@ -852,34 +870,22 @@ export interface TaskUpdateParams {
   title: string;
 }
 
-export interface TaskListParams {
-  /**
-   * The number of items per page
-   */
-  limit?: number;
-
-  /**
-   * The page number to retrieve
-   */
-  page?: number;
-}
-
 export namespace Tasks {
-  export import TaskCreateResponse = TasksAPI.TaskCreateResponse;
-  export import TaskRetrieveResponse = TasksAPI.TaskRetrieveResponse;
-  export import TaskUpdateResponse = TasksAPI.TaskUpdateResponse;
-  export import TaskListResponse = TasksAPI.TaskListResponse;
-  export import TaskCreateParams = TasksAPI.TaskCreateParams;
-  export import TaskUpdateParams = TasksAPI.TaskUpdateParams;
-  export import TaskListParams = TasksAPI.TaskListParams;
+  export import TaskCreateTaskResponse = TasksAPI.TaskCreateTaskResponse;
+  export import TaskGetTaskResponse = TasksAPI.TaskGetTaskResponse;
+  export import TaskListTasksResponse = TasksAPI.TaskListTasksResponse;
+  export import TaskUpdateTaskResponse = TasksAPI.TaskUpdateTaskResponse;
+  export import TaskCreateTaskParams = TasksAPI.TaskCreateTaskParams;
+  export import TaskListTasksParams = TasksAPI.TaskListTasksParams;
+  export import TaskUpdateTaskParams = TasksAPI.TaskUpdateTaskParams;
   export import Assignments = AssignmentsAPI.Assignments;
-  export import AssignmentCreateResponse = AssignmentsAPI.AssignmentCreateResponse;
-  export import AssignmentListResponse = AssignmentsAPI.AssignmentListResponse;
-  export import AssignmentCreateParams = AssignmentsAPI.AssignmentCreateParams;
-  export import AssignmentListParams = AssignmentsAPI.AssignmentListParams;
+  export import AssignmentCreateTaskAssignmentResponse = AssignmentsAPI.AssignmentCreateTaskAssignmentResponse;
+  export import AssignmentListTaskAssignmentsResponse = AssignmentsAPI.AssignmentListTaskAssignmentsResponse;
+  export import AssignmentCreateTaskAssignmentParams = AssignmentsAPI.AssignmentCreateTaskAssignmentParams;
+  export import AssignmentListTaskAssignmentsParams = AssignmentsAPI.AssignmentListTaskAssignmentsParams;
   export import Submissions = SubmissionsAPI.Submissions;
-  export import SubmissionListResponse = SubmissionsAPI.SubmissionListResponse;
-  export import SubmissionListParams = SubmissionsAPI.SubmissionListParams;
+  export import SubmissionListTaskSubmissionsResponse = SubmissionsAPI.SubmissionListTaskSubmissionsResponse;
+  export import SubmissionListTaskSubmissionsParams = SubmissionsAPI.SubmissionListTaskSubmissionsParams;
   export import Categories = CategoriesAPI.Categories;
-  export import CategoryListResponse = CategoriesAPI.CategoryListResponse;
+  export import CategoryListTaskCategoriesResponse = CategoriesAPI.CategoryListTaskCategoriesResponse;
 }

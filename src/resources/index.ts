@@ -1,15 +1,15 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Files } from './files/files';
+export { FileDownloadParams, Files } from './files';
 export {
-  TaskCreateResponse,
-  TaskRetrieveResponse,
-  TaskUpdateResponse,
-  TaskListResponse,
-  TaskCreateParams,
-  TaskUpdateParams,
-  TaskListParams,
+  TaskCreateTaskResponse,
+  TaskGetTaskResponse,
+  TaskListTasksResponse,
+  TaskUpdateTaskResponse,
+  TaskCreateTaskParams,
+  TaskListTasksParams,
+  TaskUpdateTaskParams,
   Tasks,
 } from './tasks/tasks';
 export { Version } from './version';
-export { WalletRetrieveResponse, Wallets } from './wallets';
+export { WalletGetWalletResponse, Wallets } from './wallets';
