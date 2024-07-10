@@ -9,15 +9,16 @@ export class Categories extends APIResource {
    * Provides a list of available task categories that may be used when creating
    * tasks.
    */
-  list(options?: Core.RequestOptions): Core.APIPromise<CategoryListResponse> {
+  listTaskCategories(options?: Core.RequestOptions): Core.APIPromise<CategoryListTaskCategoriesResponse> {
     return this._client.get('/tasks/categories', options);
   }
 }
 
-export type CategoryListResponse = Array<CategoryListResponse.CategoryListResponseItem>;
+export type CategoryListTaskCategoriesResponse =
+  Array<CategoryListTaskCategoriesResponse.CategoryListTaskCategoriesResponseItem>;
 
-export namespace CategoryListResponse {
-  export interface CategoryListResponseItem {
+export namespace CategoryListTaskCategoriesResponse {
+  export interface CategoryListTaskCategoriesResponseItem {
     /**
      * A longer form description of the item
      */
@@ -36,5 +37,5 @@ export namespace CategoryListResponse {
 }
 
 export namespace Categories {
-  export import CategoryListResponse = CategoriesAPI.CategoryListResponse;
+  export import CategoryListTaskCategoriesResponse = CategoriesAPI.CategoryListTaskCategoriesResponse;
 }

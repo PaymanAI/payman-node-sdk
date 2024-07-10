@@ -1,21 +1,25 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
-  AssignmentCreateResponse,
-  AssignmentListResponse,
-  AssignmentCreateParams,
-  AssignmentListParams,
+  AssignmentCreateTaskAssignmentResponse,
+  AssignmentListTaskAssignmentsResponse,
+  AssignmentCreateTaskAssignmentParams,
+  AssignmentListTaskAssignmentsParams,
   Assignments,
 } from './assignments';
-export { CategoryListResponse, Categories } from './categories';
-export { SubmissionListResponse, SubmissionListParams, Submissions } from './submissions';
+export { CategoryListTaskCategoriesResponse, Categories } from './categories';
 export {
-  TaskCreateResponse,
-  TaskRetrieveResponse,
-  TaskUpdateResponse,
-  TaskListResponse,
-  TaskCreateParams,
-  TaskUpdateParams,
-  TaskListParams,
+  SubmissionListTaskSubmissionsResponse,
+  SubmissionListTaskSubmissionsParams,
+  Submissions,
+} from './submissions';
+export {
+  TaskCreateTaskResponse,
+  TaskGetTaskResponse,
+  TaskListTasksResponse,
+  TaskUpdateTaskResponse,
+  TaskCreateTaskParams,
+  TaskListTasksParams,
+  TaskUpdateTaskParams,
   Tasks,
 } from './tasks';

@@ -162,20 +162,21 @@ export namespace Paymanai {
   export import RequestOptions = Core.RequestOptions;
 
   export import Tasks = API.Tasks;
-  export import TaskCreateResponse = API.TaskCreateResponse;
-  export import TaskRetrieveResponse = API.TaskRetrieveResponse;
-  export import TaskUpdateResponse = API.TaskUpdateResponse;
-  export import TaskListResponse = API.TaskListResponse;
-  export import TaskCreateParams = API.TaskCreateParams;
-  export import TaskUpdateParams = API.TaskUpdateParams;
-  export import TaskListParams = API.TaskListParams;
+  export import TaskCreateTaskResponse = API.TaskCreateTaskResponse;
+  export import TaskGetTaskResponse = API.TaskGetTaskResponse;
+  export import TaskListTasksResponse = API.TaskListTasksResponse;
+  export import TaskUpdateTaskResponse = API.TaskUpdateTaskResponse;
+  export import TaskCreateTaskParams = API.TaskCreateTaskParams;
+  export import TaskListTasksParams = API.TaskListTasksParams;
+  export import TaskUpdateTaskParams = API.TaskUpdateTaskParams;
 
   export import Wallets = API.Wallets;
-  export import WalletRetrieveResponse = API.WalletRetrieveResponse;
+  export import WalletGetWalletResponse = API.WalletGetWalletResponse;
 
   export import Version = API.Version;
 
   export import Files = API.Files;
+  export import FileDownloadParams = API.FileDownloadParams;
 }
 
 export default Paymanai;

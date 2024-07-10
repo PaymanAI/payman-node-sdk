@@ -11,36 +11,39 @@ export class Assignments extends APIResource {
    * to log into the Payman system at which point they will be able to accept the
    * invite.
    */
-  create(
+  createTaskAssignment(
     id: string,
-    body: AssignmentCreateParams,
+    body: AssignmentCreateTaskAssignmentParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<AssignmentCreateResponse> {
+  ): Core.APIPromise<AssignmentCreateTaskAssignmentResponse> {
     return this._client.post(`/tasks/${id}/assignments`, { body, ...options });
   }
 
   /**
    * Get all assignments for a task
    */
-  list(
+  listTaskAssignments(
     id: string,
-    query?: AssignmentListParams,
+    query?: AssignmentListTaskAssignmentsParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<AssignmentListResponse>;
-  list(id: string, options?: Core.RequestOptions): Core.APIPromise<AssignmentListResponse>;
-  list(
+  ): Core.APIPromise<AssignmentListTaskAssignmentsResponse>;
+  listTaskAssignments(
     id: string,
-    query: AssignmentListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<AssignmentListResponse> {
+  ): Core.APIPromise<AssignmentListTaskAssignmentsResponse>;
+  listTaskAssignments(
+    id: string,
+    query: AssignmentListTaskAssignmentsParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<AssignmentListTaskAssignmentsResponse> {
     if (isRequestOptions(query)) {
-      return this.list(id, {}, query);
+      return this.listTaskAssignments(id, {}, query);
     }
     return this._client.get(`/tasks/${id}/assignments`, { query, ...options });
   }
 }
 
-export interface AssignmentCreateResponse {
+export interface AssignmentCreateTaskAssignmentResponse {
   organizationId: string;
 
   status: 'IN_REVIEW' | 'PENDING' | 'COMPLETED' | 'EXPIRED' | 'DELETED' | 'REJECTED' | 'ACCEPTED';
@@ -52,7 +55,7 @@ export interface AssignmentCreateResponse {
   /**
    * The user that this task is assigned to
    */
-  assignedTo?: AssignmentCreateResponse.AssignedTo;
+  assignedTo?: AssignmentCreateTaskAssignmentResponse.AssignedTo;
 
   assignedToId?: string;
 
@@ -64,10 +67,10 @@ export interface AssignmentCreateResponse {
 
   inviteEmail?: string;
 
-  task?: AssignmentCreateResponse.Task;
+  task?: AssignmentCreateTaskAssignmentResponse.Task;
 }
 
-export namespace AssignmentCreateResponse {
+export namespace AssignmentCreateTaskAssignmentResponse {
   /**
    * The user that this task is assigned to
    */
@@ -286,7 +289,7 @@ export namespace AssignmentCreateResponse {
   }
 }
 
-export interface AssignmentListResponse {
+export interface AssignmentListTaskAssignmentsResponse {
   /**
    * Whether there are more results available
    */
@@ -300,10 +303,10 @@ export interface AssignmentListResponse {
   /**
    * The list of results for the current page
    */
-  results?: Array<AssignmentListResponse.Result>;
+  results?: Array<AssignmentListTaskAssignmentsResponse.Result>;
 }
 
-export namespace AssignmentListResponse {
+export namespace AssignmentListTaskAssignmentsResponse {
   export interface Result {
     organizationId: string;
 
@@ -551,13 +554,13 @@ export namespace AssignmentListResponse {
   }
 }
 
-export interface AssignmentCreateParams {
+export interface AssignmentCreateTaskAssignmentParams {
   expiresAt?: string;
 
   inviteEmail?: string;
 }
 
-export interface AssignmentListParams {
+export interface AssignmentListTaskAssignmentsParams {
   limit?: number;
 
   page?: number;
@@ -566,8 +569,8 @@ export interface AssignmentListParams {
 }
 
 export namespace Assignments {
-  export import AssignmentCreateResponse = AssignmentsAPI.AssignmentCreateResponse;
-  export import AssignmentListResponse = AssignmentsAPI.AssignmentListResponse;
-  export import AssignmentCreateParams = AssignmentsAPI.AssignmentCreateParams;
-  export import AssignmentListParams = AssignmentsAPI.AssignmentListParams;
+  export import AssignmentCreateTaskAssignmentResponse = AssignmentsAPI.AssignmentCreateTaskAssignmentResponse;
+  export import AssignmentListTaskAssignmentsResponse = AssignmentsAPI.AssignmentListTaskAssignmentsResponse;
+  export import AssignmentCreateTaskAssignmentParams = AssignmentsAPI.AssignmentCreateTaskAssignmentParams;
+  export import AssignmentListTaskAssignmentsParams = AssignmentsAPI.AssignmentListTaskAssignmentsParams;
 }

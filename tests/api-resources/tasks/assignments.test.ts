@@ -6,8 +6,8 @@ import { Response } from 'node-fetch';
 const paymanai = new Paymanai({ baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010' });
 
 describe('resource assignments', () => {
-  test('create', async () => {
-    const responsePromise = paymanai.tasks.assignments.create('string', {});
+  test('createTaskAssignment', async () => {
+    const responsePromise = paymanai.tasks.assignments.createTaskAssignment('string', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -17,8 +17,8 @@ describe('resource assignments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list', async () => {
-    const responsePromise = paymanai.tasks.assignments.list('string');
+  test('listTaskAssignments', async () => {
+    const responsePromise = paymanai.tasks.assignments.listTaskAssignments('string');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -28,17 +28,17 @@ describe('resource assignments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options instead of params are passed correctly', async () => {
+  test('listTaskAssignments: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      paymanai.tasks.assignments.list('string', { path: '/_stainless_unknown_path' }),
+      paymanai.tasks.assignments.listTaskAssignments('string', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Paymanai.NotFoundError);
   });
 
-  test('list: request options and params are passed correctly', async () => {
+  test('listTaskAssignments: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      paymanai.tasks.assignments.list(
+      paymanai.tasks.assignments.listTaskAssignments(
         'string',
         { limit: 0, page: 0, statuses: ['IN_REVIEW'] },
         { path: '/_stainless_unknown_path' },

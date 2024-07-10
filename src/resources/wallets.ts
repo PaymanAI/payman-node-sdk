@@ -8,12 +8,12 @@ export class Wallets extends APIResource {
   /**
    * Get a wallet by ID
    */
-  retrieve(id: string, options?: Core.RequestOptions): Core.APIPromise<WalletRetrieveResponse> {
+  getWallet(id: string, options?: Core.RequestOptions): Core.APIPromise<WalletGetWalletResponse> {
     return this._client.get(`/wallets/${id}`, options);
   }
 }
 
-export interface WalletRetrieveResponse {
+export interface WalletGetWalletResponse {
   /**
    * The amount of currency that is currently held in escrow against created tasks.
    */
@@ -22,7 +22,7 @@ export interface WalletRetrieveResponse {
   /**
    * The currency in which the payout is denominated.
    */
-  currency: WalletRetrieveResponse.Currency;
+  currency: WalletGetWalletResponse.Currency;
 
   /**
    * The amount of currency that can be spent from this wallet.
@@ -53,7 +53,7 @@ export interface WalletRetrieveResponse {
   totalBalance?: number;
 }
 
-export namespace WalletRetrieveResponse {
+export namespace WalletGetWalletResponse {
   /**
    * The currency in which the payout is denominated.
    */
@@ -110,5 +110,5 @@ export namespace WalletRetrieveResponse {
 }
 
 export namespace Wallets {
-  export import WalletRetrieveResponse = WalletsAPI.WalletRetrieveResponse;
+  export import WalletGetWalletResponse = WalletsAPI.WalletGetWalletResponse;
 }
