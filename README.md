@@ -26,6 +26,7 @@ The full API of this library can be found in [api.md](api.md).
 import Paymanai from 'paymanai';
 
 const paymanai = new Paymanai({
+  xPaymanAgentId: process.env['PAYMAN_AGENT_ID'], // This is the default and can be omitted
   environment: 'production', // defaults to 'sandbox'
 });
 
@@ -47,6 +48,7 @@ This library includes TypeScript definitions for all request params and response
 import Paymanai from 'paymanai';
 
 const paymanai = new Paymanai({
+  xPaymanAgentId: process.env['PAYMAN_AGENT_ID'], // This is the default and can be omitted
   environment: 'production', // defaults to 'sandbox'
 });
 
