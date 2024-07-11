@@ -10,7 +10,7 @@ describe('resource tasks', () => {
     const responsePromise = paymanai.tasks.createTask({
       description:
         'Proofread a 10-page legal document for spelling and grammar errors.  Please include a summary of changes or a confirmation that no errors were found.',
-      organizationId: 'string',
+      payout: 0,
       title: 'Proofread a legal document',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -26,12 +26,11 @@ describe('resource tasks', () => {
     const response = await paymanai.tasks.createTask({
       description:
         'Proofread a 10-page legal document for spelling and grammar errors.  Please include a summary of changes or a confirmation that no errors were found.',
-      organizationId: 'string',
+      payout: 0,
       title: 'Proofread a legal document',
       category: 'MARKETING',
       deadline: '2019-12-27T18:11:19.117Z',
       inviteEmails: ['string', 'string', 'string'],
-      payout: 0,
       payoutWalletId: 'string',
       requiredSubmissions: 0,
       submissionPolicy: 'OPEN_SUBMISSIONS_ONE_PER_USER',

@@ -771,9 +771,11 @@ export interface TaskCreateTaskParams {
   description: string;
 
   /**
-   * The unique identifier for the organization that owns this task
+   * The amount being offered for each approved submission on this task. Note the
+   * amount is denominated in base units of the currency, so a payout of 100 in USD
+   * would mean the payout would be $1.00.
    */
-  organizationId: string;
+  payout: number;
 
   /**
    * A descriptive title for this task
@@ -809,13 +811,6 @@ export interface TaskCreateTaskParams {
    * users with these emails will be able to complete the task.
    */
   inviteEmails?: Array<string>;
-
-  /**
-   * The amount being offered for each approved submission on this task. Note the
-   * amount is denominated in base units of the currency, so a payout of 100 in USD
-   * would mean the payout would be $1.00. Defaults to 0.
-   */
-  payout?: number;
 
   /**
    * The ID of the wallet to be used to pay out rewards for this task. This wallet
