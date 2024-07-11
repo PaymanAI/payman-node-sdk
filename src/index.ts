@@ -15,6 +15,16 @@ type Environment = keyof typeof environments;
 
 export interface ClientOptions {
   /**
+   * Defaults to process.env['PAYMAN_AGENT_ID'].
+   */
+  xPaymanAgentId?: string | undefined;
+
+  /**
+   * Defaults to process.env['PAYMAN_API_SECRET'].
+   */
+  xPaymanAPISecret?: string | undefined;
+
+  /**
    * Specifies the environment to use for the API.
    *
    * Each environment maps to a different base URL:
@@ -84,11 +94,16 @@ export interface ClientOptions {
  * API Client for interfacing with the Paymanai API.
  */
 export class Paymanai extends Core.APIClient {
+  xPaymanAgentId: string;
+  xPaymanAPISecret: string;
+
   private _options: ClientOptions;
 
   /**
    * API Client for interfacing with the Paymanai API.
    *
+   * @param {string | undefined} [opts.xPaymanAgentId=process.env['PAYMAN_AGENT_ID'] ?? undefined]
+   * @param {string | undefined} [opts.xPaymanAPISecret=process.env['PAYMAN_API_SECRET'] ?? undefined]
    * @param {Environment} [opts.environment=sandbox] - Specifies the environment URL to use for the API.
    * @param {string} [opts.baseURL=process.env['PAYMANAI_BASE_URL'] ?? https://sandbox-agent.payman.ai/api] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
@@ -98,8 +113,26 @@ export class Paymanai extends Core.APIClient {
    * @param {Core.Headers} opts.defaultHeaders - Default headers to include with every request to the API.
    * @param {Core.DefaultQuery} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
-  constructor({ baseURL = Core.readEnv('PAYMANAI_BASE_URL'), ...opts }: ClientOptions = {}) {
+  constructor({
+    baseURL = Core.readEnv('PAYMANAI_BASE_URL'),
+    xPaymanAgentId = Core.readEnv('PAYMAN_AGENT_ID'),
+    xPaymanAPISecret = Core.readEnv('PAYMAN_API_SECRET'),
+    ...opts
+  }: ClientOptions = {}) {
+    if (xPaymanAgentId === undefined) {
+      throw new Errors.PaymanaiError(
+        "The PAYMAN_AGENT_ID environment variable is missing or empty; either provide it, or instantiate the Paymanai client with an xPaymanAgentId option, like new Paymanai({ xPaymanAgentId: 'My X Payman Agent ID' }).",
+      );
+    }
+    if (xPaymanAPISecret === undefined) {
+      throw new Errors.PaymanaiError(
+        "The PAYMAN_API_SECRET environment variable is missing or empty; either provide it, or instantiate the Paymanai client with an xPaymanAPISecret option, like new Paymanai({ xPaymanAPISecret: 'My X Payman API Secret' }).",
+      );
+    }
+
     const options: ClientOptions = {
+      xPaymanAgentId,
+      xPaymanAPISecret,
       ...opts,
       baseURL,
       environment: opts.environment ?? 'sandbox',
@@ -120,6 +153,9 @@ export class Paymanai extends Core.APIClient {
     });
 
     this._options = options;
+
+    this.xPaymanAgentId = xPaymanAgentId;
+    this.xPaymanAPISecret = xPaymanAPISecret;
   }
 
   tasks: API.Tasks = new API.Tasks(this);
@@ -136,6 +172,28 @@ export class Paymanai extends Core.APIClient {
       ...super.defaultHeaders(opts),
       ...this._options.defaultHeaders,
     };
+  }
+
+  protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
+    const xPaymanAgentIdAuth = this.xPaymanAgentIdAuth(opts);
+    const xPaymanAPISecretAuth = this.xPaymanAPISecretAuth(opts);
+
+    if (xPaymanAgentIdAuth != null && !Core.isEmptyObj(xPaymanAgentIdAuth)) {
+      return xPaymanAgentIdAuth;
+    }
+
+    if (xPaymanAPISecretAuth != null && !Core.isEmptyObj(xPaymanAPISecretAuth)) {
+      return xPaymanAPISecretAuth;
+    }
+    return {};
+  }
+
+  protected xPaymanAgentIdAuth(opts: Core.FinalRequestOptions): Core.Headers {
+    return { 'x-payman-agent-id': this.xPaymanAgentId };
+  }
+
+  protected xPaymanAPISecretAuth(opts: Core.FinalRequestOptions): Core.Headers {
+    return { 'x-payman-api-secret': this.xPaymanAPISecret };
   }
 
   protected override stringifyQuery(query: Record<string, unknown>): string {
