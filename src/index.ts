@@ -7,7 +7,24 @@ import * as qs from 'qs';
 import * as Core from './core';
 import * as API from './resources/index';
 
+const environments = {
+  development: 'https://agent.payman.dev/api',
+  sandbox: 'https://agent-sandbox.paymanai.com/api',
+  production: 'https://agent.paymanai.com/api',
+};
+type Environment = keyof typeof environments;
+
 export interface ClientOptions {
+  /**
+   * Specifies the environment to use for the API.
+   *
+   * Each environment maps to a different base URL:
+   * - `development` corresponds to `https://agent.payman.dev/api`
+   * - `sandbox` corresponds to `https://agent-sandbox.paymanai.com/api`
+   * - `production` corresponds to `https://agent.paymanai.com/api`
+   */
+  environment?: Environment;
+
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
@@ -74,6 +91,7 @@ export class Paymanai extends Core.APIClient {
   /**
    * API Client for interfacing with the Paymanai API.
    *
+   * @param {Environment} [opts.environment=development] - Specifies the environment URL to use for the API.
    * @param {string} [opts.baseURL=process.env['PAYMANAI_BASE_URL'] ?? https://agent.payman.dev/api] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
@@ -85,11 +103,18 @@ export class Paymanai extends Core.APIClient {
   constructor({ baseURL = Core.readEnv('PAYMANAI_BASE_URL'), ...opts }: ClientOptions = {}) {
     const options: ClientOptions = {
       ...opts,
-      baseURL: baseURL || `https://agent.payman.dev/api`,
+      baseURL,
+      environment: opts.environment ?? 'development',
     };
 
+    if (baseURL && opts.environment) {
+      throw new Errors.PaymanaiError(
+        'Ambiguous URL; The `baseURL` option (or PAYMANAI_BASE_URL env var) and the `environment` option are given. If you want to use the environment you must pass baseURL: null',
+      );
+    }
+
     super({
-      baseURL: options.baseURL!,
+      baseURL: options.baseURL || environments[options.environment || 'development'],
       timeout: options.timeout ?? 60000 /* 1 minute */,
       httpAgent: options.httpAgent,
       maxRetries: options.maxRetries,

@@ -25,7 +25,9 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import Paymanai from 'paymanai';
 
-const paymanai = new Paymanai();
+const paymanai = new Paymanai({
+  environment: 'sandbox', // or 'development' | 'production'; defaults to 'development'
+});
 
 async function main() {
   const taskGetTaskResponse = await paymanai.tasks.getTask('string');
@@ -44,7 +46,9 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import Paymanai from 'paymanai';
 
-const paymanai = new Paymanai();
+const paymanai = new Paymanai({
+  environment: 'sandbox', // or 'development' | 'production'; defaults to 'development'
+});
 
 async function main() {
   const taskGetTaskResponse: Paymanai.TaskGetTaskResponse = await paymanai.tasks.getTask('string');
