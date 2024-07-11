@@ -9,8 +9,8 @@ import * as API from './resources/index';
 
 const environments = {
   development: 'https://agent.payman.dev/api',
-  sandbox: 'https://agent-sandbox.paymanai.com/api',
-  production: 'https://agent.paymanai.com/api',
+  sandbox: 'https://sandbox-agent.payman.ai/api',
+  production: 'https://agent.payman.ai/api',
 };
 type Environment = keyof typeof environments;
 
@@ -20,8 +20,8 @@ export interface ClientOptions {
    *
    * Each environment maps to a different base URL:
    * - `development` corresponds to `https://agent.payman.dev/api`
-   * - `sandbox` corresponds to `https://agent-sandbox.paymanai.com/api`
-   * - `production` corresponds to `https://agent.paymanai.com/api`
+   * - `sandbox` corresponds to `https://sandbox-agent.payman.ai/api`
+   * - `production` corresponds to `https://agent.payman.ai/api`
    */
   environment?: Environment;
 
