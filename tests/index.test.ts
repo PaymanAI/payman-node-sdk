@@ -139,24 +139,24 @@ describe('instantiate client', () => {
     test('empty env variable', () => {
       process.env['PAYMANAI_BASE_URL'] = ''; // empty
       const client = new Paymanai({});
-      expect(client.baseURL).toEqual('https://agent.payman.dev/api');
+      expect(client.baseURL).toEqual('https://sandbox-agent.payman.ai/api');
     });
 
     test('blank env variable', () => {
       process.env['PAYMANAI_BASE_URL'] = '  '; // blank
       const client = new Paymanai({});
-      expect(client.baseURL).toEqual('https://agent.payman.dev/api');
+      expect(client.baseURL).toEqual('https://sandbox-agent.payman.ai/api');
     });
 
     test('env variable with environment', () => {
       process.env['PAYMANAI_BASE_URL'] = 'https://example.com/from_env';
 
-      expect(() => new Paymanai({ environment: 'development' })).toThrowErrorMatchingInlineSnapshot(
+      expect(() => new Paymanai({ environment: 'sandbox' })).toThrowErrorMatchingInlineSnapshot(
         `"Ambiguous URL; The \`baseURL\` option (or PAYMANAI_BASE_URL env var) and the \`environment\` option are given. If you want to use the environment you must pass baseURL: null"`,
       );
 
-      const client = new Paymanai({ baseURL: null, environment: 'development' });
-      expect(client.baseURL).toEqual('https://agent.payman.dev/api');
+      const client = new Paymanai({ baseURL: null, environment: 'sandbox' });
+      expect(client.baseURL).toEqual('https://sandbox-agent.payman.ai/api');
     });
   });
 

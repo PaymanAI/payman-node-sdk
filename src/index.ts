@@ -8,7 +8,6 @@ import * as Core from './core';
 import * as API from './resources/index';
 
 const environments = {
-  development: 'https://agent.payman.dev/api',
   sandbox: 'https://sandbox-agent.payman.ai/api',
   production: 'https://agent.payman.ai/api',
 };
@@ -19,7 +18,6 @@ export interface ClientOptions {
    * Specifies the environment to use for the API.
    *
    * Each environment maps to a different base URL:
-   * - `development` corresponds to `https://agent.payman.dev/api`
    * - `sandbox` corresponds to `https://sandbox-agent.payman.ai/api`
    * - `production` corresponds to `https://agent.payman.ai/api`
    */
@@ -91,8 +89,8 @@ export class Paymanai extends Core.APIClient {
   /**
    * API Client for interfacing with the Paymanai API.
    *
-   * @param {Environment} [opts.environment=development] - Specifies the environment URL to use for the API.
-   * @param {string} [opts.baseURL=process.env['PAYMANAI_BASE_URL'] ?? https://agent.payman.dev/api] - Override the default base URL for the API.
+   * @param {Environment} [opts.environment=sandbox] - Specifies the environment URL to use for the API.
+   * @param {string} [opts.baseURL=process.env['PAYMANAI_BASE_URL'] ?? https://sandbox-agent.payman.ai/api] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
    * @param {Core.Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -104,7 +102,7 @@ export class Paymanai extends Core.APIClient {
     const options: ClientOptions = {
       ...opts,
       baseURL,
-      environment: opts.environment ?? 'development',
+      environment: opts.environment ?? 'sandbox',
     };
 
     if (baseURL && opts.environment) {
@@ -114,7 +112,7 @@ export class Paymanai extends Core.APIClient {
     }
 
     super({
-      baseURL: options.baseURL || environments[options.environment || 'development'],
+      baseURL: options.baseURL || environments[options.environment || 'sandbox'],
       timeout: options.timeout ?? 60000 /* 1 minute */,
       httpAgent: options.httpAgent,
       maxRetries: options.maxRetries,

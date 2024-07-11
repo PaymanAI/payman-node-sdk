@@ -26,7 +26,7 @@ The full API of this library can be found in [api.md](api.md).
 import Paymanai from 'paymanai';
 
 const paymanai = new Paymanai({
-  environment: 'sandbox', // or 'development' | 'production'; defaults to 'development'
+  environment: 'production', // defaults to 'sandbox'
 });
 
 async function main() {
@@ -47,7 +47,7 @@ This library includes TypeScript definitions for all request params and response
 import Paymanai from 'paymanai';
 
 const paymanai = new Paymanai({
-  environment: 'sandbox', // or 'development' | 'production'; defaults to 'development'
+  environment: 'production', // defaults to 'sandbox'
 });
 
 async function main() {
