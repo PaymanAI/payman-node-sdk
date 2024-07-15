@@ -11,7 +11,7 @@ const paymanai = new Paymanai({
 
 describe('resource submissions', () => {
   test('listTaskSubmissions', async () => {
-    const responsePromise = paymanai.tasks.submissions.listTaskSubmissions('string');
+    const responsePromise = paymanai.tasks.submissions.listTaskSubmissions('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -24,7 +24,7 @@ describe('resource submissions', () => {
   test('listTaskSubmissions: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      paymanai.tasks.submissions.listTaskSubmissions('string', { path: '/_stainless_unknown_path' }),
+      paymanai.tasks.submissions.listTaskSubmissions('id', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Paymanai.NotFoundError);
   });
 
@@ -32,7 +32,7 @@ describe('resource submissions', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       paymanai.tasks.submissions.listTaskSubmissions(
-        'string',
+        'id',
         { limit: 0, page: 0, statuses: ['PENDING'] },
         { path: '/_stainless_unknown_path' },
       ),
