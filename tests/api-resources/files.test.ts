@@ -10,6 +10,6 @@ const paymanai = new Paymanai({
 
 describe('resource files', () => {
   test('download: required and optional params', async () => {
-    const response = await paymanai.files.download({ key: 'string' });
+    const response = await paymanai.files.download({ key: 'key' });
   });
 });

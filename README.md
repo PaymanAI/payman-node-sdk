@@ -31,7 +31,7 @@ const paymanai = new Paymanai({
 });
 
 async function main() {
-  const taskGetTaskResponse = await paymanai.tasks.getTask('string');
+  const taskGetTaskResponse = await paymanai.tasks.getTask('id');
 
   console.log(taskGetTaskResponse.id);
 }
@@ -53,7 +53,7 @@ const paymanai = new Paymanai({
 });
 
 async function main() {
-  const taskGetTaskResponse: Paymanai.TaskGetTaskResponse = await paymanai.tasks.getTask('string');
+  const taskGetTaskResponse: Paymanai.TaskGetTaskResponse = await paymanai.tasks.getTask('id');
 }
 
 main();
@@ -70,7 +70,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const taskGetTaskResponse = await paymanai.tasks.getTask('string').catch(async (err) => {
+  const taskGetTaskResponse = await paymanai.tasks.getTask('id').catch(async (err) => {
     if (err instanceof Paymanai.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -113,7 +113,7 @@ const paymanai = new Paymanai({
 });
 
 // Or, configure per-request:
-await paymanai.tasks.getTask('string', {
+await paymanai.tasks.getTask('id', {
   maxRetries: 5,
 });
 ```
@@ -130,7 +130,7 @@ const paymanai = new Paymanai({
 });
 
 // Override per-request:
-await paymanai.tasks.getTask('string', {
+await paymanai.tasks.getTask('id', {
   timeout: 5 * 1000,
 });
 ```
@@ -151,11 +151,11 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const paymanai = new Paymanai();
 
-const response = await paymanai.tasks.getTask('string').asResponse();
+const response = await paymanai.tasks.getTask('id').asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: taskGetTaskResponse, response: raw } = await paymanai.tasks.getTask('string').withResponse();
+const { data: taskGetTaskResponse, response: raw } = await paymanai.tasks.getTask('id').withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(taskGetTaskResponse.id);
 ```
@@ -261,7 +261,7 @@ const paymanai = new Paymanai({
 });
 
 // Override per-request:
-await paymanai.tasks.getTask('string', {
+await paymanai.tasks.getTask('id', {
   httpAgent: new http.Agent({ keepAlive: false }),
 });
 ```

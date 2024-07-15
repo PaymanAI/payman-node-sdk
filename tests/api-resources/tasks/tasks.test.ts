@@ -35,14 +35,14 @@ describe('resource tasks', () => {
       category: 'MARKETING',
       deadline: '2019-12-27T18:11:19.117Z',
       inviteEmails: ['string', 'string', 'string'],
-      payoutWalletId: 'string',
+      payoutWalletId: 'payoutWalletId',
       requiredSubmissions: 0,
       submissionPolicy: 'OPEN_SUBMISSIONS_ONE_PER_USER',
     });
   });
 
   test('getTask', async () => {
-    const responsePromise = paymanai.tasks.getTask('string');
+    const responsePromise = paymanai.tasks.getTask('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -54,7 +54,7 @@ describe('resource tasks', () => {
 
   test('getTask: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(paymanai.tasks.getTask('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(paymanai.tasks.getTask('id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Paymanai.NotFoundError,
     );
   });
@@ -85,7 +85,7 @@ describe('resource tasks', () => {
   });
 
   test('updateTask: only required params', async () => {
-    const responsePromise = paymanai.tasks.updateTask('string', {
+    const responsePromise = paymanai.tasks.updateTask('id', {
       description:
         'Proofread a 10-page legal document for spelling and grammar errors.  Please include a summary of changes or a confirmation that no errors were found.',
       title: 'Proofread a legal document',
@@ -100,7 +100,7 @@ describe('resource tasks', () => {
   });
 
   test('updateTask: required and optional params', async () => {
-    const response = await paymanai.tasks.updateTask('string', {
+    const response = await paymanai.tasks.updateTask('id', {
       description:
         'Proofread a 10-page legal document for spelling and grammar errors.  Please include a summary of changes or a confirmation that no errors were found.',
       title: 'Proofread a legal document',

@@ -11,7 +11,7 @@ const paymanai = new Paymanai({
 
 describe('resource wallets', () => {
   test('getWallet', async () => {
-    const responsePromise = paymanai.wallets.getWallet('string');
+    const responsePromise = paymanai.wallets.getWallet('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,7 +23,7 @@ describe('resource wallets', () => {
 
   test('getWallet: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(paymanai.wallets.getWallet('string', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(paymanai.wallets.getWallet('id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Paymanai.NotFoundError,
     );
   });
