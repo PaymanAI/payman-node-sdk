@@ -138,7 +138,7 @@ Note that requests which time out will be [retried twice by default](#retries).
 
 ## Default Headers
 
-We automatically send the `Content-Type` header set to `application/vnd.payman.v1+json`.
+We automatically send the `Accept` header set to `application/vnd.payman.v1+json`.
 
 If you need to, you can override it by setting default headers on a per-request basis.
 
@@ -147,9 +147,7 @@ import Paymanai from 'paymanai';
 
 const paymanai = new Paymanai();
 
-const taskGetTaskResponse = await paymanai.tasks.getTask('id', {
-  headers: { 'Content-Type': 'My-Custom-Value' },
-});
+const taskGetTaskResponse = await paymanai.tasks.getTask('id', { headers: { Accept: 'My-Custom-Value' } });
 ```
 
 ## Advanced Usage
