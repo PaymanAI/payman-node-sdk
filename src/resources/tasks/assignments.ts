@@ -186,6 +186,14 @@ export namespace AssignmentCreateTaskAssignmentResponse {
     deadline?: string;
 
     /**
+     * A map of email address to link containing a link for each inviteEmail. This map
+     * is only populated immediately in response to the creation of the task and will
+     * contain the link that was emailedto each invited address. Also note that these
+     * links will only become valid once the task is published.
+     */
+    inviteLinks?: Record<string, string>;
+
+    /**
      * The ID of the wallet to be used to pay out rewards for this task. This wallet
      * must be owned by the organization that owns this task, the agent creating the
      * task must have access to the wallet, it must have sufficient funds to cover the
@@ -448,6 +456,14 @@ export namespace AssignmentListTaskAssignmentsResponse {
        * time regardless of the number of submissions received and approved.
        */
       deadline?: string;
+
+      /**
+       * A map of email address to link containing a link for each inviteEmail. This map
+       * is only populated immediately in response to the creation of the task and will
+       * contain the link that was emailedto each invited address. Also note that these
+       * links will only become valid once the task is published.
+       */
+      inviteLinks?: Record<string, string>;
 
       /**
        * The ID of the wallet to be used to pay out rewards for this task. This wallet

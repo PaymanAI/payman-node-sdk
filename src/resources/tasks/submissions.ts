@@ -98,11 +98,8 @@ export namespace SubmissionListTaskSubmissionsResponse {
 
       /**
        * A list of URLs to any evidence or supporting documentation the user wants to
-       * provide to support their submission. Note these may be hosted on the Payman AI
-       * platform or elsewhere. If hosted on the Payman AI platform, the URL should be of
-       * the form /files/private/download?key=... where the key is the unique identifier
-       * for the file and require to send your authentication headers to retrieve (or use
-       * a Payman AI SDK).
+       * provide to support their submission. These will be external to the Payman
+       * platform.
        */
       evidenceUrls?: Array<string>;
 
@@ -110,6 +107,13 @@ export namespace SubmissionListTaskSubmissionsResponse {
        * Feedback provided during the verification process after reviewing the submission
        */
       feedback?: Array<Details.Feedback>;
+
+      /**
+       * A list of file attachments that the user uploaded directly to the Payman
+       * platform. To access these files they must be downloaded via the 'Download File
+       * Attachment' API endpoint.
+       */
+      fileAttachments?: Array<Details.FileAttachment>;
 
       /**
        * Any additional notes or comments the user wants to provide
@@ -129,6 +133,29 @@ export namespace SubmissionListTaskSubmissionsResponse {
         feedback: string;
 
         type: 'SYSTEM_INTERNAL' | 'USER_COMMENT' | 'AGENT_COMMENT';
+      }
+
+      /**
+       * A list of file attachments that the user uploaded directly to the Payman
+       * platform. To access these files they must be downloaded via the 'Download File
+       * Attachment' API endpoint.
+       */
+      export interface FileAttachment {
+        /**
+         * The identifying key for this file - supply this to the file download endpoint to
+         * retrieve this file.
+         */
+        key: string;
+
+        /**
+         * A display name for the file.
+         */
+        name: string;
+
+        /**
+         * The size of the file in bytes.
+         */
+        size?: number;
       }
     }
 
@@ -245,6 +272,14 @@ export namespace SubmissionListTaskSubmissionsResponse {
        * time regardless of the number of submissions received and approved.
        */
       deadline?: string;
+
+      /**
+       * A map of email address to link containing a link for each inviteEmail. This map
+       * is only populated immediately in response to the creation of the task and will
+       * contain the link that was emailedto each invited address. Also note that these
+       * links will only become valid once the task is published.
+       */
+      inviteLinks?: Record<string, string>;
 
       /**
        * The ID of the wallet to be used to pay out rewards for this task. This wallet
