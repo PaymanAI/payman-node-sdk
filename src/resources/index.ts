@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { FileDownloadParams, Files } from './files';
+export { Files } from './files';
 export {
   TaskCreateTaskResponse,
   TaskGetTaskResponse,

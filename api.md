@@ -63,7 +63,3 @@ Methods:
 - <code title="get /version">client.version.<a href="./src/resources/version.ts">getServerVersion</a>() -> Response</code>
 
 # Files
-
-Methods:
-
-- <code title="get /files/private/download">client.files.<a href="./src/resources/files.ts">download</a>({ ...params }) -> Response</code>
