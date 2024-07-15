@@ -11,11 +11,8 @@ It is generated with [Stainless](https://www.stainlessapi.com/).
 ## Installation
 
 ```sh
-npm install git+ssh://git@github.com:stainless-sdks/paymanai-node.git
+npm install paymanai
 ```
-
-> [!NOTE]
-> Once this package is [published to npm](https://app.stainlessapi.com/docs/guides/publish), this will become: `npm install paymanai`
 
 ## Usage
 
@@ -139,6 +136,20 @@ On timeout, an `APIConnectionTimeoutError` is thrown.
 
 Note that requests which time out will be [retried twice by default](#retries).
 
+## Default Headers
+
+We automatically send the `Accept` header set to `application/vnd.payman.v1+json`.
+
+If you need to, you can override it by setting default headers on a per-request basis.
+
+```ts
+import Paymanai from 'paymanai';
+
+const paymanai = new Paymanai();
+
+const taskGetTaskResponse = await paymanai.tasks.getTask('id', { headers: { Accept: 'My-Custom-Value' } });
+```
+
 ## Advanced Usage
 
 ### Accessing raw Response data (e.g., headers)
@@ -220,7 +231,7 @@ import Paymanai from 'paymanai';
 ```
 
 To do the inverse, add `import "paymanai/shims/node"` (which does import polyfills).
-This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/stainless-sdks/paymanai-node/tree/main/src/_shims#readme)).
+This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/PaymanAI/payman-node-sdk/tree/main/src/_shims#readme)).
 
 ### Logging and middleware
 
@@ -276,7 +287,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/paymanai-node/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/PaymanAI/payman-node-sdk/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 

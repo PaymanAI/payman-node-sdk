@@ -170,6 +170,7 @@ export class Paymanai extends Core.APIClient {
   protected override defaultHeaders(opts: Core.FinalRequestOptions): Core.Headers {
     return {
       ...super.defaultHeaders(opts),
+      Accept: 'application/vnd.payman.v1+json',
       ...this._options.defaultHeaders,
     };
   }
@@ -257,7 +258,6 @@ export namespace Paymanai {
   export import Version = API.Version;
 
   export import Files = API.Files;
-  export import FileDownloadParams = API.FileDownloadParams;
 }
 
 export default Paymanai;
