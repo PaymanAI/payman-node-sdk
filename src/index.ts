@@ -258,7 +258,6 @@ export namespace Paymanai {
   export import Version = API.Version;
 
   export import Files = API.Files;
-  export import FileDownloadParams = API.FileDownloadParams;
 }
 
 export default Paymanai;
