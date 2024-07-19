@@ -8,7 +8,7 @@ import * as Core from './core';
 import * as API from './resources/index';
 
 const environments = {
-  sandbox: 'https://sandbox-agent.payman.ai/api',
+  sandbox: 'https://agent-sandbox.payman.ai/api',
   production: 'https://agent.payman.ai/api',
 };
 type Environment = keyof typeof environments;
@@ -28,7 +28,7 @@ export interface ClientOptions {
    * Specifies the environment to use for the API.
    *
    * Each environment maps to a different base URL:
-   * - `sandbox` corresponds to `https://sandbox-agent.payman.ai/api`
+   * - `sandbox` corresponds to `https://agent-sandbox.payman.ai/api`
    * - `production` corresponds to `https://agent.payman.ai/api`
    */
   environment?: Environment;
@@ -105,7 +105,7 @@ export class Paymanai extends Core.APIClient {
    * @param {string | undefined} [opts.xPaymanAgentId=process.env['PAYMAN_AGENT_ID'] ?? undefined]
    * @param {string | undefined} [opts.xPaymanAPISecret=process.env['PAYMAN_API_SECRET'] ?? undefined]
    * @param {Environment} [opts.environment=sandbox] - Specifies the environment URL to use for the API.
-   * @param {string} [opts.baseURL=process.env['PAYMANAI_BASE_URL'] ?? https://sandbox-agent.payman.ai/api] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['PAYMANAI_BASE_URL'] ?? https://agent-sandbox.payman.ai/api] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
    * @param {Core.Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
