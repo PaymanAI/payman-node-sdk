@@ -175,7 +175,7 @@ describe('instantiate client', () => {
         xPaymanAgentId: 'My X Payman Agent ID',
         xPaymanAPISecret: 'My X Payman API Secret',
       });
-      expect(client.baseURL).toEqual('https://sandbox-agent.payman.ai/api');
+      expect(client.baseURL).toEqual('https://agent-sandbox.payman.ai/api');
     });
 
     test('blank env variable', () => {
@@ -184,7 +184,7 @@ describe('instantiate client', () => {
         xPaymanAgentId: 'My X Payman Agent ID',
         xPaymanAPISecret: 'My X Payman API Secret',
       });
-      expect(client.baseURL).toEqual('https://sandbox-agent.payman.ai/api');
+      expect(client.baseURL).toEqual('https://agent-sandbox.payman.ai/api');
     });
 
     test('env variable with environment', () => {
@@ -207,7 +207,7 @@ describe('instantiate client', () => {
         baseURL: null,
         environment: 'sandbox',
       });
-      expect(client.baseURL).toEqual('https://sandbox-agent.payman.ai/api');
+      expect(client.baseURL).toEqual('https://agent-sandbox.payman.ai/api');
     });
   });
 
@@ -288,8 +288,8 @@ describe('retries', () => {
     let count = 0;
     const testFetch = async (url: RequestInfo, { signal }: RequestInit = {}): Promise<Response> => {
       if (count++ === 0) {
-        return new Promise(
-          (resolve, reject) => signal?.addEventListener('abort', () => reject(new Error('timed out'))),
+        return new Promise((resolve, reject) =>
+          signal?.addEventListener('abort', () => reject(new Error('timed out'))),
         );
       }
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });

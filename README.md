@@ -4,7 +4,7 @@
 
 This library provides convenient access to the Paymanai REST API from server-side TypeScript or JavaScript.
 
-The REST API documentation can be found [on docs.paymanai.com](https://docs.paymanai.com). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.paymanai.com](https://docs.paymanai.com). The full API of this library can be found in [api.md](api.md).
 
 It is generated with [Stainless](https://www.stainlessapi.com/).
 
@@ -22,8 +22,9 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import Paymanai from 'paymanai';
 
-const paymanai = new Paymanai({
+const client = new Paymanai({
   xPaymanAgentId: process.env['PAYMAN_AGENT_ID'], // This is the default and can be omitted
+  xPaymanAPISecret: process.env['PAYMAN_API_SECRET'], // This is the default and can be omitted
   environment: 'production', // defaults to 'sandbox'
 });
 
@@ -44,8 +45,9 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import Paymanai from 'paymanai';
 
-const paymanai = new Paymanai({
+const client = new Paymanai({
   xPaymanAgentId: process.env['PAYMAN_AGENT_ID'], // This is the default and can be omitted
+  xPaymanAPISecret: process.env['PAYMAN_API_SECRET'], // This is the default and can be omitted
   environment: 'production', // defaults to 'sandbox'
 });
 
@@ -105,7 +107,7 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const paymanai = new Paymanai({
+const client = new Paymanai({
   maxRetries: 0, // default is 2
 });
 
@@ -122,7 +124,7 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const paymanai = new Paymanai({
+const client = new Paymanai({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
@@ -145,7 +147,7 @@ If you need to, you can override it by setting default headers on a per-request 
 ```ts
 import Paymanai from 'paymanai';
 
-const paymanai = new Paymanai();
+const client = new Paymanai();
 
 const taskGetTaskResponse = await paymanai.tasks.getTask('id', { headers: { Accept: 'My-Custom-Value' } });
 ```
@@ -160,7 +162,7 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 
 <!-- prettier-ignore -->
 ```ts
-const paymanai = new Paymanai();
+const client = new Paymanai();
 
 const response = await paymanai.tasks.getTask('id').asResponse();
 console.log(response.headers.get('X-My-Header'));
@@ -267,7 +269,7 @@ import http from 'http';
 import { HttpsProxyAgent } from 'https-proxy-agent';
 
 // Configure the default for all requests:
-const paymanai = new Paymanai({
+const client = new Paymanai({
   httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
 });
 
@@ -294,14 +296,6 @@ We are keen for your feedback; please open an [issue](https://www.github.com/Pay
 TypeScript >= 4.5 is supported.
 
 The following runtimes are supported:
-
-- Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
-- Deno v1.28.0 or higher, using `import Paymanai from "npm:paymanai"`.
-- Bun 1.0 or later.
-- Cloudflare Workers.
-- Vercel Edge Runtime.
-- Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
-- Nitro v2.6 or greater.
 
 Note that React Native is not supported at this time.
 
