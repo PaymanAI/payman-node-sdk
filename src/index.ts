@@ -179,12 +179,13 @@ export class Paymanai extends Core.APIClient {
     const xPaymanAgentIdAuth = this.xPaymanAgentIdAuth(opts);
     const xPaymanAPISecretAuth = this.xPaymanAPISecretAuth(opts);
 
-    if (xPaymanAgentIdAuth != null && !Core.isEmptyObj(xPaymanAgentIdAuth)) {
-      return xPaymanAgentIdAuth;
-    }
-
-    if (xPaymanAPISecretAuth != null && !Core.isEmptyObj(xPaymanAPISecretAuth)) {
-      return xPaymanAPISecretAuth;
+    if (
+      xPaymanAgentIdAuth != null &&
+      !Core.isEmptyObj(xPaymanAgentIdAuth) &&
+      xPaymanAPISecretAuth != null &&
+      !Core.isEmptyObj(xPaymanAPISecretAuth)
+    ) {
+      return { ...xPaymanAgentIdAuth, ...xPaymanAPISecretAuth };
     }
     return {};
   }

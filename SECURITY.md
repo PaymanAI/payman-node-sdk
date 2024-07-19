@@ -20,7 +20,7 @@ or products provided by Paymanai please follow the respective company's security
 
 ### Paymanai Terms and Policies
 
-Please contact dev-feedback@paymanai.com for any questions or concerns regarding security of our services.
+Please contact support@paymanai.com for any questions or concerns regarding security of our services.
 
 ---
 
