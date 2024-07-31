@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.0-beta.3 (2024-07-31)
+
+Full Changelog: [v1.0.0-beta.2...v1.0.0-beta.3](https://github.com/PaymanAI/payman-node-sdk/compare/v1.0.0-beta.2...v1.0.0-beta.3)
+
+### Bug Fixes
+
+* **compat:** remove ReadableStream polyfill redundant since node v16 ([#16](https://github.com/PaymanAI/payman-node-sdk/issues/16)) ([58c7216](https://github.com/PaymanAI/payman-node-sdk/commit/58c721641dd97527443576dc93392fa521b545d1))
+
+
+### Chores
+
+* **docs:** fix incorrect client var names ([#18](https://github.com/PaymanAI/payman-node-sdk/issues/18)) ([6d60872](https://github.com/PaymanAI/payman-node-sdk/commit/6d60872a260454be3fd0c801eb54da7f14bf88aa))
+* **internal:** add constant for default timeout ([#19](https://github.com/PaymanAI/payman-node-sdk/issues/19)) ([b4bc8f7](https://github.com/PaymanAI/payman-node-sdk/commit/b4bc8f7902c015bb19fc22ef971873c7fd223789))
+
 ## 1.0.0-beta.2 (2024-07-31)
 
 Full Changelog: [v1.0.0-beta.1...v1.0.0-beta.2](https://github.com/PaymanAI/payman-node-sdk/compare/v1.0.0-beta.1...v1.0.0-beta.2)
