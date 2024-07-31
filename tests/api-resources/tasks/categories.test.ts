@@ -3,7 +3,7 @@
 import Paymanai from 'paymanai';
 import { Response } from 'node-fetch';
 
-const paymanai = new Paymanai({
+const client = new Paymanai({
   xPaymanAgentId: 'My X Payman Agent ID',
   xPaymanAPISecret: 'My X Payman API Secret',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
@@ -11,7 +11,7 @@ const paymanai = new Paymanai({
 
 describe('resource categories', () => {
   test('listTaskCategories', async () => {
-    const responsePromise = paymanai.tasks.categories.listTaskCategories();
+    const responsePromise = client.tasks.categories.listTaskCategories();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -24,7 +24,7 @@ describe('resource categories', () => {
   test('listTaskCategories: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      paymanai.tasks.categories.listTaskCategories({ path: '/_stainless_unknown_path' }),
+      client.tasks.categories.listTaskCategories({ path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Paymanai.NotFoundError);
   });
 });
