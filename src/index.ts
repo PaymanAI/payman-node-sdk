@@ -203,6 +203,7 @@ export class Paymanai extends Core.APIClient {
   }
 
   static Paymanai = this;
+  static DEFAULT_TIMEOUT = 60000; // 1 minute
 
   static PaymanaiError = Errors.PaymanaiError;
   static APIError = Errors.APIError;
