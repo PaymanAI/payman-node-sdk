@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.0-beta.2 (2024-07-31)
+
+Full Changelog: [v1.0.0-beta.1...v1.0.0-beta.2](https://github.com/PaymanAI/payman-node-sdk/compare/v1.0.0-beta.1...v1.0.0-beta.2)
+
+### Features
+
+* **api:** update via SDK Studio ([#13](https://github.com/PaymanAI/payman-node-sdk/issues/13)) ([54ec229](https://github.com/PaymanAI/payman-node-sdk/commit/54ec229bd5557b4d3149da8ebe517ce954a64e20))
+
+
+### Chores
+
+* **internal:** version bump ([#11](https://github.com/PaymanAI/payman-node-sdk/issues/11)) ([7ae1d5b](https://github.com/PaymanAI/payman-node-sdk/commit/7ae1d5baaef8f803a13c7105b494facb9d2094b3))
+* **tests:** update prism version ([#14](https://github.com/PaymanAI/payman-node-sdk/issues/14)) ([cd47018](https://github.com/PaymanAI/payman-node-sdk/commit/cd470188f2692d79c68074920f898d356ac8b020))
+
 ## 1.0.0-beta.1 (2024-07-19)
 
 Full Changelog: [v0.1.0-alpha.1...v1.0.0-beta.1](https://github.com/PaymanAI/payman-node-sdk/compare/v0.1.0-alpha.1...v1.0.0-beta.1)
