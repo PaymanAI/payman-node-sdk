@@ -38,6 +38,7 @@ describe('resource tasks', () => {
       payoutWalletId: 'payoutWalletId',
       requiredSubmissions: 0,
       submissionPolicy: 'OPEN_SUBMISSIONS_ONE_PER_USER',
+      verificationConfiguration: { type: 'default', customPrompt: 'customPrompt' },
     });
   });
 
