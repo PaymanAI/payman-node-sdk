@@ -118,6 +118,11 @@ export interface TaskCreateTaskResponse {
   id?: string;
 
   /**
+   * In case the task is canceled, this stores the reason why it is canceled
+   */
+  cancelReason?: string;
+
+  /**
    * The currency in which the payout is denominated.
    */
   currency?: TaskCreateTaskResponse.Currency;
@@ -235,7 +240,7 @@ export namespace TaskCreateTaskResponse {
   export interface VerificationConfiguration {
     customPrompt?: string;
 
-    handler?: string;
+    type?: 'default' | 'custom_prompt' | 'none';
   }
 }
 
@@ -295,6 +300,11 @@ export interface TaskGetTaskResponse {
   title: string;
 
   id?: string;
+
+  /**
+   * In case the task is canceled, this stores the reason why it is canceled
+   */
+  cancelReason?: string;
 
   /**
    * The currency in which the payout is denominated.
@@ -414,7 +424,7 @@ export namespace TaskGetTaskResponse {
   export interface VerificationConfiguration {
     customPrompt?: string;
 
-    handler?: string;
+    type?: 'default' | 'custom_prompt' | 'none';
   }
 }
 
@@ -492,6 +502,11 @@ export namespace TaskListTasksResponse {
     title: string;
 
     id?: string;
+
+    /**
+     * In case the task is canceled, this stores the reason why it is canceled
+     */
+    cancelReason?: string;
 
     /**
      * The currency in which the payout is denominated.
@@ -611,7 +626,7 @@ export namespace TaskListTasksResponse {
     export interface VerificationConfiguration {
       customPrompt?: string;
 
-      handler?: string;
+      type?: 'default' | 'custom_prompt' | 'none';
     }
   }
 }
@@ -672,6 +687,11 @@ export interface TaskUpdateTaskResponse {
   title: string;
 
   id?: string;
+
+  /**
+   * In case the task is canceled, this stores the reason why it is canceled
+   */
+  cancelReason?: string;
 
   /**
    * The currency in which the payout is denominated.
@@ -791,7 +811,7 @@ export namespace TaskUpdateTaskResponse {
   export interface VerificationConfiguration {
     customPrompt?: string;
 
-    handler?: string;
+    type?: 'default' | 'custom_prompt' | 'none';
   }
 }
 
@@ -870,6 +890,24 @@ export interface TaskCreateTaskParams {
     | 'OPEN_SUBMISSIONS_MANY_PER_USER'
     | 'PRE_ASSIGNED_SUBMISSIONS'
     | 'OPEN_ASSIGNED_SUBMISSIONS';
+
+  /**
+   * The configuration to be applied during task verification. The Payman
+   * verification enginewill use this to customize the verification of this task.
+   */
+  verificationConfiguration?: TaskCreateTaskParams.VerificationConfiguration;
+}
+
+export namespace TaskCreateTaskParams {
+  /**
+   * The configuration to be applied during task verification. The Payman
+   * verification enginewill use this to customize the verification of this task.
+   */
+  export interface VerificationConfiguration {
+    customPrompt?: string;
+
+    type?: 'default' | 'custom_prompt' | 'none';
+  }
 }
 
 export interface TaskListTasksParams {

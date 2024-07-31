@@ -175,6 +175,11 @@ export namespace AssignmentCreateTaskAssignmentResponse {
     id?: string;
 
     /**
+     * In case the task is canceled, this stores the reason why it is canceled
+     */
+    cancelReason?: string;
+
+    /**
      * The currency in which the payout is denominated.
      */
     currency?: Task.Currency;
@@ -292,7 +297,7 @@ export namespace AssignmentCreateTaskAssignmentResponse {
     export interface VerificationConfiguration {
       customPrompt?: string;
 
-      handler?: string;
+      type?: 'default' | 'custom_prompt' | 'none';
     }
   }
 }
@@ -447,6 +452,11 @@ export namespace AssignmentListTaskAssignmentsResponse {
       id?: string;
 
       /**
+       * In case the task is canceled, this stores the reason why it is canceled
+       */
+      cancelReason?: string;
+
+      /**
        * The currency in which the payout is denominated.
        */
       currency?: Task.Currency;
@@ -564,7 +574,7 @@ export namespace AssignmentListTaskAssignmentsResponse {
       export interface VerificationConfiguration {
         customPrompt?: string;
 
-        handler?: string;
+        type?: 'default' | 'custom_prompt' | 'none';
       }
     }
   }
