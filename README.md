@@ -29,7 +29,7 @@ const client = new Paymanai({
 });
 
 async function main() {
-  const taskGetTaskResponse = await paymanai.tasks.getTask('id');
+  const taskGetTaskResponse = await client.tasks.getTask('id');
 
   console.log(taskGetTaskResponse.id);
 }
@@ -52,7 +52,7 @@ const client = new Paymanai({
 });
 
 async function main() {
-  const taskGetTaskResponse: Paymanai.TaskGetTaskResponse = await paymanai.tasks.getTask('id');
+  const taskGetTaskResponse: Paymanai.TaskGetTaskResponse = await client.tasks.getTask('id');
 }
 
 main();
@@ -69,7 +69,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const taskGetTaskResponse = await paymanai.tasks.getTask('id').catch(async (err) => {
+  const taskGetTaskResponse = await client.tasks.getTask('id').catch(async (err) => {
     if (err instanceof Paymanai.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -112,7 +112,7 @@ const client = new Paymanai({
 });
 
 // Or, configure per-request:
-await paymanai.tasks.getTask('id', {
+await client.tasks.getTask('id', {
   maxRetries: 5,
 });
 ```
@@ -129,7 +129,7 @@ const client = new Paymanai({
 });
 
 // Override per-request:
-await paymanai.tasks.getTask('id', {
+await client.tasks.getTask('id', {
   timeout: 5 * 1000,
 });
 ```
@@ -149,7 +149,7 @@ import Paymanai from 'paymanai';
 
 const client = new Paymanai();
 
-const taskGetTaskResponse = await paymanai.tasks.getTask('id', { headers: { Accept: 'My-Custom-Value' } });
+const taskGetTaskResponse = await client.tasks.getTask('id', { headers: { Accept: 'My-Custom-Value' } });
 ```
 
 ## Advanced Usage
@@ -164,11 +164,11 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Paymanai();
 
-const response = await paymanai.tasks.getTask('id').asResponse();
+const response = await client.tasks.getTask('id').asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: taskGetTaskResponse, response: raw } = await paymanai.tasks.getTask('id').withResponse();
+const { data: taskGetTaskResponse, response: raw } = await client.tasks.getTask('id').withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(taskGetTaskResponse.id);
 ```
@@ -274,7 +274,7 @@ const client = new Paymanai({
 });
 
 // Override per-request:
-await paymanai.tasks.getTask('id', {
+await client.tasks.getTask('id', {
   httpAgent: new http.Agent({ keepAlive: false }),
 });
 ```

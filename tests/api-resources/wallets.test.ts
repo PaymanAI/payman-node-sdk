@@ -3,7 +3,7 @@
 import Paymanai from 'paymanai';
 import { Response } from 'node-fetch';
 
-const paymanai = new Paymanai({
+const client = new Paymanai({
   xPaymanAgentId: 'My X Payman Agent ID',
   xPaymanAPISecret: 'My X Payman API Secret',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
@@ -11,7 +11,7 @@ const paymanai = new Paymanai({
 
 describe('resource wallets', () => {
   test('getWallet', async () => {
-    const responsePromise = paymanai.wallets.getWallet('id');
+    const responsePromise = client.wallets.getWallet('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,7 +23,7 @@ describe('resource wallets', () => {
 
   test('getWallet: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(paymanai.wallets.getWallet('id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.wallets.getWallet('id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Paymanai.NotFoundError,
     );
   });

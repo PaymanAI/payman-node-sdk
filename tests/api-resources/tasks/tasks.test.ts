@@ -3,7 +3,7 @@
 import Paymanai from 'paymanai';
 import { Response } from 'node-fetch';
 
-const paymanai = new Paymanai({
+const client = new Paymanai({
   xPaymanAgentId: 'My X Payman Agent ID',
   xPaymanAPISecret: 'My X Payman API Secret',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
@@ -11,7 +11,7 @@ const paymanai = new Paymanai({
 
 describe('resource tasks', () => {
   test('createTask: only required params', async () => {
-    const responsePromise = paymanai.tasks.createTask({
+    const responsePromise = client.tasks.createTask({
       description:
         'Proofread a 10-page legal document for spelling and grammar errors.  Please include a summary of changes or a confirmation that no errors were found.',
       payout: 0,
@@ -27,7 +27,7 @@ describe('resource tasks', () => {
   });
 
   test('createTask: required and optional params', async () => {
-    const response = await paymanai.tasks.createTask({
+    const response = await client.tasks.createTask({
       description:
         'Proofread a 10-page legal document for spelling and grammar errors.  Please include a summary of changes or a confirmation that no errors were found.',
       payout: 0,
@@ -43,7 +43,7 @@ describe('resource tasks', () => {
   });
 
   test('getTask', async () => {
-    const responsePromise = paymanai.tasks.getTask('id');
+    const responsePromise = client.tasks.getTask('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -55,13 +55,13 @@ describe('resource tasks', () => {
 
   test('getTask: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(paymanai.tasks.getTask('id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.tasks.getTask('id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Paymanai.NotFoundError,
     );
   });
 
   test('listTasks', async () => {
-    const responsePromise = paymanai.tasks.listTasks();
+    const responsePromise = client.tasks.listTasks();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -73,7 +73,7 @@ describe('resource tasks', () => {
 
   test('listTasks: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(paymanai.tasks.listTasks({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.tasks.listTasks({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Paymanai.NotFoundError,
     );
   });
@@ -81,12 +81,12 @@ describe('resource tasks', () => {
   test('listTasks: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      paymanai.tasks.listTasks({ limit: 0, page: 0 }, { path: '/_stainless_unknown_path' }),
+      client.tasks.listTasks({ limit: 0, page: 0 }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Paymanai.NotFoundError);
   });
 
   test('updateTask: only required params', async () => {
-    const responsePromise = paymanai.tasks.updateTask('id', {
+    const responsePromise = client.tasks.updateTask('id', {
       description:
         'Proofread a 10-page legal document for spelling and grammar errors.  Please include a summary of changes or a confirmation that no errors were found.',
       title: 'Proofread a legal document',
@@ -101,7 +101,7 @@ describe('resource tasks', () => {
   });
 
   test('updateTask: required and optional params', async () => {
-    const response = await paymanai.tasks.updateTask('id', {
+    const response = await client.tasks.updateTask('id', {
       description:
         'Proofread a 10-page legal document for spelling and grammar errors.  Please include a summary of changes or a confirmation that no errors were found.',
       title: 'Proofread a legal document',
