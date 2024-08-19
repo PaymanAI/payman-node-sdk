@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.0-beta.4 (2024-08-19)
+
+Full Changelog: [v1.0.0-beta.3...v1.0.0-beta.4](https://github.com/PaymanAI/payman-node-sdk/compare/v1.0.0-beta.3...v1.0.0-beta.4)
+
+### Features
+
+* **api:** update via SDK Studio ([#22](https://github.com/PaymanAI/payman-node-sdk/issues/22)) ([7563f30](https://github.com/PaymanAI/payman-node-sdk/commit/7563f306b1fd6922cb8f31949373acd446eb963b))
+
+
+### Chores
+
+* **internal:** codegen related update ([#24](https://github.com/PaymanAI/payman-node-sdk/issues/24)) ([af4557a](https://github.com/PaymanAI/payman-node-sdk/commit/af4557aae956249e98bba55a3767c22c7b3894d0))
+
 ## 1.0.0-beta.3 (2024-07-31)
 
 Full Changelog: [v1.0.0-beta.2...v1.0.0-beta.3](https://github.com/PaymanAI/payman-node-sdk/compare/v1.0.0-beta.2...v1.0.0-beta.3)

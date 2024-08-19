@@ -115,6 +115,16 @@ export namespace AssignmentCreateTaskAssignmentResponse {
      * authorization scopes.
      */
     phone?: string;
+
+    reputationScore?: AssignedTo.ReputationScore;
+  }
+
+  export namespace AssignedTo {
+    export interface ReputationScore {
+      rawScore?: number;
+
+      score?: number;
+    }
   }
 
   export interface Task {
@@ -241,9 +251,9 @@ export namespace AssignmentCreateTaskAssignmentResponse {
      */
     export interface Currency {
       /**
-       * The name of this currency's fractional unit
+       * The name of this currency's base currency unit
        */
-      fractionalUnitName: string;
+      baseUnitName: string;
 
       /**
        * The name of this currency
@@ -297,7 +307,7 @@ export namespace AssignmentCreateTaskAssignmentResponse {
     export interface VerificationConfiguration {
       customPrompt?: string;
 
-      type?: 'default' | 'custom_prompt' | 'none';
+      type?: 'default' | 'custom_prompt' | 'developer_managed' | 'none';
     }
   }
 }
@@ -392,6 +402,16 @@ export namespace AssignmentListTaskAssignmentsResponse {
        * authorization scopes.
        */
       phone?: string;
+
+      reputationScore?: AssignedTo.ReputationScore;
+    }
+
+    export namespace AssignedTo {
+      export interface ReputationScore {
+        rawScore?: number;
+
+        score?: number;
+      }
     }
 
     export interface Task {
@@ -518,9 +538,9 @@ export namespace AssignmentListTaskAssignmentsResponse {
        */
       export interface Currency {
         /**
-         * The name of this currency's fractional unit
+         * The name of this currency's base currency unit
          */
-        fractionalUnitName: string;
+        baseUnitName: string;
 
         /**
          * The name of this currency
@@ -574,7 +594,7 @@ export namespace AssignmentListTaskAssignmentsResponse {
       export interface VerificationConfiguration {
         customPrompt?: string;
 
-        type?: 'default' | 'custom_prompt' | 'none';
+        type?: 'default' | 'custom_prompt' | 'developer_managed' | 'none';
       }
     }
   }

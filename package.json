@@ -1,6 +1,6 @@
 {
   "name": "paymanai",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "description": "The official TypeScript library for the Paymanai API",
   "author": "Paymanai <support@paymanai.com>",
   "types": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "prepare": "if ./scripts/utils/check-is-in-git-install.sh; then ./scripts/build; fi",
     "tsn": "ts-node -r tsconfig-paths/register",
     "lint": "./scripts/lint",
-    "fix": "eslint --fix --ext ts,js ."
+    "fix": "./scripts/format"
   },
   "dependencies": {
     "@types/node": "^18.11.18",
