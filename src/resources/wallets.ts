@@ -59,9 +59,9 @@ export namespace WalletGetWalletResponse {
    */
   export interface Currency {
     /**
-     * The name of this currency's fractional unit
+     * The name of this currency's base currency unit
      */
-    fractionalUnitName: string;
+    baseUnitName: string;
 
     /**
      * The name of this currency
