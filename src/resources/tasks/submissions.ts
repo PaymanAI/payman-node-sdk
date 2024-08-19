@@ -204,6 +204,16 @@ export namespace SubmissionListTaskSubmissionsResponse {
        * authorization scopes.
        */
       phone?: string;
+
+      reputationScore?: SubmittedBy.ReputationScore;
+    }
+
+    export namespace SubmittedBy {
+      export interface ReputationScore {
+        rawScore?: number;
+
+        score?: number;
+      }
     }
 
     export interface Task {
@@ -330,9 +340,9 @@ export namespace SubmissionListTaskSubmissionsResponse {
        */
       export interface Currency {
         /**
-         * The name of this currency's fractional unit
+         * The name of this currency's base currency unit
          */
-        fractionalUnitName: string;
+        baseUnitName: string;
 
         /**
          * The name of this currency
@@ -386,7 +396,7 @@ export namespace SubmissionListTaskSubmissionsResponse {
       export interface VerificationConfiguration {
         customPrompt?: string;
 
-        type?: 'default' | 'custom_prompt' | 'none';
+        type?: 'default' | 'custom_prompt' | 'developer_managed' | 'none';
       }
     }
   }

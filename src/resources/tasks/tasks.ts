@@ -184,9 +184,9 @@ export namespace TaskCreateTaskResponse {
    */
   export interface Currency {
     /**
-     * The name of this currency's fractional unit
+     * The name of this currency's base currency unit
      */
-    fractionalUnitName: string;
+    baseUnitName: string;
 
     /**
      * The name of this currency
@@ -240,7 +240,7 @@ export namespace TaskCreateTaskResponse {
   export interface VerificationConfiguration {
     customPrompt?: string;
 
-    type?: 'default' | 'custom_prompt' | 'none';
+    type?: 'default' | 'custom_prompt' | 'developer_managed' | 'none';
   }
 }
 
@@ -368,9 +368,9 @@ export namespace TaskGetTaskResponse {
    */
   export interface Currency {
     /**
-     * The name of this currency's fractional unit
+     * The name of this currency's base currency unit
      */
-    fractionalUnitName: string;
+    baseUnitName: string;
 
     /**
      * The name of this currency
@@ -424,7 +424,7 @@ export namespace TaskGetTaskResponse {
   export interface VerificationConfiguration {
     customPrompt?: string;
 
-    type?: 'default' | 'custom_prompt' | 'none';
+    type?: 'default' | 'custom_prompt' | 'developer_managed' | 'none';
   }
 }
 
@@ -570,9 +570,9 @@ export namespace TaskListTasksResponse {
      */
     export interface Currency {
       /**
-       * The name of this currency's fractional unit
+       * The name of this currency's base currency unit
        */
-      fractionalUnitName: string;
+      baseUnitName: string;
 
       /**
        * The name of this currency
@@ -626,7 +626,7 @@ export namespace TaskListTasksResponse {
     export interface VerificationConfiguration {
       customPrompt?: string;
 
-      type?: 'default' | 'custom_prompt' | 'none';
+      type?: 'default' | 'custom_prompt' | 'developer_managed' | 'none';
     }
   }
 }
@@ -755,9 +755,9 @@ export namespace TaskUpdateTaskResponse {
    */
   export interface Currency {
     /**
-     * The name of this currency's fractional unit
+     * The name of this currency's base currency unit
      */
-    fractionalUnitName: string;
+    baseUnitName: string;
 
     /**
      * The name of this currency
@@ -811,7 +811,7 @@ export namespace TaskUpdateTaskResponse {
   export interface VerificationConfiguration {
     customPrompt?: string;
 
-    type?: 'default' | 'custom_prompt' | 'none';
+    type?: 'default' | 'custom_prompt' | 'developer_managed' | 'none';
   }
 }
 
@@ -906,7 +906,7 @@ export namespace TaskCreateTaskParams {
   export interface VerificationConfiguration {
     customPrompt?: string;
 
-    type?: 'default' | 'custom_prompt' | 'none';
+    type?: 'default' | 'custom_prompt' | 'developer_managed' | 'none';
   }
 }
 
