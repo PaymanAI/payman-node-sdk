@@ -24,7 +24,6 @@ import Paymanai from 'paymanai';
 
 const client = new Paymanai({
   xPaymanAPISecret: process.env['PAYMAN_API_SECRET'], // This is the default and can be omitted
-  xPaymanAgentId: process.env['PAYMAN_AGENT_ID'], // This is the default and can be omitted
   environment: 'production', // defaults to 'sandbox'
 });
 
@@ -47,7 +46,6 @@ import Paymanai from 'paymanai';
 
 const client = new Paymanai({
   xPaymanAPISecret: process.env['PAYMAN_API_SECRET'], // This is the default and can be omitted
-  xPaymanAgentId: process.env['PAYMAN_AGENT_ID'], // This is the default and can be omitted
   environment: 'production', // defaults to 'sandbox'
 });
 

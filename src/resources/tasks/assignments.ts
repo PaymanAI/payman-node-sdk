@@ -209,6 +209,13 @@ export namespace AssignmentCreateTaskAssignmentResponse {
     inviteLinks?: Record<string, string>;
 
     /**
+     * Agent provided metadata related to this task. You may use this to store
+     * correlation data.When a task related payload is sent to any registered webhook,
+     * this metadata will be included
+     */
+    metadata?: Record<string, string>;
+
+    /**
      * The ID of the wallet to be used to pay out rewards for this task. This wallet
      * must be owned by the organization that owns this task, the agent creating the
      * task must have access to the wallet, it must have sufficient funds to cover the
@@ -494,6 +501,13 @@ export namespace AssignmentListTaskAssignmentsResponse {
        * links will only become valid once the task is published.
        */
       inviteLinks?: Record<string, string>;
+
+      /**
+       * Agent provided metadata related to this task. You may use this to store
+       * correlation data.When a task related payload is sent to any registered webhook,
+       * this metadata will be included
+       */
+      metadata?: Record<string, string>;
 
       /**
        * The ID of the wallet to be used to pay out rewards for this task. This wallet

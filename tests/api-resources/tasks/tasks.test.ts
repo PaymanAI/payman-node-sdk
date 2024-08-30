@@ -4,7 +4,6 @@ import Paymanai from 'paymanai';
 import { Response } from 'node-fetch';
 
 const client = new Paymanai({
-  xPaymanAgentId: 'My X Payman Agent ID',
   xPaymanAPISecret: 'My X Payman API Secret',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
@@ -35,6 +34,7 @@ describe('resource tasks', () => {
       category: 'MARKETING',
       deadline: '2019-12-27T18:11:19.117Z',
       inviteEmails: ['string', 'string', 'string'],
+      metadata: { foo: 'string' },
       payoutWalletId: 'payoutWalletId',
       requiredSubmissions: 0,
       submissionPolicy: 'OPEN_SUBMISSIONS_ONE_PER_USER',
