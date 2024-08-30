@@ -35,6 +35,7 @@ describe('resource tasks', () => {
       category: 'MARKETING',
       deadline: '2019-12-27T18:11:19.117Z',
       inviteEmails: ['string', 'string', 'string'],
+      metadata: { foo: 'string' },
       payoutWalletId: 'payoutWalletId',
       requiredSubmissions: 0,
       submissionPolicy: 'OPEN_SUBMISSIONS_ONE_PER_USER',
