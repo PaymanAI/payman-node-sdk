@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.0.0-beta.5 (2024-08-30)
+
+Full Changelog: [v1.0.0-beta.4...v1.0.0-beta.5](https://github.com/PaymanAI/payman-node-sdk/compare/v1.0.0-beta.4...v1.0.0-beta.5)
+
+### Features
+
+* **api:** update via SDK Studio ([#26](https://github.com/PaymanAI/payman-node-sdk/issues/26)) ([e91b66b](https://github.com/PaymanAI/payman-node-sdk/commit/e91b66b9922dc30452d158e9d25d4b3c0a89e4b4))
+
+
+### Chores
+
+* **ci:** check for build errors ([#29](https://github.com/PaymanAI/payman-node-sdk/issues/29)) ([a968e29](https://github.com/PaymanAI/payman-node-sdk/commit/a968e295479b9b7d951928c12a4df37eb9a25b01))
+* **ci:** install deps via ./script/bootstrap ([#31](https://github.com/PaymanAI/payman-node-sdk/issues/31)) ([4293a73](https://github.com/PaymanAI/payman-node-sdk/commit/4293a73f169bac99d2504d1017a735b2bf6147d3))
+* run tsc as part of lint script ([#30](https://github.com/PaymanAI/payman-node-sdk/issues/30)) ([7e17c05](https://github.com/PaymanAI/payman-node-sdk/commit/7e17c05a155105fc95e6738bf76ac1e057308182))
+
 ## 1.0.0-beta.4 (2024-08-19)
 
 Full Changelog: [v1.0.0-beta.3...v1.0.0-beta.4](https://github.com/PaymanAI/payman-node-sdk/compare/v1.0.0-beta.3...v1.0.0-beta.4)
