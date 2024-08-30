@@ -25,7 +25,6 @@ import Paymanai from 'paymanai';
 const client = new Paymanai({
   xPaymanAPISecret: process.env['PAYMAN_API_SECRET'], // This is the default and can be omitted
   environment: 'production', // defaults to 'sandbox'
-  xPaymanAgentId: 'My X Payman Agent ID',
 });
 
 async function main() {
@@ -48,7 +47,6 @@ import Paymanai from 'paymanai';
 const client = new Paymanai({
   xPaymanAPISecret: process.env['PAYMAN_API_SECRET'], // This is the default and can be omitted
   environment: 'production', // defaults to 'sandbox'
-  xPaymanAgentId: 'My X Payman Agent ID',
 });
 
 async function main() {
@@ -109,7 +107,6 @@ You can use the `maxRetries` option to configure or disable this:
 // Configure the default for all requests:
 const client = new Paymanai({
   maxRetries: 0, // default is 2
-  xPaymanAgentId: 'My X Payman Agent ID',
 });
 
 // Or, configure per-request:
@@ -127,7 +124,6 @@ Requests time out after 1 minute by default. You can configure this with a `time
 // Configure the default for all requests:
 const client = new Paymanai({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
-  xPaymanAgentId: 'My X Payman Agent ID',
 });
 
 // Override per-request:
@@ -273,7 +269,6 @@ import { HttpsProxyAgent } from 'https-proxy-agent';
 // Configure the default for all requests:
 const client = new Paymanai({
   httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
-  xPaymanAgentId: 'My X Payman Agent ID',
 });
 
 // Override per-request:

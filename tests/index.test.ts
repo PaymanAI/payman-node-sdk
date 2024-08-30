@@ -23,7 +23,6 @@ describe('instantiate client', () => {
     const client = new Paymanai({
       baseURL: 'http://localhost:5000/',
       defaultHeaders: { 'X-My-Default-Header': '2' },
-      xPaymanAgentId: 'My X Payman Agent ID',
       xPaymanAPISecret: 'My X Payman API Secret',
     });
 
@@ -56,7 +55,6 @@ describe('instantiate client', () => {
       const client = new Paymanai({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo' },
-        xPaymanAgentId: 'My X Payman Agent ID',
         xPaymanAPISecret: 'My X Payman API Secret',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo');
@@ -66,7 +64,6 @@ describe('instantiate client', () => {
       const client = new Paymanai({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo', hello: 'world' },
-        xPaymanAgentId: 'My X Payman Agent ID',
         xPaymanAPISecret: 'My X Payman API Secret',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo&hello=world');
@@ -76,7 +73,6 @@ describe('instantiate client', () => {
       const client = new Paymanai({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { hello: 'world' },
-        xPaymanAgentId: 'My X Payman Agent ID',
         xPaymanAPISecret: 'My X Payman API Secret',
       });
       expect(client.buildURL('/foo', { hello: undefined })).toEqual('http://localhost:5000/foo');
@@ -86,7 +82,6 @@ describe('instantiate client', () => {
   test('custom fetch', async () => {
     const client = new Paymanai({
       baseURL: 'http://localhost:5000/',
-      xPaymanAgentId: 'My X Payman Agent ID',
       xPaymanAPISecret: 'My X Payman API Secret',
       fetch: (url) => {
         return Promise.resolve(
@@ -104,7 +99,6 @@ describe('instantiate client', () => {
   test('custom signal', async () => {
     const client = new Paymanai({
       baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-      xPaymanAgentId: 'My X Payman Agent ID',
       xPaymanAPISecret: 'My X Payman API Secret',
       fetch: (...args) => {
         return new Promise((resolve, reject) =>
@@ -132,7 +126,6 @@ describe('instantiate client', () => {
     test('trailing slash', () => {
       const client = new Paymanai({
         baseURL: 'http://localhost:5000/custom/path/',
-        xPaymanAgentId: 'My X Payman Agent ID',
         xPaymanAPISecret: 'My X Payman API Secret',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
@@ -141,7 +134,6 @@ describe('instantiate client', () => {
     test('no trailing slash', () => {
       const client = new Paymanai({
         baseURL: 'http://localhost:5000/custom/path',
-        xPaymanAgentId: 'My X Payman Agent ID',
         xPaymanAPISecret: 'My X Payman API Secret',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
@@ -154,7 +146,6 @@ describe('instantiate client', () => {
     test('explicit option', () => {
       const client = new Paymanai({
         baseURL: 'https://example.com',
-        xPaymanAgentId: 'My X Payman Agent ID',
         xPaymanAPISecret: 'My X Payman API Secret',
       });
       expect(client.baseURL).toEqual('https://example.com');
@@ -162,28 +153,19 @@ describe('instantiate client', () => {
 
     test('env variable', () => {
       process.env['PAYMANAI_BASE_URL'] = 'https://example.com/from_env';
-      const client = new Paymanai({
-        xPaymanAgentId: 'My X Payman Agent ID',
-        xPaymanAPISecret: 'My X Payman API Secret',
-      });
+      const client = new Paymanai({ xPaymanAPISecret: 'My X Payman API Secret' });
       expect(client.baseURL).toEqual('https://example.com/from_env');
     });
 
     test('empty env variable', () => {
       process.env['PAYMANAI_BASE_URL'] = ''; // empty
-      const client = new Paymanai({
-        xPaymanAgentId: 'My X Payman Agent ID',
-        xPaymanAPISecret: 'My X Payman API Secret',
-      });
+      const client = new Paymanai({ xPaymanAPISecret: 'My X Payman API Secret' });
       expect(client.baseURL).toEqual('https://agent-sandbox.payman.ai/api');
     });
 
     test('blank env variable', () => {
       process.env['PAYMANAI_BASE_URL'] = '  '; // blank
-      const client = new Paymanai({
-        xPaymanAgentId: 'My X Payman Agent ID',
-        xPaymanAPISecret: 'My X Payman API Secret',
-      });
+      const client = new Paymanai({ xPaymanAPISecret: 'My X Payman API Secret' });
       expect(client.baseURL).toEqual('https://agent-sandbox.payman.ai/api');
     });
 
@@ -191,18 +173,12 @@ describe('instantiate client', () => {
       process.env['PAYMANAI_BASE_URL'] = 'https://example.com/from_env';
 
       expect(
-        () =>
-          new Paymanai({
-            xPaymanAgentId: 'My X Payman Agent ID',
-            xPaymanAPISecret: 'My X Payman API Secret',
-            environment: 'sandbox',
-          }),
+        () => new Paymanai({ xPaymanAPISecret: 'My X Payman API Secret', environment: 'sandbox' }),
       ).toThrowErrorMatchingInlineSnapshot(
         `"Ambiguous URL; The \`baseURL\` option (or PAYMANAI_BASE_URL env var) and the \`environment\` option are given. If you want to use the environment you must pass baseURL: null"`,
       );
 
       const client = new Paymanai({
-        xPaymanAgentId: 'My X Payman Agent ID',
         xPaymanAPISecret: 'My X Payman API Secret',
         baseURL: null,
         environment: 'sandbox',
@@ -212,48 +188,31 @@ describe('instantiate client', () => {
   });
 
   test('maxRetries option is correctly set', () => {
-    const client = new Paymanai({
-      maxRetries: 4,
-      xPaymanAgentId: 'My X Payman Agent ID',
-      xPaymanAPISecret: 'My X Payman API Secret',
-    });
+    const client = new Paymanai({ maxRetries: 4, xPaymanAPISecret: 'My X Payman API Secret' });
     expect(client.maxRetries).toEqual(4);
 
     // default
-    const client2 = new Paymanai({
-      xPaymanAgentId: 'My X Payman Agent ID',
-      xPaymanAPISecret: 'My X Payman API Secret',
-    });
+    const client2 = new Paymanai({ xPaymanAPISecret: 'My X Payman API Secret' });
     expect(client2.maxRetries).toEqual(2);
   });
 
   test('with environment variable arguments', () => {
     // set options via env var
-    process.env['PAYMAN_AGENT_ID'] = 'My X Payman Agent ID';
     process.env['PAYMAN_API_SECRET'] = 'My X Payman API Secret';
     const client = new Paymanai();
-    expect(client.xPaymanAgentId).toBe('My X Payman Agent ID');
     expect(client.xPaymanAPISecret).toBe('My X Payman API Secret');
   });
 
   test('with overriden environment variable arguments', () => {
     // set options via env var
-    process.env['PAYMAN_AGENT_ID'] = 'another My X Payman Agent ID';
     process.env['PAYMAN_API_SECRET'] = 'another My X Payman API Secret';
-    const client = new Paymanai({
-      xPaymanAgentId: 'My X Payman Agent ID',
-      xPaymanAPISecret: 'My X Payman API Secret',
-    });
-    expect(client.xPaymanAgentId).toBe('My X Payman Agent ID');
+    const client = new Paymanai({ xPaymanAPISecret: 'My X Payman API Secret' });
     expect(client.xPaymanAPISecret).toBe('My X Payman API Secret');
   });
 });
 
 describe('request building', () => {
-  const client = new Paymanai({
-    xPaymanAgentId: 'My X Payman Agent ID',
-    xPaymanAPISecret: 'My X Payman API Secret',
-  });
+  const client = new Paymanai({ xPaymanAPISecret: 'My X Payman API Secret' });
 
   describe('Content-Length', () => {
     test('handles multi-byte characters', () => {
@@ -296,7 +255,6 @@ describe('retries', () => {
     };
 
     const client = new Paymanai({
-      xPaymanAgentId: 'My X Payman Agent ID',
       xPaymanAPISecret: 'My X Payman API Secret',
       timeout: 10,
       fetch: testFetch,
@@ -327,11 +285,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Paymanai({
-      xPaymanAgentId: 'My X Payman Agent ID',
-      xPaymanAPISecret: 'My X Payman API Secret',
-      fetch: testFetch,
-    });
+    const client = new Paymanai({ xPaymanAPISecret: 'My X Payman API Secret', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -358,11 +312,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Paymanai({
-      xPaymanAgentId: 'My X Payman Agent ID',
-      xPaymanAPISecret: 'My X Payman API Secret',
-      fetch: testFetch,
-    });
+    const client = new Paymanai({ xPaymanAPISecret: 'My X Payman API Secret', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
