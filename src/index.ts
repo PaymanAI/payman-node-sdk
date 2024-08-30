@@ -176,25 +176,6 @@ export class Paymanai extends Core.APIClient {
   }
 
   protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
-    const xPaymanAgentIdAuth = this.xPaymanAgentIdAuth(opts);
-    const xPaymanAPISecretAuth = this.xPaymanAPISecretAuth(opts);
-
-    if (
-      xPaymanAPISecretAuth != null &&
-      !Core.isEmptyObj(xPaymanAPISecretAuth) &&
-      xPaymanAgentIdAuth != null &&
-      !Core.isEmptyObj(xPaymanAgentIdAuth)
-    ) {
-      return { ...xPaymanAPISecretAuth, ...xPaymanAgentIdAuth };
-    }
-    return {};
-  }
-
-  protected xPaymanAgentIdAuth(opts: Core.FinalRequestOptions): Core.Headers {
-    return { 'x-payman-agent-id': this.xPaymanAgentId };
-  }
-
-  protected xPaymanAPISecretAuth(opts: Core.FinalRequestOptions): Core.Headers {
     return { 'x-payman-api-secret': this.xPaymanAPISecret };
   }
 
