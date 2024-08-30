@@ -15,11 +15,6 @@ type Environment = keyof typeof environments;
 
 export interface ClientOptions {
   /**
-   * Defaults to process.env['PAYMAN_AGENT_ID'].
-   */
-  xPaymanAgentId?: string | undefined;
-
-  /**
    * Defaults to process.env['PAYMAN_API_SECRET'].
    */
   xPaymanAPISecret?: string | undefined;
@@ -94,7 +89,6 @@ export interface ClientOptions {
  * API Client for interfacing with the Paymanai API.
  */
 export class Paymanai extends Core.APIClient {
-  xPaymanAgentId: string;
   xPaymanAPISecret: string;
 
   private _options: ClientOptions;
@@ -102,7 +96,6 @@ export class Paymanai extends Core.APIClient {
   /**
    * API Client for interfacing with the Paymanai API.
    *
-   * @param {string | undefined} [opts.xPaymanAgentId=process.env['PAYMAN_AGENT_ID'] ?? undefined]
    * @param {string | undefined} [opts.xPaymanAPISecret=process.env['PAYMAN_API_SECRET'] ?? undefined]
    * @param {Environment} [opts.environment=sandbox] - Specifies the environment URL to use for the API.
    * @param {string} [opts.baseURL=process.env['PAYMANAI_BASE_URL'] ?? https://agent-sandbox.payman.ai/api] - Override the default base URL for the API.
@@ -115,15 +108,9 @@ export class Paymanai extends Core.APIClient {
    */
   constructor({
     baseURL = Core.readEnv('PAYMANAI_BASE_URL'),
-    xPaymanAgentId = Core.readEnv('PAYMAN_AGENT_ID'),
     xPaymanAPISecret = Core.readEnv('PAYMAN_API_SECRET'),
     ...opts
   }: ClientOptions = {}) {
-    if (xPaymanAgentId === undefined) {
-      throw new Errors.PaymanaiError(
-        "The PAYMAN_AGENT_ID environment variable is missing or empty; either provide it, or instantiate the Paymanai client with an xPaymanAgentId option, like new Paymanai({ xPaymanAgentId: 'My X Payman Agent ID' }).",
-      );
-    }
     if (xPaymanAPISecret === undefined) {
       throw new Errors.PaymanaiError(
         "The PAYMAN_API_SECRET environment variable is missing or empty; either provide it, or instantiate the Paymanai client with an xPaymanAPISecret option, like new Paymanai({ xPaymanAPISecret: 'My X Payman API Secret' }).",
@@ -131,7 +118,6 @@ export class Paymanai extends Core.APIClient {
     }
 
     const options: ClientOptions = {
-      xPaymanAgentId,
       xPaymanAPISecret,
       ...opts,
       baseURL,
@@ -154,7 +140,6 @@ export class Paymanai extends Core.APIClient {
 
     this._options = options;
 
-    this.xPaymanAgentId = xPaymanAgentId;
     this.xPaymanAPISecret = xPaymanAPISecret;
   }
 
