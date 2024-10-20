@@ -146,6 +146,8 @@ export class Paymanai extends Core.APIClient {
   wallets: API.Wallets = new API.Wallets(this);
   version: API.Version = new API.Version(this);
   files: API.Files = new API.Files(this);
+  balances: API.Balances = new API.Balances(this);
+  payments: API.Payments = new API.Payments(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -208,6 +210,7 @@ export namespace Paymanai {
 
   export import Tasks = API.Tasks;
   export import TaskCreateTaskResponse = API.TaskCreateTaskResponse;
+  export import TaskGetCategoriesResponse = API.TaskGetCategoriesResponse;
   export import TaskGetTaskResponse = API.TaskGetTaskResponse;
   export import TaskListTasksResponse = API.TaskListTasksResponse;
   export import TaskUpdateTaskResponse = API.TaskUpdateTaskResponse;
@@ -221,6 +224,14 @@ export namespace Paymanai {
   export import Version = API.Version;
 
   export import Files = API.Files;
+
+  export import Balances = API.Balances;
+  export import BalanceGetCustomerBalanceResponse = API.BalanceGetCustomerBalanceResponse;
+  export import BalanceGetSpendableBalanceResponse = API.BalanceGetSpendableBalanceResponse;
+
+  export import Payments = API.Payments;
+  export import PaymentInitiateCustomerDepositResponse = API.PaymentInitiateCustomerDepositResponse;
+  export import PaymentInitiateCustomerDepositParams = API.PaymentInitiateCustomerDepositParams;
 }
 
 export default Paymanai;

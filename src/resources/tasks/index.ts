@@ -15,6 +15,7 @@ export {
 } from './submissions';
 export {
   TaskCreateTaskResponse,
+  TaskGetCategoriesResponse,
   TaskGetTaskResponse,
   TaskListTasksResponse,
   TaskUpdateTaskResponse,
