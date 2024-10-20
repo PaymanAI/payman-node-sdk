@@ -58,11 +58,6 @@ export namespace SubmissionListTaskSubmissionsResponse {
      */
     details: Result.Details;
 
-    /**
-     * The unique identifier for the user that submitted this task
-     */
-    submittedById: string;
-
     id?: string;
 
     /**
@@ -165,53 +160,22 @@ export namespace SubmissionListTaskSubmissionsResponse {
      */
     export interface SubmittedBy {
       /**
-       * The authentication methods for this user. Note: may not be visible subject to
-       * caller's authorization scopes.
-       */
-      authenticationMethods: Array<'PASSWORD' | 'GOOGLE'>;
-
-      /**
-       * The email address for this user. Note: may not be visible subject to caller's
-       * authorization scopes.
-       */
-      email: string;
-
-      /**
        * The first name of this user.
        */
       firstName: string;
-
-      /**
-       * The current KYC status of this user account. Note: may not be visible subject to
-       * caller's authorization scopes.
-       */
-      kycStatus: 'PENDING' | 'IN_REVIEW' | 'APPROVED' | 'REJECTED';
 
       /**
        * The last name of this user.
        */
       lastName: string;
 
-      /**
-       * The current status of this user account
-       */
-      status: 'ACTIVE' | 'DELETED' | 'LOCKED' | 'PENDING';
-
       id?: string;
-
-      /**
-       * The phone number for this user. Note: may not be visible subject to caller's
-       * authorization scopes.
-       */
-      phone?: string;
 
       reputationScore?: SubmittedBy.ReputationScore;
     }
 
     export namespace SubmittedBy {
       export interface ReputationScore {
-        rawScore?: number;
-
         score?: number;
       }
     }
@@ -284,6 +248,12 @@ export namespace SubmissionListTaskSubmissionsResponse {
       currency?: Task.Currency;
 
       /**
+       * The unique identifier for your end user that paid for this task. Note you may
+       * supply either your own unique ID, or the Payman generated one (if you have it).
+       */
+      customerId?: string;
+
+      /**
        * The deadline for this task. If this is set, the task will be closed after this
        * time regardless of the number of submissions received and approved.
        */
@@ -303,6 +273,13 @@ export namespace SubmissionListTaskSubmissionsResponse {
        * this metadata will be included
        */
       metadata?: Record<string, string>;
+
+      /**
+       * The amount being offered for each approved submission on this task, denominated
+       * in currency units. For example a payout of '1.00' in USD would mean the payout
+       * would be $1.00
+       */
+      payoutDecimal?: number;
 
       /**
        * The ID of the wallet to be used to pay out rewards for this task. This wallet
@@ -347,11 +324,6 @@ export namespace SubmissionListTaskSubmissionsResponse {
        */
       export interface Currency {
         /**
-         * The name of this currency's base currency unit
-         */
-        baseUnitName: string;
-
-        /**
          * The name of this currency
          */
         name: string;
@@ -362,8 +334,6 @@ export namespace SubmissionListTaskSubmissionsResponse {
         symbol: string;
 
         type: 'CRYPTOCURRENCY' | 'FIAT';
-
-        active?: boolean;
 
         /**
          * The unique short code for this currency
@@ -379,11 +349,6 @@ export namespace SubmissionListTaskSubmissionsResponse {
          * A longer form description of the item
          */
         description?: string;
-
-        /**
-         * The number of decimal places to show when rendering an amount of this currency.
-         */
-        displayDecimalPlaces?: number;
 
         /**
          * A descriptive label of the item
@@ -403,18 +368,27 @@ export namespace SubmissionListTaskSubmissionsResponse {
       export interface VerificationConfiguration {
         customPrompt?: string;
 
-        type?: 'default' | 'custom_prompt' | 'developer_managed' | 'none';
+        type?: 'generic' | 'custom_prompt' | 'developer_managed' | 'none';
       }
     }
   }
 }
 
 export interface SubmissionListTaskSubmissionsParams {
+  /**
+   * The number of items per page
+   */
   limit?: number;
 
+  /**
+   * The page number to retrieve (0-indexed)
+   */
   page?: number;
 
-  statuses?: Array<
+  /**
+   * The statuses you want to filter by. Defaults to PENDING and APPROVED
+   */
+  statuses?:
     | 'PENDING'
     | 'APPROVED_REQUIRES_REVIEW'
     | 'REJECTED_REQUIRES_REVIEW'
@@ -422,8 +396,7 @@ export interface SubmissionListTaskSubmissionsParams {
     | 'REJECTED'
     | 'VERIFICATION_FAILED'
     | 'DELETED'
-    | 'CANCELLED'
-  >;
+    | 'CANCELLED';
 }
 
 export namespace Submissions {
