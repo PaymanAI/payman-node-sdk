@@ -3,6 +3,7 @@
 Types:
 
 - <code><a href="./src/resources/tasks/tasks.ts">TaskCreateTaskResponse</a></code>
+- <code><a href="./src/resources/tasks/tasks.ts">TaskGetCategoriesResponse</a></code>
 - <code><a href="./src/resources/tasks/tasks.ts">TaskGetTaskResponse</a></code>
 - <code><a href="./src/resources/tasks/tasks.ts">TaskListTasksResponse</a></code>
 - <code><a href="./src/resources/tasks/tasks.ts">TaskUpdateTaskResponse</a></code>
@@ -10,6 +11,7 @@ Types:
 Methods:
 
 - <code title="post /tasks">client.tasks.<a href="./src/resources/tasks/tasks.ts">createTask</a>({ ...params }) -> TaskCreateTaskResponse</code>
+- <code title="get /tasks/categories">client.tasks.<a href="./src/resources/tasks/tasks.ts">getCategories</a>() -> TaskGetCategoriesResponse</code>
 - <code title="get /tasks/{id}">client.tasks.<a href="./src/resources/tasks/tasks.ts">getTask</a>(id) -> TaskGetTaskResponse</code>
 - <code title="get /tasks">client.tasks.<a href="./src/resources/tasks/tasks.ts">listTasks</a>({ ...params }) -> TaskListTasksResponse</code>
 - <code title="put /tasks/{id}">client.tasks.<a href="./src/resources/tasks/tasks.ts">updateTask</a>(id, { ...params }) -> TaskUpdateTaskResponse</code>
@@ -63,3 +65,25 @@ Methods:
 - <code title="get /version">client.version.<a href="./src/resources/version.ts">getServerVersion</a>() -> Response</code>
 
 # Files
+
+# Balances
+
+Types:
+
+- <code><a href="./src/resources/balances.ts">BalanceGetCustomerBalanceResponse</a></code>
+- <code><a href="./src/resources/balances.ts">BalanceGetSpendableBalanceResponse</a></code>
+
+Methods:
+
+- <code title="get /balances/customers/{customerId}/currencies/{currency}">client.balances.<a href="./src/resources/balances.ts">getCustomerBalance</a>(customerId, currency) -> BalanceGetCustomerBalanceResponse</code>
+- <code title="get /balances/currencies/{currency}">client.balances.<a href="./src/resources/balances.ts">getSpendableBalance</a>(currency) -> BalanceGetSpendableBalanceResponse</code>
+
+# Payments
+
+Types:
+
+- <code><a href="./src/resources/payments.ts">PaymentInitiateCustomerDepositResponse</a></code>
+
+Methods:
+
+- <code title="post /payments/initiate-customer-deposit">client.payments.<a href="./src/resources/payments.ts">initiateCustomerDeposit</a>({ ...params }) -> PaymentInitiateCustomerDepositResponse</code>
