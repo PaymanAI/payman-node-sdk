@@ -13,7 +13,7 @@ describe('resource tasks', () => {
     const responsePromise = client.tasks.createTask({
       description:
         'Proofread a 10-page legal document for spelling and grammar errors.  Please include a summary of changes or a confirmation that no errors were found.',
-      payout: 0,
+      payoutDecimal: 0,
       title: 'Proofread a legal document',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -29,16 +29,17 @@ describe('resource tasks', () => {
     const response = await client.tasks.createTask({
       description:
         'Proofread a 10-page legal document for spelling and grammar errors.  Please include a summary of changes or a confirmation that no errors were found.',
-      payout: 0,
+      payoutDecimal: 0,
       title: 'Proofread a legal document',
       category: 'MARKETING',
+      currency: 'currency',
+      customerId: 'customerId',
       deadline: '2019-12-27T18:11:19.117Z',
       inviteEmails: ['string', 'string', 'string'],
       metadata: { foo: 'string' },
       payoutWalletId: 'payoutWalletId',
       requiredSubmissions: 0,
-      submissionPolicy: 'OPEN_SUBMISSIONS_ONE_PER_USER',
-      verificationConfiguration: { customPrompt: 'customPrompt', type: 'default' },
+      verificationConfiguration: { customPrompt: 'customPrompt', type: 'generic' },
     });
   });
 
