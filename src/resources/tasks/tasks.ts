@@ -24,6 +24,14 @@ export class Tasks extends APIResource {
   }
 
   /**
+   * Provides a list of available task categories that may be used when creating
+   * tasks.
+   */
+  getCategories(options?: Core.RequestOptions): Core.APIPromise<TaskGetCategoriesResponse> {
+    return this._client.get('/tasks/categories', options);
+  }
+
+  /**
    * Get a task by ID
    */
   getTask(id: string, options?: Core.RequestOptions): Core.APIPromise<TaskGetTaskResponse> {
@@ -249,6 +257,27 @@ export namespace TaskCreateTaskResponse {
     customPrompt?: string;
 
     type?: 'generic' | 'custom_prompt' | 'developer_managed' | 'none';
+  }
+}
+
+export type TaskGetCategoriesResponse = Array<TaskGetCategoriesResponse.TaskGetCategoriesResponseItem>;
+
+export namespace TaskGetCategoriesResponse {
+  export interface TaskGetCategoriesResponseItem {
+    /**
+     * A longer form description of the item
+     */
+    description?: string;
+
+    /**
+     * A descriptive label of the item
+     */
+    label?: string;
+
+    /**
+     * The value of the item
+     */
+    value?: string;
   }
 }
 
@@ -972,6 +1001,7 @@ export interface TaskUpdateTaskParams {
 
 export namespace Tasks {
   export import TaskCreateTaskResponse = TasksAPI.TaskCreateTaskResponse;
+  export import TaskGetCategoriesResponse = TasksAPI.TaskGetCategoriesResponse;
   export import TaskGetTaskResponse = TasksAPI.TaskGetTaskResponse;
   export import TaskListTasksResponse = TasksAPI.TaskListTasksResponse;
   export import TaskUpdateTaskResponse = TasksAPI.TaskUpdateTaskResponse;
