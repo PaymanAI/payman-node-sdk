@@ -32,7 +32,7 @@ describe('resource submissions', () => {
     await expect(
       client.tasks.submissions.listTaskSubmissions(
         'id',
-        { limit: 0, page: 0, statuses: ['PENDING'] },
+        { limit: 0, page: 0, statuses: 'PENDING' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Paymanai.NotFoundError);
