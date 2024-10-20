@@ -128,6 +128,12 @@ export interface TaskCreateTaskResponse {
   currency?: TaskCreateTaskResponse.Currency;
 
   /**
+   * The unique identifier for your end user that paid for this task. Note you may
+   * supply either your own unique ID, or the Payman generated one (if you have it).
+   */
+  customerId?: string;
+
+  /**
    * The deadline for this task. If this is set, the task will be closed after this
    * time regardless of the number of submissions received and approved.
    */
@@ -147,6 +153,13 @@ export interface TaskCreateTaskResponse {
    * this metadata will be included
    */
   metadata?: Record<string, string>;
+
+  /**
+   * The amount being offered for each approved submission on this task, denominated
+   * in currency units. For example a payout of '1.00' in USD would mean the payout
+   * would be $1.00
+   */
+  payoutDecimal?: number;
 
   /**
    * The ID of the wallet to be used to pay out rewards for this task. This wallet
@@ -191,11 +204,6 @@ export namespace TaskCreateTaskResponse {
    */
   export interface Currency {
     /**
-     * The name of this currency's base currency unit
-     */
-    baseUnitName: string;
-
-    /**
      * The name of this currency
      */
     name: string;
@@ -206,8 +214,6 @@ export namespace TaskCreateTaskResponse {
     symbol: string;
 
     type: 'CRYPTOCURRENCY' | 'FIAT';
-
-    active?: boolean;
 
     /**
      * The unique short code for this currency
@@ -223,11 +229,6 @@ export namespace TaskCreateTaskResponse {
      * A longer form description of the item
      */
     description?: string;
-
-    /**
-     * The number of decimal places to show when rendering an amount of this currency.
-     */
-    displayDecimalPlaces?: number;
 
     /**
      * A descriptive label of the item
@@ -247,7 +248,7 @@ export namespace TaskCreateTaskResponse {
   export interface VerificationConfiguration {
     customPrompt?: string;
 
-    type?: 'default' | 'custom_prompt' | 'developer_managed' | 'none';
+    type?: 'generic' | 'custom_prompt' | 'developer_managed' | 'none';
   }
 }
 
@@ -319,6 +320,12 @@ export interface TaskGetTaskResponse {
   currency?: TaskGetTaskResponse.Currency;
 
   /**
+   * The unique identifier for your end user that paid for this task. Note you may
+   * supply either your own unique ID, or the Payman generated one (if you have it).
+   */
+  customerId?: string;
+
+  /**
    * The deadline for this task. If this is set, the task will be closed after this
    * time regardless of the number of submissions received and approved.
    */
@@ -338,6 +345,13 @@ export interface TaskGetTaskResponse {
    * this metadata will be included
    */
   metadata?: Record<string, string>;
+
+  /**
+   * The amount being offered for each approved submission on this task, denominated
+   * in currency units. For example a payout of '1.00' in USD would mean the payout
+   * would be $1.00
+   */
+  payoutDecimal?: number;
 
   /**
    * The ID of the wallet to be used to pay out rewards for this task. This wallet
@@ -382,11 +396,6 @@ export namespace TaskGetTaskResponse {
    */
   export interface Currency {
     /**
-     * The name of this currency's base currency unit
-     */
-    baseUnitName: string;
-
-    /**
      * The name of this currency
      */
     name: string;
@@ -397,8 +406,6 @@ export namespace TaskGetTaskResponse {
     symbol: string;
 
     type: 'CRYPTOCURRENCY' | 'FIAT';
-
-    active?: boolean;
 
     /**
      * The unique short code for this currency
@@ -414,11 +421,6 @@ export namespace TaskGetTaskResponse {
      * A longer form description of the item
      */
     description?: string;
-
-    /**
-     * The number of decimal places to show when rendering an amount of this currency.
-     */
-    displayDecimalPlaces?: number;
 
     /**
      * A descriptive label of the item
@@ -438,7 +440,7 @@ export namespace TaskGetTaskResponse {
   export interface VerificationConfiguration {
     customPrompt?: string;
 
-    type?: 'default' | 'custom_prompt' | 'developer_managed' | 'none';
+    type?: 'generic' | 'custom_prompt' | 'developer_managed' | 'none';
   }
 }
 
@@ -528,6 +530,12 @@ export namespace TaskListTasksResponse {
     currency?: Result.Currency;
 
     /**
+     * The unique identifier for your end user that paid for this task. Note you may
+     * supply either your own unique ID, or the Payman generated one (if you have it).
+     */
+    customerId?: string;
+
+    /**
      * The deadline for this task. If this is set, the task will be closed after this
      * time regardless of the number of submissions received and approved.
      */
@@ -547,6 +555,13 @@ export namespace TaskListTasksResponse {
      * this metadata will be included
      */
     metadata?: Record<string, string>;
+
+    /**
+     * The amount being offered for each approved submission on this task, denominated
+     * in currency units. For example a payout of '1.00' in USD would mean the payout
+     * would be $1.00
+     */
+    payoutDecimal?: number;
 
     /**
      * The ID of the wallet to be used to pay out rewards for this task. This wallet
@@ -591,11 +606,6 @@ export namespace TaskListTasksResponse {
      */
     export interface Currency {
       /**
-       * The name of this currency's base currency unit
-       */
-      baseUnitName: string;
-
-      /**
        * The name of this currency
        */
       name: string;
@@ -606,8 +616,6 @@ export namespace TaskListTasksResponse {
       symbol: string;
 
       type: 'CRYPTOCURRENCY' | 'FIAT';
-
-      active?: boolean;
 
       /**
        * The unique short code for this currency
@@ -623,11 +631,6 @@ export namespace TaskListTasksResponse {
        * A longer form description of the item
        */
       description?: string;
-
-      /**
-       * The number of decimal places to show when rendering an amount of this currency.
-       */
-      displayDecimalPlaces?: number;
 
       /**
        * A descriptive label of the item
@@ -647,7 +650,7 @@ export namespace TaskListTasksResponse {
     export interface VerificationConfiguration {
       customPrompt?: string;
 
-      type?: 'default' | 'custom_prompt' | 'developer_managed' | 'none';
+      type?: 'generic' | 'custom_prompt' | 'developer_managed' | 'none';
     }
   }
 }
@@ -720,6 +723,12 @@ export interface TaskUpdateTaskResponse {
   currency?: TaskUpdateTaskResponse.Currency;
 
   /**
+   * The unique identifier for your end user that paid for this task. Note you may
+   * supply either your own unique ID, or the Payman generated one (if you have it).
+   */
+  customerId?: string;
+
+  /**
    * The deadline for this task. If this is set, the task will be closed after this
    * time regardless of the number of submissions received and approved.
    */
@@ -739,6 +748,13 @@ export interface TaskUpdateTaskResponse {
    * this metadata will be included
    */
   metadata?: Record<string, string>;
+
+  /**
+   * The amount being offered for each approved submission on this task, denominated
+   * in currency units. For example a payout of '1.00' in USD would mean the payout
+   * would be $1.00
+   */
+  payoutDecimal?: number;
 
   /**
    * The ID of the wallet to be used to pay out rewards for this task. This wallet
@@ -783,11 +799,6 @@ export namespace TaskUpdateTaskResponse {
    */
   export interface Currency {
     /**
-     * The name of this currency's base currency unit
-     */
-    baseUnitName: string;
-
-    /**
      * The name of this currency
      */
     name: string;
@@ -798,8 +809,6 @@ export namespace TaskUpdateTaskResponse {
     symbol: string;
 
     type: 'CRYPTOCURRENCY' | 'FIAT';
-
-    active?: boolean;
 
     /**
      * The unique short code for this currency
@@ -815,11 +824,6 @@ export namespace TaskUpdateTaskResponse {
      * A longer form description of the item
      */
     description?: string;
-
-    /**
-     * The number of decimal places to show when rendering an amount of this currency.
-     */
-    displayDecimalPlaces?: number;
 
     /**
      * A descriptive label of the item
@@ -839,7 +843,7 @@ export namespace TaskUpdateTaskResponse {
   export interface VerificationConfiguration {
     customPrompt?: string;
 
-    type?: 'default' | 'custom_prompt' | 'developer_managed' | 'none';
+    type?: 'generic' | 'custom_prompt' | 'developer_managed' | 'none';
   }
 }
 
@@ -855,7 +859,7 @@ export interface TaskCreateTaskParams {
    * amount is denominated in base units of the currency, so a payout of 100 in USD
    * would mean the payout would be $1.00.
    */
-  payout: number;
+  payoutDecimal: number;
 
   /**
    * A descriptive title for this task
@@ -877,6 +881,13 @@ export interface TaskCreateTaskParams {
     | 'MEDICAL'
     | 'FINANCE'
     | 'OTHER';
+
+  /**
+   * The currency is only required if a customerId is provided.
+   */
+  currency?: string;
+
+  customerId?: string;
 
   /**
    * The deadline for this task. If this is set, the task will be closed after this
@@ -916,17 +927,6 @@ export interface TaskCreateTaskParams {
   requiredSubmissions?: number;
 
   /**
-   * The policy determining who may submit solutions for this task. Defaults to
-   * OPEN_SUBMISSIONS_ONE_PER_USER if omitted, or PRE_ASSIGNED_SUBMISSIONS if
-   * inviteEmails are specified.
-   */
-  submissionPolicy?:
-    | 'OPEN_SUBMISSIONS_ONE_PER_USER'
-    | 'OPEN_SUBMISSIONS_MANY_PER_USER'
-    | 'PRE_ASSIGNED_SUBMISSIONS'
-    | 'OPEN_ASSIGNED_SUBMISSIONS';
-
-  /**
    * The configuration to be applied during task verification. The Payman
    * verification enginewill use this to customize the verification of this task.
    */
@@ -941,7 +941,7 @@ export namespace TaskCreateTaskParams {
   export interface VerificationConfiguration {
     customPrompt?: string;
 
-    type?: 'default' | 'custom_prompt' | 'developer_managed' | 'none';
+    type?: 'generic' | 'custom_prompt' | 'developer_managed' | 'none';
   }
 }
 
@@ -952,7 +952,7 @@ export interface TaskListTasksParams {
   limit?: number;
 
   /**
-   * The page number to retrieve
+   * The page number to retrieve (0-indexed)
    */
   page?: number;
 }

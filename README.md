@@ -28,9 +28,9 @@ const client = new Paymanai({
 });
 
 async function main() {
-  const taskGetTaskResponse = await client.tasks.getTask('id');
+  const response = await client.tasks.getTask('id');
 
-  console.log(taskGetTaskResponse.id);
+  console.log(response.id);
 }
 
 main();
@@ -50,7 +50,7 @@ const client = new Paymanai({
 });
 
 async function main() {
-  const taskGetTaskResponse: Paymanai.TaskGetTaskResponse = await client.tasks.getTask('id');
+  const response: Paymanai.TaskGetTaskResponse = await client.tasks.getTask('id');
 }
 
 main();
@@ -67,7 +67,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const taskGetTaskResponse = await client.tasks.getTask('id').catch(async (err) => {
+  const response = await client.tasks.getTask('id').catch(async (err) => {
     if (err instanceof Paymanai.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -147,7 +147,7 @@ import Paymanai from 'paymanai';
 
 const client = new Paymanai();
 
-const taskGetTaskResponse = await client.tasks.getTask('id', { headers: { Accept: 'My-Custom-Value' } });
+const response = await client.tasks.getTask('id', { headers: { Accept: 'My-Custom-Value' } });
 ```
 
 ## Advanced Usage
@@ -166,9 +166,9 @@ const response = await client.tasks.getTask('id').asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: taskGetTaskResponse, response: raw } = await client.tasks.getTask('id').withResponse();
+const { data: response, response: raw } = await client.tasks.getTask('id').withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(taskGetTaskResponse.id);
+console.log(response.id);
 ```
 
 ### Making custom/undocumented requests
@@ -298,3 +298,7 @@ The following runtimes are supported:
 Note that React Native is not supported at this time.
 
 If you are interested in other runtime environments, please open or upvote an issue on GitHub.
+
+## Contributing
+
+See [the contributing documentation](./CONTRIBUTING.md).

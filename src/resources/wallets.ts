@@ -59,11 +59,6 @@ export namespace WalletGetWalletResponse {
    */
   export interface Currency {
     /**
-     * The name of this currency's base currency unit
-     */
-    baseUnitName: string;
-
-    /**
      * The name of this currency
      */
     name: string;
@@ -74,8 +69,6 @@ export namespace WalletGetWalletResponse {
     symbol: string;
 
     type: 'CRYPTOCURRENCY' | 'FIAT';
-
-    active?: boolean;
 
     /**
      * The unique short code for this currency
@@ -91,11 +84,6 @@ export namespace WalletGetWalletResponse {
      * A longer form description of the item
      */
     description?: string;
-
-    /**
-     * The number of decimal places to show when rendering an amount of this currency.
-     */
-    displayDecimalPlaces?: number;
 
     /**
      * A descriptive label of the item
