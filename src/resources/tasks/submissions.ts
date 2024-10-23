@@ -38,6 +38,17 @@ export class Submissions extends APIResource {
     }
     return this._client.get(`/tasks/${id}/submissions`, { query, ...options });
   }
+
+  /**
+   * Mark the task submission as rejected
+   */
+  rejectTaskSubmission(
+    id: string,
+    body: SubmissionRejectTaskSubmissionParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<SubmissionRejectTaskSubmissionResponse> {
+    return this._client.post(`/tasks/submissions/${id}/reject`, { body, ...options });
+  }
 }
 
 export interface SubmissionApproveTaskSubmissionResponse {
@@ -390,6 +401,12 @@ export namespace SubmissionListTaskSubmissionsResponse {
   }
 }
 
+export interface SubmissionRejectTaskSubmissionResponse {
+  message?: string;
+
+  success?: boolean;
+}
+
 export interface SubmissionListTaskSubmissionsParams {
   /**
    * The number of items per page
@@ -415,8 +432,12 @@ export interface SubmissionListTaskSubmissionsParams {
     | 'CANCELLED';
 }
 
+export type SubmissionRejectTaskSubmissionParams = string;
+
 export namespace Submissions {
   export import SubmissionApproveTaskSubmissionResponse = SubmissionsAPI.SubmissionApproveTaskSubmissionResponse;
   export import SubmissionListTaskSubmissionsResponse = SubmissionsAPI.SubmissionListTaskSubmissionsResponse;
+  export import SubmissionRejectTaskSubmissionResponse = SubmissionsAPI.SubmissionRejectTaskSubmissionResponse;
   export import SubmissionListTaskSubmissionsParams = SubmissionsAPI.SubmissionListTaskSubmissionsParams;
+  export import SubmissionRejectTaskSubmissionParams = SubmissionsAPI.SubmissionRejectTaskSubmissionParams;
 }
