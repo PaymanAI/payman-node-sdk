@@ -11,7 +11,9 @@ export { CategoryListTaskCategoriesResponse, Categories } from './categories';
 export {
   SubmissionApproveTaskSubmissionResponse,
   SubmissionListTaskSubmissionsResponse,
+  SubmissionRejectTaskSubmissionResponse,
   SubmissionListTaskSubmissionsParams,
+  SubmissionRejectTaskSubmissionParams,
   Submissions,
 } from './submissions';
 export {
