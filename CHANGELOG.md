@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.0 (2024-10-23)
+
+Full Changelog: [v1.1.1...v1.2.0](https://github.com/PaymanAI/payman-node-sdk/compare/v1.1.1...v1.2.0)
+
+### Features
+
+* **api:** api update ([#41](https://github.com/PaymanAI/payman-node-sdk/issues/41)) ([01f7043](https://github.com/PaymanAI/payman-node-sdk/commit/01f7043801e6640e43b1c063630f5e7254792779))
+
 ## 1.1.1 (2024-10-20)
 
 Full Changelog: [v1.1.0...v1.1.1](https://github.com/PaymanAI/payman-node-sdk/compare/v1.1.0...v1.1.1)

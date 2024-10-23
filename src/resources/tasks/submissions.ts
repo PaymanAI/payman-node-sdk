@@ -7,6 +7,16 @@ import * as SubmissionsAPI from './submissions';
 
 export class Submissions extends APIResource {
   /**
+   * Mark the task submission as approved and release the funds
+   */
+  approveTaskSubmission(
+    id: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<SubmissionApproveTaskSubmissionResponse> {
+    return this._client.post(`/tasks/submissions/${id}/approve`, options);
+  }
+
+  /**
    * Get all submissions for a task
    */
   listTaskSubmissions(
@@ -28,6 +38,12 @@ export class Submissions extends APIResource {
     }
     return this._client.get(`/tasks/${id}/submissions`, { query, ...options });
   }
+}
+
+export interface SubmissionApproveTaskSubmissionResponse {
+  message?: string;
+
+  success?: boolean;
 }
 
 export interface SubmissionListTaskSubmissionsResponse {
@@ -400,6 +416,7 @@ export interface SubmissionListTaskSubmissionsParams {
 }
 
 export namespace Submissions {
+  export import SubmissionApproveTaskSubmissionResponse = SubmissionsAPI.SubmissionApproveTaskSubmissionResponse;
   export import SubmissionListTaskSubmissionsResponse = SubmissionsAPI.SubmissionListTaskSubmissionsResponse;
   export import SubmissionListTaskSubmissionsParams = SubmissionsAPI.SubmissionListTaskSubmissionsParams;
 }
