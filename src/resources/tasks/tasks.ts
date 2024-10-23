@@ -1016,7 +1016,9 @@ export namespace Tasks {
   export import Submissions = SubmissionsAPI.Submissions;
   export import SubmissionApproveTaskSubmissionResponse = SubmissionsAPI.SubmissionApproveTaskSubmissionResponse;
   export import SubmissionListTaskSubmissionsResponse = SubmissionsAPI.SubmissionListTaskSubmissionsResponse;
+  export import SubmissionRejectTaskSubmissionResponse = SubmissionsAPI.SubmissionRejectTaskSubmissionResponse;
   export import SubmissionListTaskSubmissionsParams = SubmissionsAPI.SubmissionListTaskSubmissionsParams;
+  export import SubmissionRejectTaskSubmissionParams = SubmissionsAPI.SubmissionRejectTaskSubmissionParams;
   export import Categories = CategoriesAPI.Categories;
   export import CategoryListTaskCategoriesResponse = CategoriesAPI.CategoryListTaskCategoriesResponse;
 }
