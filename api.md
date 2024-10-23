@@ -32,10 +32,12 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/tasks/submissions.ts">SubmissionApproveTaskSubmissionResponse</a></code>
 - <code><a href="./src/resources/tasks/submissions.ts">SubmissionListTaskSubmissionsResponse</a></code>
 
 Methods:
 
+- <code title="post /tasks/submissions/{id}/approve">client.tasks.submissions.<a href="./src/resources/tasks/submissions.ts">approveTaskSubmission</a>(id) -> SubmissionApproveTaskSubmissionResponse</code>
 - <code title="get /tasks/{id}/submissions">client.tasks.submissions.<a href="./src/resources/tasks/submissions.ts">listTaskSubmissions</a>(id, { ...params }) -> SubmissionListTaskSubmissionsResponse</code>
 
 ## Categories
