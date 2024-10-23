@@ -9,6 +9,7 @@ export {
 } from './assignments';
 export { CategoryListTaskCategoriesResponse, Categories } from './categories';
 export {
+  SubmissionApproveTaskSubmissionResponse,
   SubmissionListTaskSubmissionsResponse,
   SubmissionListTaskSubmissionsParams,
   Submissions,
