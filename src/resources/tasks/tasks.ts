@@ -3,10 +3,25 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as TasksAPI from './tasks';
 import * as AssignmentsAPI from './assignments';
+import {
+  AssignmentCreateTaskAssignmentParams,
+  AssignmentCreateTaskAssignmentResponse,
+  AssignmentListTaskAssignmentsParams,
+  AssignmentListTaskAssignmentsResponse,
+  Assignments,
+} from './assignments';
 import * as CategoriesAPI from './categories';
+import { Categories, CategoryListTaskCategoriesResponse } from './categories';
 import * as SubmissionsAPI from './submissions';
+import {
+  SubmissionApproveTaskSubmissionResponse,
+  SubmissionListTaskSubmissionsParams,
+  SubmissionListTaskSubmissionsResponse,
+  SubmissionRejectTaskSubmissionParams,
+  SubmissionRejectTaskSubmissionResponse,
+  Submissions,
+} from './submissions';
 
 export class Tasks extends APIResource {
   assignments: AssignmentsAPI.Assignments = new AssignmentsAPI.Assignments(this._client);
@@ -999,26 +1014,41 @@ export interface TaskUpdateTaskParams {
   title: string;
 }
 
-export namespace Tasks {
-  export import TaskCreateTaskResponse = TasksAPI.TaskCreateTaskResponse;
-  export import TaskGetCategoriesResponse = TasksAPI.TaskGetCategoriesResponse;
-  export import TaskGetTaskResponse = TasksAPI.TaskGetTaskResponse;
-  export import TaskListTasksResponse = TasksAPI.TaskListTasksResponse;
-  export import TaskUpdateTaskResponse = TasksAPI.TaskUpdateTaskResponse;
-  export import TaskCreateTaskParams = TasksAPI.TaskCreateTaskParams;
-  export import TaskListTasksParams = TasksAPI.TaskListTasksParams;
-  export import TaskUpdateTaskParams = TasksAPI.TaskUpdateTaskParams;
-  export import Assignments = AssignmentsAPI.Assignments;
-  export import AssignmentCreateTaskAssignmentResponse = AssignmentsAPI.AssignmentCreateTaskAssignmentResponse;
-  export import AssignmentListTaskAssignmentsResponse = AssignmentsAPI.AssignmentListTaskAssignmentsResponse;
-  export import AssignmentCreateTaskAssignmentParams = AssignmentsAPI.AssignmentCreateTaskAssignmentParams;
-  export import AssignmentListTaskAssignmentsParams = AssignmentsAPI.AssignmentListTaskAssignmentsParams;
-  export import Submissions = SubmissionsAPI.Submissions;
-  export import SubmissionApproveTaskSubmissionResponse = SubmissionsAPI.SubmissionApproveTaskSubmissionResponse;
-  export import SubmissionListTaskSubmissionsResponse = SubmissionsAPI.SubmissionListTaskSubmissionsResponse;
-  export import SubmissionRejectTaskSubmissionResponse = SubmissionsAPI.SubmissionRejectTaskSubmissionResponse;
-  export import SubmissionListTaskSubmissionsParams = SubmissionsAPI.SubmissionListTaskSubmissionsParams;
-  export import SubmissionRejectTaskSubmissionParams = SubmissionsAPI.SubmissionRejectTaskSubmissionParams;
-  export import Categories = CategoriesAPI.Categories;
-  export import CategoryListTaskCategoriesResponse = CategoriesAPI.CategoryListTaskCategoriesResponse;
+Tasks.Assignments = Assignments;
+Tasks.Submissions = Submissions;
+Tasks.Categories = Categories;
+
+export declare namespace Tasks {
+  export {
+    type TaskCreateTaskResponse as TaskCreateTaskResponse,
+    type TaskGetCategoriesResponse as TaskGetCategoriesResponse,
+    type TaskGetTaskResponse as TaskGetTaskResponse,
+    type TaskListTasksResponse as TaskListTasksResponse,
+    type TaskUpdateTaskResponse as TaskUpdateTaskResponse,
+    type TaskCreateTaskParams as TaskCreateTaskParams,
+    type TaskListTasksParams as TaskListTasksParams,
+    type TaskUpdateTaskParams as TaskUpdateTaskParams,
+  };
+
+  export {
+    Assignments as Assignments,
+    type AssignmentCreateTaskAssignmentResponse as AssignmentCreateTaskAssignmentResponse,
+    type AssignmentListTaskAssignmentsResponse as AssignmentListTaskAssignmentsResponse,
+    type AssignmentCreateTaskAssignmentParams as AssignmentCreateTaskAssignmentParams,
+    type AssignmentListTaskAssignmentsParams as AssignmentListTaskAssignmentsParams,
+  };
+
+  export {
+    Submissions as Submissions,
+    type SubmissionApproveTaskSubmissionResponse as SubmissionApproveTaskSubmissionResponse,
+    type SubmissionListTaskSubmissionsResponse as SubmissionListTaskSubmissionsResponse,
+    type SubmissionRejectTaskSubmissionResponse as SubmissionRejectTaskSubmissionResponse,
+    type SubmissionListTaskSubmissionsParams as SubmissionListTaskSubmissionsParams,
+    type SubmissionRejectTaskSubmissionParams as SubmissionRejectTaskSubmissionParams,
+  };
+
+  export {
+    Categories as Categories,
+    type CategoryListTaskCategoriesResponse as CategoryListTaskCategoriesResponse,
+  };
 }

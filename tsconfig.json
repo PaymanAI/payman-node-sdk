@@ -11,7 +11,7 @@
     "paths": {
       "paymanai/_shims/auto/*": ["src/_shims/auto/*-node"],
       "paymanai/*": ["src/*"],
-      "paymanai": ["src/index.ts"],
+      "paymanai": ["src/index.ts"]
     },
     "noEmit": true,
 
@@ -32,6 +32,7 @@
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
+		"isolatedModules": false,
 
     "skipLibCheck": true
   }

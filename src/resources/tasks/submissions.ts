@@ -3,7 +3,6 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as SubmissionsAPI from './submissions';
 
 export class Submissions extends APIResource {
   /**
@@ -434,10 +433,12 @@ export interface SubmissionListTaskSubmissionsParams {
 
 export type SubmissionRejectTaskSubmissionParams = string;
 
-export namespace Submissions {
-  export import SubmissionApproveTaskSubmissionResponse = SubmissionsAPI.SubmissionApproveTaskSubmissionResponse;
-  export import SubmissionListTaskSubmissionsResponse = SubmissionsAPI.SubmissionListTaskSubmissionsResponse;
-  export import SubmissionRejectTaskSubmissionResponse = SubmissionsAPI.SubmissionRejectTaskSubmissionResponse;
-  export import SubmissionListTaskSubmissionsParams = SubmissionsAPI.SubmissionListTaskSubmissionsParams;
-  export import SubmissionRejectTaskSubmissionParams = SubmissionsAPI.SubmissionRejectTaskSubmissionParams;
+export declare namespace Submissions {
+  export {
+    type SubmissionApproveTaskSubmissionResponse as SubmissionApproveTaskSubmissionResponse,
+    type SubmissionListTaskSubmissionsResponse as SubmissionListTaskSubmissionsResponse,
+    type SubmissionRejectTaskSubmissionResponse as SubmissionRejectTaskSubmissionResponse,
+    type SubmissionListTaskSubmissionsParams as SubmissionListTaskSubmissionsParams,
+    type SubmissionRejectTaskSubmissionParams as SubmissionRejectTaskSubmissionParams,
+  };
 }

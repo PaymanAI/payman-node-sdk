@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import * as Core from '../core';
-import * as PaymentsAPI from './payments';
 
 export class Payments extends APIResource {
   /**
@@ -77,7 +76,9 @@ export interface PaymentInitiateCustomerDepositParams {
   walletId?: string;
 }
 
-export namespace Payments {
-  export import PaymentInitiateCustomerDepositResponse = PaymentsAPI.PaymentInitiateCustomerDepositResponse;
-  export import PaymentInitiateCustomerDepositParams = PaymentsAPI.PaymentInitiateCustomerDepositParams;
+export declare namespace Payments {
+  export {
+    type PaymentInitiateCustomerDepositResponse as PaymentInitiateCustomerDepositResponse,
+    type PaymentInitiateCustomerDepositParams as PaymentInitiateCustomerDepositParams,
+  };
 }
