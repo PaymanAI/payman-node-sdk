@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as CategoriesAPI from './categories';
 
 export class Categories extends APIResource {
   /**
@@ -36,6 +35,6 @@ export namespace CategoryListTaskCategoriesResponse {
   }
 }
 
-export namespace Categories {
-  export import CategoryListTaskCategoriesResponse = CategoriesAPI.CategoryListTaskCategoriesResponse;
+export declare namespace Categories {
+  export { type CategoryListTaskCategoriesResponse as CategoryListTaskCategoriesResponse };
 }
