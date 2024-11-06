@@ -1,10 +1,34 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Errors from './error';
-import * as Uploads from './uploads';
 import { type Agent } from './_shims/index';
 import * as Core from './core';
+import * as Errors from './error';
+import * as Uploads from './uploads';
 import * as API from './resources/index';
+import {
+  BalanceGetCustomerBalanceResponse,
+  BalanceGetSpendableBalanceResponse,
+  Balances,
+} from './resources/balances';
+import { Files } from './resources/files';
+import {
+  PaymentInitiateCustomerDepositParams,
+  PaymentInitiateCustomerDepositResponse,
+  Payments,
+} from './resources/payments';
+import { Version } from './resources/version';
+import { WalletGetWalletResponse, Wallets } from './resources/wallets';
+import {
+  TaskCreateTaskParams,
+  TaskCreateTaskResponse,
+  TaskGetCategoriesResponse,
+  TaskGetTaskResponse,
+  TaskListTasksParams,
+  TaskListTasksResponse,
+  TaskUpdateTaskParams,
+  TaskUpdateTaskResponse,
+  Tasks,
+} from './resources/tasks/tasks';
 
 const environments = {
   sandbox: 'https://agent-sandbox.payman.ai/api',
@@ -186,7 +210,7 @@ export class Paymanai extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-export const {
+export {
   PaymanaiError,
   APIError,
   APIConnectionError,
@@ -200,38 +224,50 @@ export const {
   InternalServerError,
   PermissionDeniedError,
   UnprocessableEntityError,
-} = Errors;
+} from './error';
 
 export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
 
-export namespace Paymanai {
-  export import RequestOptions = Core.RequestOptions;
+Paymanai.Tasks = Tasks;
+Paymanai.Wallets = Wallets;
+Paymanai.Version = Version;
+Paymanai.Files = Files;
+Paymanai.Balances = Balances;
+Paymanai.Payments = Payments;
 
-  export import Tasks = API.Tasks;
-  export import TaskCreateTaskResponse = API.TaskCreateTaskResponse;
-  export import TaskGetCategoriesResponse = API.TaskGetCategoriesResponse;
-  export import TaskGetTaskResponse = API.TaskGetTaskResponse;
-  export import TaskListTasksResponse = API.TaskListTasksResponse;
-  export import TaskUpdateTaskResponse = API.TaskUpdateTaskResponse;
-  export import TaskCreateTaskParams = API.TaskCreateTaskParams;
-  export import TaskListTasksParams = API.TaskListTasksParams;
-  export import TaskUpdateTaskParams = API.TaskUpdateTaskParams;
+export declare namespace Paymanai {
+  export type RequestOptions = Core.RequestOptions;
 
-  export import Wallets = API.Wallets;
-  export import WalletGetWalletResponse = API.WalletGetWalletResponse;
+  export {
+    Tasks as Tasks,
+    type TaskCreateTaskResponse as TaskCreateTaskResponse,
+    type TaskGetCategoriesResponse as TaskGetCategoriesResponse,
+    type TaskGetTaskResponse as TaskGetTaskResponse,
+    type TaskListTasksResponse as TaskListTasksResponse,
+    type TaskUpdateTaskResponse as TaskUpdateTaskResponse,
+    type TaskCreateTaskParams as TaskCreateTaskParams,
+    type TaskListTasksParams as TaskListTasksParams,
+    type TaskUpdateTaskParams as TaskUpdateTaskParams,
+  };
 
-  export import Version = API.Version;
+  export { Wallets as Wallets, type WalletGetWalletResponse as WalletGetWalletResponse };
 
-  export import Files = API.Files;
+  export { Version as Version };
 
-  export import Balances = API.Balances;
-  export import BalanceGetCustomerBalanceResponse = API.BalanceGetCustomerBalanceResponse;
-  export import BalanceGetSpendableBalanceResponse = API.BalanceGetSpendableBalanceResponse;
+  export { Files as Files };
 
-  export import Payments = API.Payments;
-  export import PaymentInitiateCustomerDepositResponse = API.PaymentInitiateCustomerDepositResponse;
-  export import PaymentInitiateCustomerDepositParams = API.PaymentInitiateCustomerDepositParams;
+  export {
+    Balances as Balances,
+    type BalanceGetCustomerBalanceResponse as BalanceGetCustomerBalanceResponse,
+    type BalanceGetSpendableBalanceResponse as BalanceGetSpendableBalanceResponse,
+  };
+
+  export {
+    Payments as Payments,
+    type PaymentInitiateCustomerDepositResponse as PaymentInitiateCustomerDepositResponse,
+    type PaymentInitiateCustomerDepositParams as PaymentInitiateCustomerDepositParams,
+  };
 }
 
 export default Paymanai;

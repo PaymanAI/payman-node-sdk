@@ -3,7 +3,6 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as AssignmentsAPI from './assignments';
 
 export class Assignments extends APIResource {
   /**
@@ -561,9 +560,11 @@ export interface AssignmentListTaskAssignmentsParams {
   statuses?: 'IN_REVIEW' | 'PENDING' | 'COMPLETED' | 'EXPIRED' | 'DELETED' | 'REJECTED' | 'ACCEPTED';
 }
 
-export namespace Assignments {
-  export import AssignmentCreateTaskAssignmentResponse = AssignmentsAPI.AssignmentCreateTaskAssignmentResponse;
-  export import AssignmentListTaskAssignmentsResponse = AssignmentsAPI.AssignmentListTaskAssignmentsResponse;
-  export import AssignmentCreateTaskAssignmentParams = AssignmentsAPI.AssignmentCreateTaskAssignmentParams;
-  export import AssignmentListTaskAssignmentsParams = AssignmentsAPI.AssignmentListTaskAssignmentsParams;
+export declare namespace Assignments {
+  export {
+    type AssignmentCreateTaskAssignmentResponse as AssignmentCreateTaskAssignmentResponse,
+    type AssignmentListTaskAssignmentsResponse as AssignmentListTaskAssignmentsResponse,
+    type AssignmentCreateTaskAssignmentParams as AssignmentCreateTaskAssignmentParams,
+    type AssignmentListTaskAssignmentsParams as AssignmentListTaskAssignmentsParams,
+  };
 }
