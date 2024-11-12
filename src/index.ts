@@ -35,7 +35,6 @@ const environments = {
   production: 'https://agent.payman.ai/api',
 };
 type Environment = keyof typeof environments;
-
 export interface ClientOptions {
   /**
    * Defaults to process.env['PAYMAN_API_SECRET'].
@@ -210,32 +209,12 @@ export class Paymanai extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-export {
-  PaymanaiError,
-  APIError,
-  APIConnectionError,
-  APIConnectionTimeoutError,
-  APIUserAbortError,
-  NotFoundError,
-  ConflictError,
-  RateLimitError,
-  BadRequestError,
-  AuthenticationError,
-  InternalServerError,
-  PermissionDeniedError,
-  UnprocessableEntityError,
-} from './error';
-
-export import toFile = Uploads.toFile;
-export import fileFromPath = Uploads.fileFromPath;
-
 Paymanai.Tasks = Tasks;
 Paymanai.Wallets = Wallets;
 Paymanai.Version = Version;
 Paymanai.Files = Files;
 Paymanai.Balances = Balances;
 Paymanai.Payments = Payments;
-
 export declare namespace Paymanai {
   export type RequestOptions = Core.RequestOptions;
 
@@ -269,5 +248,22 @@ export declare namespace Paymanai {
     type PaymentInitiateCustomerDepositParams as PaymentInitiateCustomerDepositParams,
   };
 }
+
+export { toFile, fileFromPath } from 'paymanai/uploads';
+export {
+  PaymanaiError,
+  APIError,
+  APIConnectionError,
+  APIConnectionTimeoutError,
+  APIUserAbortError,
+  NotFoundError,
+  ConflictError,
+  RateLimitError,
+  BadRequestError,
+  AuthenticationError,
+  InternalServerError,
+  PermissionDeniedError,
+  UnprocessableEntityError,
+} from 'paymanai/error';
 
 export default Paymanai;
