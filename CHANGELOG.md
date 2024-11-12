@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.2 (2024-11-12)
+
+Full Changelog: [v1.2.1...v1.2.2](https://github.com/PaymanAI/payman-node-sdk/compare/v1.2.1...v1.2.2)
+
+### Chores
+
+* rebuild project due to codegen change ([#48](https://github.com/PaymanAI/payman-node-sdk/issues/48)) ([e36950b](https://github.com/PaymanAI/payman-node-sdk/commit/e36950b3d97c563440c1962b4d81d4a07d575d66))
+* rebuild project due to codegen change ([#50](https://github.com/PaymanAI/payman-node-sdk/issues/50)) ([d57ba6b](https://github.com/PaymanAI/payman-node-sdk/commit/d57ba6b0dd8ef2865d84b2b45482f200e84d112c))
+
 ## 1.2.1 (2024-10-23)
 
 Full Changelog: [v1.2.0...v1.2.1](https://github.com/PaymanAI/payman-node-sdk/compare/v1.2.0...v1.2.1)
