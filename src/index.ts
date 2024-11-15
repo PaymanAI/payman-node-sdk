@@ -249,7 +249,7 @@ export declare namespace Paymanai {
   };
 }
 
-export { toFile, fileFromPath } from 'paymanai/uploads';
+export { toFile, fileFromPath } from './uploads';
 export {
   PaymanaiError,
   APIError,
@@ -264,6 +264,6 @@ export {
   InternalServerError,
   PermissionDeniedError,
   UnprocessableEntityError,
-} from 'paymanai/error';
+} from './error';
 
 export default Paymanai;
