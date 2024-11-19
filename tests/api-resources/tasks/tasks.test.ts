@@ -35,7 +35,7 @@ describe('resource tasks', () => {
       currency: 'currency',
       customerId: 'customerId',
       deadline: '2019-12-27T18:11:19.117Z',
-      inviteEmails: ['string', 'string', 'string'],
+      inviteEmails: ['string'],
       metadata: { foo: 'string' },
       payoutWalletId: 'payoutWalletId',
       requiredSubmissions: 0,
