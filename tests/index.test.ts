@@ -203,7 +203,7 @@ describe('instantiate client', () => {
     expect(client.xPaymanAPISecret).toBe('My X Payman API Secret');
   });
 
-  test('with overriden environment variable arguments', () => {
+  test('with overridden environment variable arguments', () => {
     // set options via env var
     process.env['PAYMAN_API_SECRET'] = 'another My X Payman API Secret';
     const client = new Paymanai({ xPaymanAPISecret: 'My X Payman API Secret' });
