@@ -19,7 +19,7 @@ export interface WalletGetWalletResponse {
   balanceInEscrow: number;
 
   /**
-   * The currency in which the payout is denominated.
+   * The currency this wallet is denominated in.
    */
   currency: WalletGetWalletResponse.Currency;
 
@@ -34,6 +34,10 @@ export interface WalletGetWalletResponse {
   unconfirmedBalance: number;
 
   id?: string;
+
+  createdAt?: string;
+
+  createdBy?: string;
 
   /**
    * A descriptive name for this wallet
@@ -50,11 +54,15 @@ export interface WalletGetWalletResponse {
    * escrow, and unconfirmed balance.
    */
   totalBalance?: number;
+
+  updatedAt?: string;
+
+  updatedBy?: string;
 }
 
 export namespace WalletGetWalletResponse {
   /**
-   * The currency in which the payout is denominated.
+   * The currency this wallet is denominated in.
    */
   export interface Currency {
     /**
