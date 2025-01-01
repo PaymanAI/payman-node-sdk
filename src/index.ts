@@ -10,25 +10,17 @@ import {
   BalanceGetSpendableBalanceResponse,
   Balances,
 } from './resources/balances';
-import { Files } from './resources/files';
 import {
   PaymentInitiateCustomerDepositParams,
   PaymentInitiateCustomerDepositResponse,
+  PaymentSearchDestinationsParams,
+  PaymentSearchDestinationsResponse,
+  PaymentSendPaymentParams,
+  PaymentSendPaymentResponse,
   Payments,
 } from './resources/payments';
 import { Version } from './resources/version';
 import { WalletGetWalletResponse, Wallets } from './resources/wallets';
-import {
-  TaskCreateTaskParams,
-  TaskCreateTaskResponse,
-  TaskGetCategoriesResponse,
-  TaskGetTaskResponse,
-  TaskListTasksParams,
-  TaskListTasksResponse,
-  TaskUpdateTaskParams,
-  TaskUpdateTaskResponse,
-  Tasks,
-} from './resources/tasks/tasks';
 
 const environments = {
   sandbox: 'https://agent-sandbox.payman.ai/api',
@@ -165,10 +157,8 @@ export class Paymanai extends Core.APIClient {
     this.xPaymanAPISecret = xPaymanAPISecret;
   }
 
-  tasks: API.Tasks = new API.Tasks(this);
   wallets: API.Wallets = new API.Wallets(this);
   version: API.Version = new API.Version(this);
-  files: API.Files = new API.Files(this);
   balances: API.Balances = new API.Balances(this);
   payments: API.Payments = new API.Payments(this);
 
@@ -209,32 +199,16 @@ export class Paymanai extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-Paymanai.Tasks = Tasks;
 Paymanai.Wallets = Wallets;
 Paymanai.Version = Version;
-Paymanai.Files = Files;
 Paymanai.Balances = Balances;
 Paymanai.Payments = Payments;
 export declare namespace Paymanai {
   export type RequestOptions = Core.RequestOptions;
 
-  export {
-    Tasks as Tasks,
-    type TaskCreateTaskResponse as TaskCreateTaskResponse,
-    type TaskGetCategoriesResponse as TaskGetCategoriesResponse,
-    type TaskGetTaskResponse as TaskGetTaskResponse,
-    type TaskListTasksResponse as TaskListTasksResponse,
-    type TaskUpdateTaskResponse as TaskUpdateTaskResponse,
-    type TaskCreateTaskParams as TaskCreateTaskParams,
-    type TaskListTasksParams as TaskListTasksParams,
-    type TaskUpdateTaskParams as TaskUpdateTaskParams,
-  };
-
   export { Wallets as Wallets, type WalletGetWalletResponse as WalletGetWalletResponse };
 
   export { Version as Version };
-
-  export { Files as Files };
 
   export {
     Balances as Balances,
@@ -245,7 +219,11 @@ export declare namespace Paymanai {
   export {
     Payments as Payments,
     type PaymentInitiateCustomerDepositResponse as PaymentInitiateCustomerDepositResponse,
+    type PaymentSearchDestinationsResponse as PaymentSearchDestinationsResponse,
+    type PaymentSendPaymentResponse as PaymentSendPaymentResponse,
     type PaymentInitiateCustomerDepositParams as PaymentInitiateCustomerDepositParams,
+    type PaymentSearchDestinationsParams as PaymentSearchDestinationsParams,
+    type PaymentSendPaymentParams as PaymentSendPaymentParams,
   };
 }
 

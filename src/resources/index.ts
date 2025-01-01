@@ -5,22 +5,14 @@ export {
   type BalanceGetCustomerBalanceResponse,
   type BalanceGetSpendableBalanceResponse,
 } from './balances';
-export { Files } from './files';
 export {
   Payments,
   type PaymentInitiateCustomerDepositResponse,
+  type PaymentSearchDestinationsResponse,
+  type PaymentSendPaymentResponse,
   type PaymentInitiateCustomerDepositParams,
+  type PaymentSearchDestinationsParams,
+  type PaymentSendPaymentParams,
 } from './payments';
-export {
-  Tasks,
-  type TaskCreateTaskResponse,
-  type TaskGetCategoriesResponse,
-  type TaskGetTaskResponse,
-  type TaskListTasksResponse,
-  type TaskUpdateTaskResponse,
-  type TaskCreateTaskParams,
-  type TaskListTasksParams,
-  type TaskUpdateTaskParams,
-} from './tasks/tasks';
 export { Version } from './version';
 export { Wallets, type WalletGetWalletResponse } from './wallets';
