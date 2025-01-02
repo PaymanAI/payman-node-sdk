@@ -163,7 +163,7 @@ export abstract class APIClient {
     maxRetries = 2,
     timeout = 60000, // 1 minute
     httpAgent,
-    fetch: overridenFetch,
+    fetch: overriddenFetch,
   }: {
     baseURL: string;
     maxRetries?: number | undefined;
@@ -176,7 +176,7 @@ export abstract class APIClient {
     this.timeout = validatePositiveInteger('timeout', timeout);
     this.httpAgent = httpAgent;
 
-    this.fetch = overridenFetch ?? fetch;
+    this.fetch = overriddenFetch ?? fetch;
   }
 
   protected authHeaders(opts: FinalRequestOptions): Headers {
@@ -396,7 +396,7 @@ export abstract class APIClient {
     error: Object | undefined,
     message: string | undefined,
     headers: Headers | undefined,
-  ) {
+  ): APIError {
     return APIError.generate(status, error, message, headers);
   }
 
@@ -522,18 +522,22 @@ export abstract class APIClient {
 
     const timeout = setTimeout(() => controller.abort(), ms);
 
-    return (
-      this.getRequestClient()
-        // use undefined this binding; fetch errors if bound to something else in browser/cloudflare
-        .fetch.call(undefined, url, { signal: controller.signal as any, ...options })
-        .finally(() => {
-          clearTimeout(timeout);
-        })
-    );
-  }
+    const fetchOptions = {
+      signal: controller.signal as any,
+      ...options,
+    };
+    if (fetchOptions.method) {
+      // Custom methods like 'patch' need to be uppercased
+      // See https://github.com/nodejs/undici/issues/2294
+      fetchOptions.method = fetchOptions.method.toUpperCase();
+    }
 
-  protected getRequestClient(): RequestClient {
-    return { fetch: this.fetch };
+    return (
+      // use undefined this binding; fetch errors if bound to something else in browser/cloudflare
+      this.fetch.call(undefined, url, fetchOptions).finally(() => {
+        clearTimeout(timeout);
+      })
+    );
   }
 
   private shouldRetry(response: Response): boolean {
@@ -668,9 +672,9 @@ export abstract class AbstractPage<Item> implements AsyncIterable<Item> {
     return await this.#client.requestAPIList(this.constructor as any, nextOptions);
   }
 
-  async *iterPages() {
+  async *iterPages(): AsyncGenerator<this> {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
-    let page: AbstractPage<Item> = this;
+    let page: this = this;
     yield page;
     while (page.hasNextPage()) {
       page = await page.getNextPage();
@@ -678,7 +682,7 @@ export abstract class AbstractPage<Item> implements AsyncIterable<Item> {
     }
   }
 
-  async *[Symbol.asyncIterator]() {
+  async *[Symbol.asyncIterator](): AsyncGenerator<Item> {
     for await (const page of this.iterPages()) {
       for (const item of page.getPaginatedItems()) {
         yield item;
@@ -721,7 +725,7 @@ export class PagePromise<
    *      console.log(item)
    *    }
    */
-  async *[Symbol.asyncIterator]() {
+  async *[Symbol.asyncIterator](): AsyncGenerator<Item> {
     const page = await this;
     for await (const item of page) {
       yield item;
@@ -976,8 +980,8 @@ export const safeJSON = (text: string) => {
   }
 };
 
-// https://stackoverflow.com/a/19709846
-const startsWithSchemeRegexp = new RegExp('^(?:[a-z]+:)?//', 'i');
+// https://url.spec.whatwg.org/#url-scheme-string
+const startsWithSchemeRegexp = /^[a-z][a-z0-9+.-]*:/i;
 const isAbsoluteURL = (url: string): boolean => {
   return startsWithSchemeRegexp.test(url);
 };

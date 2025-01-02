@@ -28,9 +28,9 @@ const client = new Paymanai({
 });
 
 async function main() {
-  const response = await client.tasks.getTask('id');
+  const response = await client.payments.sendPayment({ amountDecimal: 0 });
 
-  console.log(response.id);
+  console.log(response.reference);
 }
 
 main();
@@ -50,7 +50,7 @@ const client = new Paymanai({
 });
 
 async function main() {
-  const response: Paymanai.TaskGetTaskResponse = await client.tasks.getTask('id');
+  const response: Paymanai.WalletGetWalletResponse = await client.wallets.getWallet('id');
 }
 
 main();
@@ -67,7 +67,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const response = await client.tasks.getTask('id').catch(async (err) => {
+  const response = await client.wallets.getWallet('id').catch(async (err) => {
     if (err instanceof Paymanai.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -110,7 +110,7 @@ const client = new Paymanai({
 });
 
 // Or, configure per-request:
-await client.tasks.getTask('id', {
+await client.wallets.getWallet('id', {
   maxRetries: 5,
 });
 ```
@@ -127,7 +127,7 @@ const client = new Paymanai({
 });
 
 // Override per-request:
-await client.tasks.getTask('id', {
+await client.wallets.getWallet('id', {
   timeout: 5 * 1000,
 });
 ```
@@ -147,7 +147,7 @@ import Paymanai from 'paymanai';
 
 const client = new Paymanai();
 
-const response = await client.tasks.getTask('id', { headers: { Accept: 'My-Custom-Value' } });
+const response = await client.wallets.getWallet('id', { headers: { Accept: 'My-Custom-Value' } });
 ```
 
 ## Advanced Usage
@@ -162,11 +162,11 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Paymanai();
 
-const response = await client.tasks.getTask('id').asResponse();
+const response = await client.wallets.getWallet('id').asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: response, response: raw } = await client.tasks.getTask('id').withResponse();
+const { data: response, response: raw } = await client.wallets.getWallet('id').withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(response.id);
 ```
@@ -272,7 +272,7 @@ const client = new Paymanai({
 });
 
 // Override per-request:
-await client.tasks.getTask('id', {
+await client.wallets.getWallet('id', {
   httpAgent: new http.Agent({ keepAlive: false }),
 });
 ```
@@ -294,6 +294,15 @@ We are keen for your feedback; please open an [issue](https://www.github.com/Pay
 TypeScript >= 4.5 is supported.
 
 The following runtimes are supported:
+
+- Web browsers (Up-to-date Chrome, Firefox, Safari, Edge, and more)
+- Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
+- Deno v1.28.0 or higher.
+- Bun 1.0 or later.
+- Cloudflare Workers.
+- Vercel Edge Runtime.
+- Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
+- Nitro v2.6 or greater.
 
 Note that React Native is not supported at this time.
 

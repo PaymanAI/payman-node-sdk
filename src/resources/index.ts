@@ -1,22 +1,18 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { BalanceGetCustomerBalanceResponse, BalanceGetSpendableBalanceResponse, Balances } from './balances';
-export { Files } from './files';
 export {
-  PaymentInitiateCustomerDepositResponse,
-  PaymentInitiateCustomerDepositParams,
+  Balances,
+  type BalanceGetCustomerBalanceResponse,
+  type BalanceGetSpendableBalanceResponse,
+} from './balances';
+export {
   Payments,
+  type PaymentInitiateCustomerDepositResponse,
+  type PaymentSearchDestinationsResponse,
+  type PaymentSendPaymentResponse,
+  type PaymentInitiateCustomerDepositParams,
+  type PaymentSearchDestinationsParams,
+  type PaymentSendPaymentParams,
 } from './payments';
-export {
-  TaskCreateTaskResponse,
-  TaskGetCategoriesResponse,
-  TaskGetTaskResponse,
-  TaskListTasksResponse,
-  TaskUpdateTaskResponse,
-  TaskCreateTaskParams,
-  TaskListTasksParams,
-  TaskUpdateTaskParams,
-  Tasks,
-} from './tasks/tasks';
 export { Version } from './version';
-export { WalletGetWalletResponse, Wallets } from './wallets';
+export { Wallets, type WalletGetWalletResponse } from './wallets';

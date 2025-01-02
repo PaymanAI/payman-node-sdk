@@ -1,5 +1,41 @@
 # Changelog
 
+## 2.0.0 (2025-01-01)
+
+Full Changelog: [v1.2.1...v2.0.0](https://github.com/PaymanAI/payman-node-sdk/compare/v1.2.1...v2.0.0)
+
+### Features
+
+* **api:** update via SDK Studio ([#66](https://github.com/PaymanAI/payman-node-sdk/issues/66)) ([1377c44](https://github.com/PaymanAI/payman-node-sdk/commit/1377c44a0e2319a3901b0777c34905eacaf0f6a9))
+* **internal:** make git install file structure match npm ([#57](https://github.com/PaymanAI/payman-node-sdk/issues/57)) ([aa265cc](https://github.com/PaymanAI/payman-node-sdk/commit/aa265cc35a80de75da689802498f671d5a544ca9))
+
+
+### Bug Fixes
+
+* **client:** normalize method ([#64](https://github.com/PaymanAI/payman-node-sdk/issues/64)) ([7e41ac0](https://github.com/PaymanAI/payman-node-sdk/commit/7e41ac08a1cb41ae91e11cfd29898cb1b0802e4e))
+
+
+### Chores
+
+* **internal:** codegen related update ([#58](https://github.com/PaymanAI/payman-node-sdk/issues/58)) ([af82be6](https://github.com/PaymanAI/payman-node-sdk/commit/af82be644710362594db0d3a580e84ae1902f3b1))
+* **internal:** codegen related update ([#60](https://github.com/PaymanAI/payman-node-sdk/issues/60)) ([5f1082a](https://github.com/PaymanAI/payman-node-sdk/commit/5f1082a3f2e4f81418ee3e18194b75bd9c2650dc))
+* **internal:** codegen related update ([#62](https://github.com/PaymanAI/payman-node-sdk/issues/62)) ([27b845c](https://github.com/PaymanAI/payman-node-sdk/commit/27b845c751b24e3289d721083d11237aa8bce22d))
+* **internal:** codegen related update ([#63](https://github.com/PaymanAI/payman-node-sdk/issues/63)) ([c046798](https://github.com/PaymanAI/payman-node-sdk/commit/c046798a05baded5053c6e071123d6f648d959c7))
+* **internal:** fix some typos ([#61](https://github.com/PaymanAI/payman-node-sdk/issues/61)) ([8cc8953](https://github.com/PaymanAI/payman-node-sdk/commit/8cc895362ac383711ed28acd82a586fc8a35430d))
+* rebuild project due to codegen change ([#48](https://github.com/PaymanAI/payman-node-sdk/issues/48)) ([e36950b](https://github.com/PaymanAI/payman-node-sdk/commit/e36950b3d97c563440c1962b4d81d4a07d575d66))
+* rebuild project due to codegen change ([#50](https://github.com/PaymanAI/payman-node-sdk/issues/50)) ([d57ba6b](https://github.com/PaymanAI/payman-node-sdk/commit/d57ba6b0dd8ef2865d84b2b45482f200e84d112c))
+* rebuild project due to codegen change ([#51](https://github.com/PaymanAI/payman-node-sdk/issues/51)) ([1e0d2fd](https://github.com/PaymanAI/payman-node-sdk/commit/1e0d2fdd3b1696892fa25510c7e9812f12bb0ed0))
+* rebuild project due to codegen change ([#53](https://github.com/PaymanAI/payman-node-sdk/issues/53)) ([9e1892a](https://github.com/PaymanAI/payman-node-sdk/commit/9e1892aaaa4a9ee88371da89ae657fce1601af9f))
+* rebuild project due to codegen change ([#54](https://github.com/PaymanAI/payman-node-sdk/issues/54)) ([5e1ef23](https://github.com/PaymanAI/payman-node-sdk/commit/5e1ef231e38d8c563d1aa50d1bc425e88b52fbac))
+* remove redundant word in comment ([#56](https://github.com/PaymanAI/payman-node-sdk/issues/56)) ([520f102](https://github.com/PaymanAI/payman-node-sdk/commit/520f1028da218e3c83f8d7aee91cb84883c83895))
+* **types:** nicer error class types + jsdocs ([#59](https://github.com/PaymanAI/payman-node-sdk/issues/59)) ([28d1c15](https://github.com/PaymanAI/payman-node-sdk/commit/28d1c154bbc6a94b541038297874b3bf2ba07e79))
+
+
+### Documentation
+
+* minor formatting changes ([#65](https://github.com/PaymanAI/payman-node-sdk/issues/65)) ([a0510d0](https://github.com/PaymanAI/payman-node-sdk/commit/a0510d0944ffd6855465e33e17f027ae0f9b9dff))
+* remove suggestion to use `npm` call out ([#55](https://github.com/PaymanAI/payman-node-sdk/issues/55)) ([18cf617](https://github.com/PaymanAI/payman-node-sdk/commit/18cf6179c3173f4a1528c7b193dfac26a3fa7a48))
+
 ## 1.2.1 (2024-10-23)
 
 Full Changelog: [v1.2.0...v1.2.1](https://github.com/PaymanAI/payman-node-sdk/compare/v1.2.0...v1.2.1)

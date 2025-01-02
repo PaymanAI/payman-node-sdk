@@ -1,17 +1,32 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Errors from './error';
-import * as Uploads from './uploads';
 import { type Agent } from './_shims/index';
 import * as Core from './core';
+import * as Errors from './error';
+import * as Uploads from './uploads';
 import * as API from './resources/index';
+import {
+  BalanceGetCustomerBalanceResponse,
+  BalanceGetSpendableBalanceResponse,
+  Balances,
+} from './resources/balances';
+import {
+  PaymentInitiateCustomerDepositParams,
+  PaymentInitiateCustomerDepositResponse,
+  PaymentSearchDestinationsParams,
+  PaymentSearchDestinationsResponse,
+  PaymentSendPaymentParams,
+  PaymentSendPaymentResponse,
+  Payments,
+} from './resources/payments';
+import { Version } from './resources/version';
+import { WalletGetWalletResponse, Wallets } from './resources/wallets';
 
 const environments = {
   sandbox: 'https://agent-sandbox.payman.ai/api',
   production: 'https://agent.payman.ai/api',
 };
 type Environment = keyof typeof environments;
-
 export interface ClientOptions {
   /**
    * Defaults to process.env['PAYMAN_API_SECRET'].
@@ -142,10 +157,8 @@ export class Paymanai extends Core.APIClient {
     this.xPaymanAPISecret = xPaymanAPISecret;
   }
 
-  tasks: API.Tasks = new API.Tasks(this);
   wallets: API.Wallets = new API.Wallets(this);
   version: API.Version = new API.Version(this);
-  files: API.Files = new API.Files(this);
   balances: API.Balances = new API.Balances(this);
   payments: API.Payments = new API.Payments(this);
 
@@ -186,7 +199,36 @@ export class Paymanai extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-export const {
+Paymanai.Wallets = Wallets;
+Paymanai.Version = Version;
+Paymanai.Balances = Balances;
+Paymanai.Payments = Payments;
+export declare namespace Paymanai {
+  export type RequestOptions = Core.RequestOptions;
+
+  export { Wallets as Wallets, type WalletGetWalletResponse as WalletGetWalletResponse };
+
+  export { Version as Version };
+
+  export {
+    Balances as Balances,
+    type BalanceGetCustomerBalanceResponse as BalanceGetCustomerBalanceResponse,
+    type BalanceGetSpendableBalanceResponse as BalanceGetSpendableBalanceResponse,
+  };
+
+  export {
+    Payments as Payments,
+    type PaymentInitiateCustomerDepositResponse as PaymentInitiateCustomerDepositResponse,
+    type PaymentSearchDestinationsResponse as PaymentSearchDestinationsResponse,
+    type PaymentSendPaymentResponse as PaymentSendPaymentResponse,
+    type PaymentInitiateCustomerDepositParams as PaymentInitiateCustomerDepositParams,
+    type PaymentSearchDestinationsParams as PaymentSearchDestinationsParams,
+    type PaymentSendPaymentParams as PaymentSendPaymentParams,
+  };
+}
+
+export { toFile, fileFromPath } from './uploads';
+export {
   PaymanaiError,
   APIError,
   APIConnectionError,
@@ -200,38 +242,6 @@ export const {
   InternalServerError,
   PermissionDeniedError,
   UnprocessableEntityError,
-} = Errors;
-
-export import toFile = Uploads.toFile;
-export import fileFromPath = Uploads.fileFromPath;
-
-export namespace Paymanai {
-  export import RequestOptions = Core.RequestOptions;
-
-  export import Tasks = API.Tasks;
-  export import TaskCreateTaskResponse = API.TaskCreateTaskResponse;
-  export import TaskGetCategoriesResponse = API.TaskGetCategoriesResponse;
-  export import TaskGetTaskResponse = API.TaskGetTaskResponse;
-  export import TaskListTasksResponse = API.TaskListTasksResponse;
-  export import TaskUpdateTaskResponse = API.TaskUpdateTaskResponse;
-  export import TaskCreateTaskParams = API.TaskCreateTaskParams;
-  export import TaskListTasksParams = API.TaskListTasksParams;
-  export import TaskUpdateTaskParams = API.TaskUpdateTaskParams;
-
-  export import Wallets = API.Wallets;
-  export import WalletGetWalletResponse = API.WalletGetWalletResponse;
-
-  export import Version = API.Version;
-
-  export import Files = API.Files;
-
-  export import Balances = API.Balances;
-  export import BalanceGetCustomerBalanceResponse = API.BalanceGetCustomerBalanceResponse;
-  export import BalanceGetSpendableBalanceResponse = API.BalanceGetSpendableBalanceResponse;
-
-  export import Payments = API.Payments;
-  export import PaymentInitiateCustomerDepositResponse = API.PaymentInitiateCustomerDepositResponse;
-  export import PaymentInitiateCustomerDepositParams = API.PaymentInitiateCustomerDepositParams;
-}
+} from './error';
 
 export default Paymanai;

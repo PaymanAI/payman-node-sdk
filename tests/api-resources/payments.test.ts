@@ -27,11 +27,86 @@ describe('resource payments', () => {
     const response = await client.payments.initiateCustomerDeposit({
       amountDecimal: 0,
       customerId: 'customerId',
-      currencyCode: 'currencyCode',
-      email: 'email',
+      customerEmail: 'customerEmail',
+      customerName: 'customerName',
       feeMode: 'INCLUDED_IN_AMOUNT',
-      metadata: { foo: 'string' },
-      name: 'name',
+      memo: 'memo',
+      metadata: { foo: 'bar' },
+      walletId: 'walletId',
+    });
+  });
+
+  test('searchDestinations', async () => {
+    const responsePromise = client.payments.searchDestinations();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('searchDestinations: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(client.payments.searchDestinations({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Paymanai.NotFoundError,
+    );
+  });
+
+  test('searchDestinations: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.payments.searchDestinations(
+        {
+          accountNumber: 'accountNumber',
+          contactEmail: 'contactEmail',
+          contactPhoneNumber: 'contactPhoneNumber',
+          contactTaxId: 'contactTaxId',
+          name: 'name',
+          routingNumber: 'routingNumber',
+          type: 'type',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Paymanai.NotFoundError);
+  });
+
+  test('sendPayment: only required params', async () => {
+    const responsePromise = client.payments.sendPayment({ amountDecimal: 0 });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('sendPayment: required and optional params', async () => {
+    const response = await client.payments.sendPayment({
+      amountDecimal: 0,
+      customerEmail: 'customerEmail',
+      customerId: 'customerId',
+      customerName: 'customerName',
+      ignoreCustomerSpendLimits: true,
+      memo: 'memo',
+      metadata: { foo: 'bar' },
+      paymentDestination: {
+        type: 'CRYPTO_ADDRESS',
+        address: 'address',
+        contactDetails: {
+          address: 'address',
+          contactType: 'individual',
+          email: 'email',
+          phoneNumber: 'phoneNumber',
+          taxId: 'taxId',
+        },
+        currency: 'currency',
+        name: 'name',
+        tags: ['string'],
+      },
+      paymentDestinationId: 'paymentDestinationId',
       walletId: 'walletId',
     });
   });
