@@ -27,6 +27,7 @@ const environments = {
   production: 'https://agent.payman.ai/api',
 };
 type Environment = keyof typeof environments;
+
 export interface ClientOptions {
   /**
    * Defaults to process.env['PAYMAN_API_SECRET'].
