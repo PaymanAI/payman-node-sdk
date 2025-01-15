@@ -11,6 +11,8 @@ import {
   Balances,
 } from './resources/balances';
 import {
+  PaymentCreatePayeeParams,
+  PaymentCreatePayeeResponse,
   PaymentInitiateCustomerDepositParams,
   PaymentInitiateCustomerDepositResponse,
   PaymentSearchPayeesParams,
@@ -219,9 +221,11 @@ export declare namespace Paymanai {
 
   export {
     Payments as Payments,
+    type PaymentCreatePayeeResponse as PaymentCreatePayeeResponse,
     type PaymentInitiateCustomerDepositResponse as PaymentInitiateCustomerDepositResponse,
     type PaymentSearchPayeesResponse as PaymentSearchPayeesResponse,
     type PaymentSendPaymentResponse as PaymentSendPaymentResponse,
+    type PaymentCreatePayeeParams as PaymentCreatePayeeParams,
     type PaymentInitiateCustomerDepositParams as PaymentInitiateCustomerDepositParams,
     type PaymentSearchPayeesParams as PaymentSearchPayeesParams,
     type PaymentSendPaymentParams as PaymentSendPaymentParams,
