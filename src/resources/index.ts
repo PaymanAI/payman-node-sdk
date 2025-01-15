@@ -8,10 +8,10 @@ export {
 export {
   Payments,
   type PaymentInitiateCustomerDepositResponse,
-  type PaymentSearchDestinationsResponse,
+  type PaymentSearchPayeesResponse,
   type PaymentSendPaymentResponse,
   type PaymentInitiateCustomerDepositParams,
-  type PaymentSearchDestinationsParams,
+  type PaymentSearchPayeesParams,
   type PaymentSendPaymentParams,
 } from './payments';
 export { Version } from './version';

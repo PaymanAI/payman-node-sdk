@@ -31,11 +31,11 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/payments.ts">PaymentInitiateCustomerDepositResponse</a></code>
-- <code><a href="./src/resources/payments.ts">PaymentSearchDestinationsResponse</a></code>
+- <code><a href="./src/resources/payments.ts">PaymentSearchPayeesResponse</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentSendPaymentResponse</a></code>
 
 Methods:
 
 - <code title="post /payments/customer-deposit-link">client.payments.<a href="./src/resources/payments.ts">initiateCustomerDeposit</a>({ ...params }) -> PaymentInitiateCustomerDepositResponse</code>
-- <code title="get /payments/search-destinations">client.payments.<a href="./src/resources/payments.ts">searchDestinations</a>({ ...params }) -> PaymentSearchDestinationsResponse</code>
+- <code title="get /payments/search-destinations">client.payments.<a href="./src/resources/payments.ts">searchPayees</a>({ ...params }) -> PaymentSearchPayeesResponse</code>
 - <code title="post /payments/send-payment">client.payments.<a href="./src/resources/payments.ts">sendPayment</a>({ ...params }) -> PaymentSendPaymentResponse</code>

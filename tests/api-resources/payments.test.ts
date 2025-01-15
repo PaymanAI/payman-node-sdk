@@ -36,8 +36,8 @@ describe('resource payments', () => {
     });
   });
 
-  test('searchDestinations', async () => {
-    const responsePromise = client.payments.searchDestinations();
+  test('searchPayees', async () => {
+    const responsePromise = client.payments.searchPayees();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -47,17 +47,17 @@ describe('resource payments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('searchDestinations: request options instead of params are passed correctly', async () => {
+  test('searchPayees: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.payments.searchDestinations({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.payments.searchPayees({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Paymanai.NotFoundError,
     );
   });
 
-  test('searchDestinations: request options and params are passed correctly', async () => {
+  test('searchPayees: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.payments.searchDestinations(
+      client.payments.searchPayees(
         {
           accountNumber: 'accountNumber',
           contactEmail: 'contactEmail',

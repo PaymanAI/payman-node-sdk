@@ -24,17 +24,17 @@ export class Payments extends APIResource {
    * confirmation from the user is required to verify the correct payment destination
    * is selected.
    */
-  searchDestinations(
-    query?: PaymentSearchDestinationsParams,
+  searchPayees(
+    query?: PaymentSearchPayeesParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<PaymentSearchDestinationsResponse>;
-  searchDestinations(options?: Core.RequestOptions): Core.APIPromise<PaymentSearchDestinationsResponse>;
-  searchDestinations(
-    query: PaymentSearchDestinationsParams | Core.RequestOptions = {},
+  ): Core.APIPromise<PaymentSearchPayeesResponse>;
+  searchPayees(options?: Core.RequestOptions): Core.APIPromise<PaymentSearchPayeesResponse>;
+  searchPayees(
+    query: PaymentSearchPayeesParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<PaymentSearchDestinationsResponse> {
+  ): Core.APIPromise<PaymentSearchPayeesResponse> {
     if (isRequestOptions(query)) {
-      return this.searchDestinations({}, query);
+      return this.searchPayees({}, query);
     }
     return this._client.get('/payments/search-destinations', { query, ...options });
   }
@@ -57,11 +57,10 @@ export interface PaymentInitiateCustomerDepositResponse {
   checkoutUrl: string;
 }
 
-export type PaymentSearchDestinationsResponse =
-  Array<PaymentSearchDestinationsResponse.PaymentSearchDestinationsResponseItem>;
+export type PaymentSearchPayeesResponse = Array<PaymentSearchPayeesResponse.PaymentSearchPayeesResponseItem>;
 
-export namespace PaymentSearchDestinationsResponse {
-  export interface PaymentSearchDestinationsResponseItem {
+export namespace PaymentSearchPayeesResponse {
+  export interface PaymentSearchPayeesResponseItem {
     /**
      * The user-assigned name of the payment destination
      */
@@ -79,7 +78,7 @@ export namespace PaymentSearchDestinationsResponse {
     /**
      * Contact details for this payment destination
      */
-    contactDetails?: PaymentSearchDestinationsResponseItem.ContactDetails;
+    contactDetails?: PaymentSearchPayeesResponseItem.ContactDetails;
 
     createdAt?: string;
 
@@ -111,7 +110,7 @@ export namespace PaymentSearchDestinationsResponse {
     updatedBy?: string;
   }
 
-  export namespace PaymentSearchDestinationsResponseItem {
+  export namespace PaymentSearchPayeesResponseItem {
     /**
      * Contact details for this payment destination
      */
@@ -203,7 +202,7 @@ export interface PaymentInitiateCustomerDepositParams {
   walletId?: string;
 }
 
-export interface PaymentSearchDestinationsParams {
+export interface PaymentSearchPayeesParams {
   /**
    * The US Bank account number to search for.
    */
@@ -450,10 +449,10 @@ export namespace PaymentSendPaymentParams {
 export declare namespace Payments {
   export {
     type PaymentInitiateCustomerDepositResponse as PaymentInitiateCustomerDepositResponse,
-    type PaymentSearchDestinationsResponse as PaymentSearchDestinationsResponse,
+    type PaymentSearchPayeesResponse as PaymentSearchPayeesResponse,
     type PaymentSendPaymentResponse as PaymentSendPaymentResponse,
     type PaymentInitiateCustomerDepositParams as PaymentInitiateCustomerDepositParams,
-    type PaymentSearchDestinationsParams as PaymentSearchDestinationsParams,
+    type PaymentSearchPayeesParams as PaymentSearchPayeesParams,
     type PaymentSendPaymentParams as PaymentSendPaymentParams,
   };
 }
