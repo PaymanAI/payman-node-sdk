@@ -13,8 +13,8 @@ import {
 import {
   PaymentInitiateCustomerDepositParams,
   PaymentInitiateCustomerDepositResponse,
-  PaymentSearchDestinationsParams,
-  PaymentSearchDestinationsResponse,
+  PaymentSearchPayeesParams,
+  PaymentSearchPayeesResponse,
   PaymentSendPaymentParams,
   PaymentSendPaymentResponse,
   Payments,
@@ -220,10 +220,10 @@ export declare namespace Paymanai {
   export {
     Payments as Payments,
     type PaymentInitiateCustomerDepositResponse as PaymentInitiateCustomerDepositResponse,
-    type PaymentSearchDestinationsResponse as PaymentSearchDestinationsResponse,
+    type PaymentSearchPayeesResponse as PaymentSearchPayeesResponse,
     type PaymentSendPaymentResponse as PaymentSendPaymentResponse,
     type PaymentInitiateCustomerDepositParams as PaymentInitiateCustomerDepositParams,
-    type PaymentSearchDestinationsParams as PaymentSearchDestinationsParams,
+    type PaymentSearchPayeesParams as PaymentSearchPayeesParams,
     type PaymentSendPaymentParams as PaymentSendPaymentParams,
   };
 }
