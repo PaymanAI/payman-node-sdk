@@ -9,6 +9,34 @@ const client = new Paymanai({
 });
 
 describe('resource payments', () => {
+  test('createPayee: only required params', async () => {
+    const responsePromise = client.payments.createPayee({ type: 'CRYPTO_ADDRESS' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('createPayee: required and optional params', async () => {
+    const response = await client.payments.createPayee({
+      type: 'CRYPTO_ADDRESS',
+      address: 'address',
+      contactDetails: {
+        address: 'address',
+        contactType: 'individual',
+        email: 'email',
+        phoneNumber: 'phoneNumber',
+        taxId: 'taxId',
+      },
+      currency: 'currency',
+      name: 'name',
+      tags: ['string'],
+    });
+  });
+
   test('initiateCustomerDeposit: only required params', async () => {
     const responsePromise = client.payments.initiateCustomerDeposit({
       amountDecimal: 0,
