@@ -28,7 +28,7 @@ const client = new Paymanai({
 });
 
 async function main() {
-  const response = await client.payments.sendPayment({ amountDecimal: 0 });
+  const response = await client.payments.sendPayment({ amountDecimal: 10, paymentDestinationId: 'pd-1234' });
 
   console.log(response.reference);
 }
