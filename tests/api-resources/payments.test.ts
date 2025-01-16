@@ -10,7 +10,12 @@ const client = new Paymanai({
 
 describe('resource payments', () => {
   test('createPayee: only required params', async () => {
-    const responsePromise = client.payments.createPayee({ type: 'CRYPTO_ADDRESS' });
+    const responsePromise = client.payments.createPayee({
+      type: 'CRYPTO_ADDRESS',
+      address: 'address',
+      currency: 'currency',
+      name: 'name',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
