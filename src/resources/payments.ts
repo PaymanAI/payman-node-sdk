@@ -6,6 +6,16 @@ import * as Core from '../core';
 
 export class Payments extends APIResource {
   /**
+   * Sends funds from an agent controlled wallet to a payment destination.
+   */
+  createPayee(
+    body: PaymentCreatePayeeParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<PaymentCreatePayeeResponse> {
+    return this._client.post('/payments/destinations', { body, ...options });
+  }
+
+  /**
    * Initiates the creation of a checkout link, through which the customer can add
    * funds to the agent's wallet. For example this could be used to have your
    * customer pay for some activity the agent is going to undertake on their behalf.
@@ -20,9 +30,8 @@ export class Payments extends APIResource {
   }
 
   /**
-   * Searches existing payment destinations for potential matches. Additional
-   * confirmation from the user is required to verify the correct payment destination
-   * is selected.
+   * Searches existing payee for potential matches. Additional confirmation from the
+   * user is required to verify the correct payment destination is selected.
    */
   searchDestinations(
     query?: PaymentSearchDestinationsParams,
@@ -47,6 +56,88 @@ export class Payments extends APIResource {
     options?: Core.RequestOptions,
   ): Core.APIPromise<PaymentSendPaymentResponse> {
     return this._client.post('/payments/send-payment', { body, ...options });
+  }
+}
+
+export interface PaymentCreatePayeeResponse {
+  /**
+   * The user-assigned name of the payment destination
+   */
+  name: string;
+
+  organizationId: string;
+
+  /**
+   * The type of payment destination
+   */
+  type: 'US_ACH' | 'CRYPTO_ADDRESS';
+
+  id?: string;
+
+  /**
+   * Contact details for this payment destination
+   */
+  contactDetails?: PaymentCreatePayeeResponse.ContactDetails;
+
+  createdAt?: string;
+
+  createdBy?: string;
+
+  destinationDetails?: Record<string, unknown>;
+
+  providerInfo?: Record<string, unknown>;
+
+  /**
+   * The ID of the payment method this entity replaces
+   */
+  replacesId?: string;
+
+  searchHashes?: Record<string, unknown>;
+
+  /**
+   * The status of the payment destination
+   */
+  status?: 'ACTIVE' | 'ARCHIVED' | 'DELETED';
+
+  /**
+   * Tags to help categorize the payment destination
+   */
+  tags?: Array<string>;
+
+  updatedAt?: string;
+
+  updatedBy?: string;
+}
+
+export namespace PaymentCreatePayeeResponse {
+  /**
+   * Contact details for this payment destination
+   */
+  export interface ContactDetails {
+    /**
+     * The address string of the payment destination contact
+     */
+    address?: string;
+
+    /**
+     * The type of the payment destination contact
+     */
+    contactType?: 'individual' | 'business';
+
+    /**
+     * The email address of the payment destination contact
+     */
+    email?: string;
+
+    /**
+     * The phone number of the payment destination contact
+     */
+    phoneNumber?: string;
+
+    /**
+     * The tax identification of the payment destination contact
+     */
+    taxId?: string;
   }
 }
 
@@ -155,6 +246,150 @@ export interface PaymentSendPaymentResponse {
    * transaction hash)
    */
   externalReference?: string;
+}
+
+export type PaymentCreatePayeeParams =
+  | PaymentCreatePayeeParams.CryptoAddressPaymentDestinationDescriptor
+  | PaymentCreatePayeeParams.UsachPaymentDestinationDescriptor;
+
+export declare namespace PaymentCreatePayeeParams {
+  export interface CryptoAddressPaymentDestinationDescriptor {
+    /**
+     * The type of payment destination
+     */
+    type: 'CRYPTO_ADDRESS';
+
+    /**
+     * The cryptocurrency address to send funds to
+     */
+    address?: string;
+
+    /**
+     * Contact details for this payment destination
+     */
+    contactDetails?: PaymentCreatePayeeParams.CryptoAddressPaymentDestinationDescriptor.ContactDetails;
+
+    /**
+     * The the blockchain to use for the transaction
+     */
+    currency?: string;
+
+    /**
+     * The name you wish to associate with this payment destination for future lookups.
+     */
+    name?: string;
+
+    /**
+     * Any additional labels you wish to assign to this payment destination
+     */
+    tags?: Array<string>;
+  }
+
+  export namespace CryptoAddressPaymentDestinationDescriptor {
+    /**
+     * Contact details for this payment destination
+     */
+    export interface ContactDetails {
+      /**
+       * The address string of the payment destination contact
+       */
+      address?: string;
+
+      /**
+       * The type of the payment destination contact
+       */
+      contactType?: 'individual' | 'business';
+
+      /**
+       * The email address of the payment destination contact
+       */
+      email?: string;
+
+      /**
+       * The phone number of the payment destination contact
+       */
+      phoneNumber?: string;
+
+      /**
+       * The tax identification of the payment destination contact
+       */
+      taxId?: string;
+    }
+  }
+
+  export interface UsachPaymentDestinationDescriptor {
+    /**
+     * The type of payment destination
+     */
+    type: 'US_ACH';
+
+    /**
+     * The name of the account holder
+     */
+    accountHolderName?: string;
+
+    /**
+     * The bank account number for the account
+     */
+    accountNumber?: string;
+
+    /**
+     * The type of account it is (checking or savings)
+     */
+    accountType?: string;
+
+    /**
+     * Contact details for this payment destination
+     */
+    contactDetails?: PaymentCreatePayeeParams.UsachPaymentDestinationDescriptor.ContactDetails;
+
+    /**
+     * The name you wish to associate with this payment destination for future lookups.
+     */
+    name?: string;
+
+    /**
+     * The routing number of the bank
+     */
+    routingNumber?: string;
+
+    /**
+     * Any additional labels you wish to assign to this payment destination
+     */
+    tags?: Array<string>;
+  }
+
+  export namespace UsachPaymentDestinationDescriptor {
+    /**
+     * Contact details for this payment destination
+     */
+    export interface ContactDetails {
+      /**
+       * The address string of the payment destination contact
+       */
+      address?: string;
+
+      /**
+       * The type of the payment destination contact
+       */
+      contactType?: 'individual' | 'business';
+
+      /**
+       * The email address of the payment destination contact
+       */
+      email?: string;
+
+      /**
+       * The phone number of the payment destination contact
+       */
+      phoneNumber?: string;
+
+      /**
+       * The tax identification of the payment destination contact
+       */
+      taxId?: string;
+    }
+  }
 }
 
 export interface PaymentInitiateCustomerDepositParams {
@@ -449,9 +684,11 @@ export namespace PaymentSendPaymentParams {
 
 export declare namespace Payments {
   export {
+    type PaymentCreatePayeeResponse as PaymentCreatePayeeResponse,
     type PaymentInitiateCustomerDepositResponse as PaymentInitiateCustomerDepositResponse,
     type PaymentSearchDestinationsResponse as PaymentSearchDestinationsResponse,
     type PaymentSendPaymentResponse as PaymentSendPaymentResponse,
+    type PaymentCreatePayeeParams as PaymentCreatePayeeParams,
     type PaymentInitiateCustomerDepositParams as PaymentInitiateCustomerDepositParams,
     type PaymentSearchDestinationsParams as PaymentSearchDestinationsParams,
     type PaymentSendPaymentParams as PaymentSendPaymentParams,

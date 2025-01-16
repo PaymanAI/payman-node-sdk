@@ -7,9 +7,11 @@ export {
 } from './balances';
 export {
   Payments,
+  type PaymentCreatePayeeResponse,
   type PaymentInitiateCustomerDepositResponse,
   type PaymentSearchDestinationsResponse,
   type PaymentSendPaymentResponse,
+  type PaymentCreatePayeeParams,
   type PaymentInitiateCustomerDepositParams,
   type PaymentSearchDestinationsParams,
   type PaymentSendPaymentParams,
