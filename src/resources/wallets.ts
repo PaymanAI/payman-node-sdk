@@ -8,7 +8,10 @@ export class Wallets extends APIResource {
    * Get a wallet by ID
    */
   getWallet(id: string, options?: Core.RequestOptions): Core.APIPromise<WalletGetWalletResponse> {
-    return this._client.get(`/wallets/${id}`, options);
+    return this._client.get(`/wallets/${id}`, {
+      ...options,
+      headers: { Accept: 'application/vnd.payman.v1+json', ...options?.headers },
+    });
   }
 }
 
