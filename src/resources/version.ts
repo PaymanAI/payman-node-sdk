@@ -6,6 +6,10 @@ import { type Response } from '../_shims/index';
 
 export class Version extends APIResource {
   getServerVersion(options?: Core.RequestOptions): Core.APIPromise<Response> {
-    return this._client.get('/version', { ...options, __binaryResponse: true });
+    return this._client.get('/version', {
+      ...options,
+      headers: { Accept: '*/*', ...options?.headers },
+      __binaryResponse: true,
+    });
   }
 }

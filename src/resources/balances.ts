@@ -17,7 +17,10 @@ export class Balances extends APIResource {
     currency: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<BalanceGetCustomerBalanceResponse> {
-    return this._client.get(`/balances/customers/${customerId}/currencies/${currency}`, options);
+    return this._client.get(`/balances/customers/${customerId}/currencies/${currency}`, {
+      ...options,
+      headers: { Accept: 'application/vnd.payman.v1+json', ...options?.headers },
+    });
   }
 
   /**
@@ -30,7 +33,10 @@ export class Balances extends APIResource {
     currency: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<BalanceGetSpendableBalanceResponse> {
-    return this._client.get(`/balances/currencies/${currency}`, options);
+    return this._client.get(`/balances/currencies/${currency}`, {
+      ...options,
+      headers: { Accept: 'application/vnd.payman.v1+json', ...options?.headers },
+    });
   }
 }
 
