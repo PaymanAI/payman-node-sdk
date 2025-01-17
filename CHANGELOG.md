@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.1 (2025-01-17)
+
+Full Changelog: [v2.1.0...v2.1.1](https://github.com/PaymanAI/payman-node-sdk/compare/v2.1.0...v2.1.1)
+
+### Chores
+
+* **internal:** codegen related update ([#82](https://github.com/PaymanAI/payman-node-sdk/issues/82)) ([a196d94](https://github.com/PaymanAI/payman-node-sdk/commit/a196d942773e1288b8a1955b1c530e4d932961bb))
+
 ## 2.1.0 (2025-01-15)
 
 Full Changelog: [v2.0.1...v2.1.0](https://github.com/PaymanAI/payman-node-sdk/compare/v2.0.1...v2.1.0)
