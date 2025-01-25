@@ -12,7 +12,11 @@ export class Payments extends APIResource {
     body: PaymentCreatePayeeParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<PaymentCreatePayeeResponse> {
-    return this._client.post('/payments/destinations', { body, ...options });
+    return this._client.post('/payments/destinations', {
+      body,
+      ...options,
+      headers: { Accept: 'application/vnd.payman.v1+json', ...options?.headers },
+    });
   }
 
   /**
@@ -26,7 +30,11 @@ export class Payments extends APIResource {
     body: PaymentInitiateCustomerDepositParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<PaymentInitiateCustomerDepositResponse> {
-    return this._client.post('/payments/customer-deposit-link', { body, ...options });
+    return this._client.post('/payments/customer-deposit-link', {
+      body,
+      ...options,
+      headers: { Accept: 'application/vnd.payman.v1+json', ...options?.headers },
+    });
   }
 
   /**
@@ -45,7 +53,11 @@ export class Payments extends APIResource {
     if (isRequestOptions(query)) {
       return this.searchDestinations({}, query);
     }
-    return this._client.get('/payments/search-destinations', { query, ...options });
+    return this._client.get('/payments/search-destinations', {
+      query,
+      ...options,
+      headers: { Accept: 'application/vnd.payman.v1+json', ...options?.headers },
+    });
   }
 
   /**
@@ -55,7 +67,11 @@ export class Payments extends APIResource {
     body: PaymentSendPaymentParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<PaymentSendPaymentResponse> {
-    return this._client.post('/payments/send-payment', { body, ...options });
+    return this._client.post('/payments/send-payment', {
+      body,
+      ...options,
+      headers: { Accept: 'application/vnd.payman.v1+json', ...options?.headers },
+    });
   }
 }
 
