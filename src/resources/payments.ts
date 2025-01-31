@@ -6,7 +6,7 @@ import * as Core from '../core';
 
 export class Payments extends APIResource {
   /**
-   * Sends funds from an agent controlled wallet to a payment destination.
+   * Create a new payee (aka payment destination) for future payments to be sent to
    */
   createPayee(
     body: PaymentCreatePayeeParams,
@@ -86,7 +86,7 @@ export interface PaymentCreatePayeeResponse {
   /**
    * The type of payment destination
    */
-  type: 'US_ACH' | 'CRYPTO_ADDRESS';
+  type: 'US_ACH' | 'CRYPTO_ADDRESS' | 'PAYMAN_AGENT';
 
   id?: string;
 
@@ -98,6 +98,11 @@ export interface PaymentCreatePayeeResponse {
   createdAt?: string;
 
   createdBy?: string;
+
+  /**
+   * The ID of the customer this payment destination is associated with
+   */
+  customerId?: string;
 
   destinationDetails?: Record<string, unknown>;
 
@@ -134,11 +139,6 @@ export namespace PaymentCreatePayeeResponse {
      * The address string of the payment destination contact
      */
     address?: string;
-
-    /**
-     * The type of the payment destination contact
-     */
-    contactType?: 'individual' | 'business';
 
     /**
      * The email address of the payment destination contact
@@ -178,7 +178,7 @@ export namespace PaymentSearchPayeesResponse {
     /**
      * The type of payment destination
      */
-    type: 'US_ACH' | 'CRYPTO_ADDRESS';
+    type: 'US_ACH' | 'CRYPTO_ADDRESS' | 'PAYMAN_AGENT';
 
     id?: string;
 
@@ -190,6 +190,11 @@ export namespace PaymentSearchPayeesResponse {
     createdAt?: string;
 
     createdBy?: string;
+
+    /**
+     * The ID of the customer this payment destination is associated with
+     */
+    customerId?: string;
 
     destinationDetails?: Record<string, unknown>;
 
@@ -228,11 +233,6 @@ export namespace PaymentSearchPayeesResponse {
       address?: string;
 
       /**
-       * The type of the payment destination contact
-       */
-      contactType?: 'individual' | 'business';
-
-      /**
        * The email address of the payment destination contact
        */
       email?: string;
@@ -265,6 +265,7 @@ export interface PaymentSendPaymentResponse {
 
 export type PaymentCreatePayeeParams =
   | PaymentCreatePayeeParams.CryptoAddressPaymentDestinationDescriptor
+  | PaymentCreatePayeeParams.PaymanAgentPaymentDestinationDescriptor
   | PaymentCreatePayeeParams.UsachPaymentDestinationDescriptor;
 
 export declare namespace PaymentCreatePayeeParams {
@@ -290,6 +291,12 @@ export declare namespace PaymentCreatePayeeParams {
     currency?: string;
 
     /**
+     * The ID of your customer who owns this payment destination. This is optional
+     * unless you are using the Account API, in which case it is required.
+     */
+    customerId?: string;
+
+    /**
      * The name you wish to associate with this payment destination for future lookups.
      */
     name?: string;
@@ -311,9 +318,58 @@ export declare namespace PaymentCreatePayeeParams {
       address?: string;
 
       /**
-       * The type of the payment destination contact
+       * The email address of the payment destination contact
        */
-      contactType?: 'individual' | 'business';
+      email?: string;
+
+      /**
+       * The phone number of the payment destination contact
+       */
+      phoneNumber?: string;
+
+      /**
+       * The tax identification of the payment destination contact
+       */
+      taxId?: string;
+    }
+  }
+
+  export interface PaymanAgentPaymentDestinationDescriptor {
+    /**
+     * The type of payment destination
+     */
+    type: 'PAYMAN_AGENT';
+
+    /**
+     * Contact details for this payment destination
+     */
+    contactDetails?: PaymentCreatePayeeParams.PaymanAgentPaymentDestinationDescriptor.ContactDetails;
+
+    /**
+     * The name you wish to associate with this payment destination for future lookups.
+     */
+    name?: string;
+
+    /**
+     * The Payman unique id assigned to the receiver agent
+     */
+    paymanAgentId?: string;
+
+    /**
+     * Any additional labels you wish to assign to this payment destination
+     */
+    tags?: Array<string>;
+  }
+
+  export namespace PaymanAgentPaymentDestinationDescriptor {
+    /**
+     * Contact details for this payment destination
+     */
+    export interface ContactDetails {
+      /**
+       * The address string of the payment destination contact
+       */
+      address?: string;
 
       /**
        * The email address of the payment destination contact
@@ -344,6 +400,11 @@ export declare namespace PaymentCreatePayeeParams {
     accountHolderName?: string;
 
     /**
+     * The type of the account holder
+     */
+    accountHolderType?: 'individual' | 'business';
+
+    /**
      * The bank account number for the account
      */
     accountNumber?: string;
@@ -357,6 +418,12 @@ export declare namespace PaymentCreatePayeeParams {
      * Contact details for this payment destination
      */
     contactDetails?: PaymentCreatePayeeParams.UsachPaymentDestinationDescriptor.ContactDetails;
+
+    /**
+     * The ID of your customer who owns this payment destination. This is optional
+     * unless you are using the Account API, in which case it is required.
+     */
+    customerId?: string;
 
     /**
      * The name you wish to associate with this payment destination for future lookups.
@@ -383,11 +450,6 @@ export declare namespace PaymentCreatePayeeParams {
        * The address string of the payment destination contact
        */
       address?: string;
-
-      /**
-       * The type of the payment destination contact
-       */
-      contactType?: 'individual' | 'business';
 
       /**
        * The email address of the payment destination contact
@@ -475,6 +537,13 @@ export interface PaymentSearchPayeesParams {
   contactTaxId?: string;
 
   /**
+   * The ID of the customer who owns the payment destination. If the Account API is
+   * enabled, this is required to prevent unauthorized access to payment
+   * destinations.
+   */
+  customerId?: string;
+
+  /**
    * The name of the payment destination to search for. This can be a partial,
    * case-insensitive match.
    */
@@ -507,7 +576,9 @@ export interface PaymentSendPaymentParams {
    * The ID of the customer on whose behalf you're transferring funds. This can be
    * any unique ID as held within your system. Providing this will limit the
    * spendableamounts to what the customer has already deposited (unless
-   * ignoreCustomerSpendLimits is set to true).
+   * ignoreCustomerSpendLimits is set to true).Note that if the Account API is
+   * enabled for your account, this field becomes mandatory to preventaccidental
+   * unauthorized transfers.
    */
   customerId?: string;
 
@@ -518,7 +589,8 @@ export interface PaymentSendPaymentParams {
 
   /**
    * By default Payman will limit spending on behalf of a customer to the amount they
-   * have deposited. If you wish to ignore this limit, set this to true.
+   * have deposited. If you wish to ignore this limit, set this to true. Note, if the
+   * Account API is enabled for your account, this field may not be used.
    */
   ignoreCustomerSpendLimits?: boolean;
 
@@ -534,6 +606,7 @@ export interface PaymentSendPaymentParams {
    */
   paymentDestination?:
     | PaymentSendPaymentParams.CryptoAddressPaymentDestinationDescriptor
+    | PaymentSendPaymentParams.PaymanAgentPaymentDestinationDescriptor
     | PaymentSendPaymentParams.UsachPaymentDestinationDescriptor;
 
   /**
@@ -577,6 +650,12 @@ export namespace PaymentSendPaymentParams {
     currency?: string;
 
     /**
+     * The ID of your customer who owns this payment destination. This is optional
+     * unless you are using the Account API, in which case it is required.
+     */
+    customerId?: string;
+
+    /**
      * The name you wish to associate with this payment destination for future lookups.
      */
     name?: string;
@@ -598,9 +677,61 @@ export namespace PaymentSendPaymentParams {
       address?: string;
 
       /**
-       * The type of the payment destination contact
+       * The email address of the payment destination contact
        */
-      contactType?: 'individual' | 'business';
+      email?: string;
+
+      /**
+       * The phone number of the payment destination contact
+       */
+      phoneNumber?: string;
+
+      /**
+       * The tax identification of the payment destination contact
+       */
+      taxId?: string;
+    }
+  }
+
+  /**
+   * A Payman Agent payment destination
+   */
+  export interface PaymanAgentPaymentDestinationDescriptor {
+    /**
+     * The type of payment destination
+     */
+    type: 'PAYMAN_AGENT';
+
+    /**
+     * Contact details for this payment destination
+     */
+    contactDetails?: PaymanAgentPaymentDestinationDescriptor.ContactDetails;
+
+    /**
+     * The name you wish to associate with this payment destination for future lookups.
+     */
+    name?: string;
+
+    /**
+     * The Payman unique id assigned to the receiver agent
+     */
+    paymanAgentId?: string;
+
+    /**
+     * Any additional labels you wish to assign to this payment destination
+     */
+    tags?: Array<string>;
+  }
+
+  export namespace PaymanAgentPaymentDestinationDescriptor {
+    /**
+     * Contact details for this payment destination
+     */
+    export interface ContactDetails {
+      /**
+       * The address string of the payment destination contact
+       */
+      address?: string;
 
       /**
        * The email address of the payment destination contact
@@ -634,6 +765,11 @@ export namespace PaymentSendPaymentParams {
     accountHolderName?: string;
 
     /**
+     * The type of the account holder
+     */
+    accountHolderType?: 'individual' | 'business';
+
+    /**
      * The bank account number for the account
      */
     accountNumber?: string;
@@ -647,6 +783,12 @@ export namespace PaymentSendPaymentParams {
      * Contact details for this payment destination
      */
     contactDetails?: UsachPaymentDestinationDescriptor.ContactDetails;
+
+    /**
+     * The ID of your customer who owns this payment destination. This is optional
+     * unless you are using the Account API, in which case it is required.
+     */
+    customerId?: string;
 
     /**
      * The name you wish to associate with this payment destination for future lookups.
@@ -673,11 +815,6 @@ export namespace PaymentSendPaymentParams {
        * The address string of the payment destination contact
        */
       address?: string;
-
-      /**
-       * The type of the payment destination contact
-       */
-      contactType?: 'individual' | 'business';
 
       /**
        * The email address of the payment destination contact

@@ -24,14 +24,9 @@ describe('resource payments', () => {
     const response = await client.payments.createPayee({
       type: 'CRYPTO_ADDRESS',
       address: 'address',
-      contactDetails: {
-        address: 'address',
-        contactType: 'individual',
-        email: 'email',
-        phoneNumber: 'phoneNumber',
-        taxId: 'taxId',
-      },
+      contactDetails: { address: 'address', email: 'email', phoneNumber: 'phoneNumber', taxId: 'taxId' },
       currency: 'currency',
+      customerId: 'customerId',
       name: 'name',
       tags: ['string'],
     });
@@ -91,6 +86,7 @@ describe('resource payments', () => {
           contactEmail: 'contactEmail',
           contactPhoneNumber: 'contactPhoneNumber',
           contactTaxId: 'contactTaxId',
+          customerId: 'customerId',
           name: 'name',
           routingNumber: 'routingNumber',
           type: 'type',
@@ -123,14 +119,9 @@ describe('resource payments', () => {
       paymentDestination: {
         type: 'CRYPTO_ADDRESS',
         address: 'address',
-        contactDetails: {
-          address: 'address',
-          contactType: 'individual',
-          email: 'email',
-          phoneNumber: 'phoneNumber',
-          taxId: 'taxId',
-        },
+        contactDetails: { address: 'address', email: 'email', phoneNumber: 'phoneNumber', taxId: 'taxId' },
         currency: 'currency',
+        customerId: 'customerId',
         name: 'name',
         tags: ['string'],
       },
