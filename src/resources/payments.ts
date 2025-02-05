@@ -284,7 +284,7 @@ export declare namespace PaymentCreatePayeeParams {
     /**
      * Contact details for this payment destination
      */
-    contactDetails?: PaymentCreatePayeeParams.CryptoAddressPaymentDestinationDescriptor.ContactDetails;
+    contactDetails?: CryptoAddressPaymentDestinationDescriptor.ContactDetails;
 
     /**
      * The the blockchain to use for the transaction
@@ -344,7 +344,7 @@ export declare namespace PaymentCreatePayeeParams {
     /**
      * Contact details for this payment destination
      */
-    contactDetails?: PaymentCreatePayeeParams.PaymanAgentPaymentDestinationDescriptor.ContactDetails;
+    contactDetails?: PaymanAgentPaymentDestinationDescriptor.ContactDetails;
 
     /**
      * The name you wish to associate with this payment destination for future lookups.
@@ -418,7 +418,7 @@ export declare namespace PaymentCreatePayeeParams {
     /**
      * Contact details for this payment destination
      */
-    contactDetails?: PaymentCreatePayeeParams.UsachPaymentDestinationDescriptor.ContactDetails;
+    contactDetails?: UsachPaymentDestinationDescriptor.ContactDetails;
 
     /**
      * The ID of your customer who owns this payment destination. This is optional
