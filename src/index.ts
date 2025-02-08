@@ -5,16 +5,10 @@ import * as Core from './core';
 import * as Errors from './error';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
-import {
-  BalanceGetCustomerBalanceResponse,
-  BalanceGetSpendableBalanceResponse,
-  Balances,
-} from './resources/balances';
+import { BalanceGetSpendableBalanceResponse, Balances } from './resources/balances';
 import {
   PaymentCreatePayeeParams,
   PaymentCreatePayeeResponse,
-  PaymentInitiateCustomerDepositParams,
-  PaymentInitiateCustomerDepositResponse,
   PaymentSearchPayeesParams,
   PaymentSearchPayeesResponse,
   PaymentSendPaymentParams,
@@ -215,18 +209,15 @@ export declare namespace Paymanai {
 
   export {
     Balances as Balances,
-    type BalanceGetCustomerBalanceResponse as BalanceGetCustomerBalanceResponse,
     type BalanceGetSpendableBalanceResponse as BalanceGetSpendableBalanceResponse,
   };
 
   export {
     Payments as Payments,
     type PaymentCreatePayeeResponse as PaymentCreatePayeeResponse,
-    type PaymentInitiateCustomerDepositResponse as PaymentInitiateCustomerDepositResponse,
     type PaymentSearchPayeesResponse as PaymentSearchPayeesResponse,
     type PaymentSendPaymentResponse as PaymentSendPaymentResponse,
     type PaymentCreatePayeeParams as PaymentCreatePayeeParams,
-    type PaymentInitiateCustomerDepositParams as PaymentInitiateCustomerDepositParams,
     type PaymentSearchPayeesParams as PaymentSearchPayeesParams,
     type PaymentSendPaymentParams as PaymentSendPaymentParams,
   };

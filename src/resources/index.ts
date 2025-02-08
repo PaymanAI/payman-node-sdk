@@ -1,18 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export {
-  Balances,
-  type BalanceGetCustomerBalanceResponse,
-  type BalanceGetSpendableBalanceResponse,
-} from './balances';
+export { Balances, type BalanceGetSpendableBalanceResponse } from './balances';
 export {
   Payments,
   type PaymentCreatePayeeResponse,
-  type PaymentInitiateCustomerDepositResponse,
   type PaymentSearchPayeesResponse,
   type PaymentSendPaymentResponse,
   type PaymentCreatePayeeParams,
-  type PaymentInitiateCustomerDepositParams,
   type PaymentSearchPayeesParams,
   type PaymentSendPaymentParams,
 } from './payments';

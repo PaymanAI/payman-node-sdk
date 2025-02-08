@@ -32,33 +32,6 @@ describe('resource payments', () => {
     });
   });
 
-  test('initiateCustomerDeposit: only required params', async () => {
-    const responsePromise = client.payments.initiateCustomerDeposit({
-      amountDecimal: 0,
-      customerId: 'customerId',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('initiateCustomerDeposit: required and optional params', async () => {
-    const response = await client.payments.initiateCustomerDeposit({
-      amountDecimal: 0,
-      customerId: 'customerId',
-      customerEmail: 'customerEmail',
-      customerName: 'customerName',
-      feeMode: 'INCLUDED_IN_AMOUNT',
-      memo: 'memo',
-      metadata: { foo: 'bar' },
-      walletId: 'walletId',
-    });
-  });
-
   test('searchPayees', async () => {
     const responsePromise = client.payments.searchPayees();
     const rawResponse = await responsePromise.asResponse();
