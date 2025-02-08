@@ -20,24 +20,6 @@ export class Payments extends APIResource {
   }
 
   /**
-   * Initiates the creation of a checkout link, through which the customer can add
-   * funds to the agent's wallet. For example this could be used to have your
-   * customer pay for some activity the agent is going to undertake on their behalf.
-   * The returned JSON checkoutUrl property will contain a URL that the customer can
-   * visit to complete the payment.
-   */
-  initiateCustomerDeposit(
-    body: PaymentInitiateCustomerDepositParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<PaymentInitiateCustomerDepositResponse> {
-    return this._client.post('/payments/customer-deposit-link', {
-      body,
-      ...options,
-      headers: { Accept: 'application/vnd.payman.v1+json', ...options?.headers },
-    });
-  }
-
-  /**
    * Searches existing payee for potential matches. Additional confirmation from the
    * user is required to verify the correct payment destination is selected.
    */
@@ -155,13 +137,6 @@ export namespace PaymentCreatePayeeResponse {
      */
     taxId?: string;
   }
-}
-
-export interface PaymentInitiateCustomerDepositResponse {
-  /**
-   * A URL that you can redirect the user to in order to complete the deposit.
-   */
-  checkoutUrl: string;
 }
 
 export type PaymentSearchPayeesResponse = Array<PaymentSearchPayeesResponse.PaymentSearchPayeesResponseItem>;
@@ -467,52 +442,6 @@ export declare namespace PaymentCreatePayeeParams {
       taxId?: string;
     }
   }
-}
-
-export interface PaymentInitiateCustomerDepositParams {
-  /**
-   * The amount to generate a checkout link for. For example, '10.00' for USD is
-   * $10.00 or '1.000000' USDCBASE is 1 USDC.
-   */
-  amountDecimal: number;
-
-  /**
-   * The ID of the customer to deposit funds for. This can be any unique ID as held
-   * within your system.
-   */
-  customerId: string;
-
-  /**
-   * An email address to associate with this customer.
-   */
-  customerEmail?: string;
-
-  /**
-   * A name to associate with this customer.
-   */
-  customerName?: string;
-
-  /**
-   * Determines whether to add any processing fees to the requested amount. If set to
-   * INCLUDED_IN_AMOUNT, the customer will be charged the exact amount specified, and
-   * fees will be deducted from that before the remainder is deposited in the wallet.
-   * If set to ADD_TO_AMOUNT, the customer will be charged the amount specified plus
-   * any fees required. Defaults to 'INCLUDED_IN_AMOUNT'.
-   */
-  feeMode?: 'INCLUDED_IN_AMOUNT' | 'ADD_TO_AMOUNT';
-
-  /**
-   * A memo to associate with any transactions created in the Payman ledger.
-   */
-  memo?: string;
-
-  metadata?: Record<string, unknown>;
-
-  /**
-   * The ID of the wallet you would like the customer to add funds to. Only required
-   * if the agent has access to more than one wallet.
-   */
-  walletId?: string;
 }
 
 export interface PaymentSearchPayeesParams {
@@ -837,11 +766,9 @@ export namespace PaymentSendPaymentParams {
 export declare namespace Payments {
   export {
     type PaymentCreatePayeeResponse as PaymentCreatePayeeResponse,
-    type PaymentInitiateCustomerDepositResponse as PaymentInitiateCustomerDepositResponse,
     type PaymentSearchPayeesResponse as PaymentSearchPayeesResponse,
     type PaymentSendPaymentResponse as PaymentSendPaymentResponse,
     type PaymentCreatePayeeParams as PaymentCreatePayeeParams,
-    type PaymentInitiateCustomerDepositParams as PaymentInitiateCustomerDepositParams,
     type PaymentSearchPayeesParams as PaymentSearchPayeesParams,
     type PaymentSendPaymentParams as PaymentSendPaymentParams,
   };
