@@ -75,7 +75,7 @@ describe('resource payments', () => {
 
   test('searchDestinations: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.payments.searchDestinations({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.payments.searchPayees({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Paymanai.NotFoundError,
     );
   });

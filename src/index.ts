@@ -16,6 +16,7 @@ import {
   PaymentSendPaymentResponse,
   Payments,
 } from './resources/payments';
+import { Balances } from './resources/balances';
 import { Version } from './resources/version';
 import { Wallets } from './resources/wallets';
 
@@ -207,10 +208,7 @@ export declare namespace Paymanai {
 
   export { Version as Version };
 
-  export {
-    Balances as Balances,
-    type BalanceGetSpendableBalanceResponse as BalanceGetSpendableBalanceResponse,
-  };
+  export { Balances as Balances };
 
   export {
     Payments as Payments,

@@ -172,7 +172,8 @@ export interface PaymentGetDepositLinkResponse {
   checkoutUrl: string;
 }
 
-export type PaymentSearchPayeesResponse = Array<PaymentSearchPayeesResponse.PaymentSearchPayeesResponseItem>;
+export type PaymentSearchPayeesResponse =
+  Array<PaymentSearchDestinationsResponse.PaymentSearchDestinationsResponseItem>;
 
 export namespace PaymentSearchDestinationsResponse {
   export interface PaymentSearchDestinationsResponseItem {
