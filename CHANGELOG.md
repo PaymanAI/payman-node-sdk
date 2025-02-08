@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.3.0 (2025-02-08)
+
+Full Changelog: [v2.2.0...v2.3.0](https://github.com/PaymanAI/payman-node-sdk/compare/v2.2.0...v2.3.0)
+
+### Features
+
+* **api:** update via SDK Studio ([#94](https://github.com/PaymanAI/payman-node-sdk/issues/94)) ([99d65cb](https://github.com/PaymanAI/payman-node-sdk/commit/99d65cb19af5b7ac3d9a1dfebad403a6926140cd))
+* **api:** update via SDK Studio ([#96](https://github.com/PaymanAI/payman-node-sdk/issues/96)) ([9f970fb](https://github.com/PaymanAI/payman-node-sdk/commit/9f970fba365d670790213acefc0fcada87d07276))
+* **client:** send `X-Stainless-Timeout` header ([#93](https://github.com/PaymanAI/payman-node-sdk/issues/93)) ([33c0462](https://github.com/PaymanAI/payman-node-sdk/commit/33c0462083ab85d1e064f95fe0a3cbc0c2d65b79))
+
+
+### Chores
+
+* fix references to nested types ([#91](https://github.com/PaymanAI/payman-node-sdk/issues/91)) ([503eb6b](https://github.com/PaymanAI/payman-node-sdk/commit/503eb6b46736599c6bb55b990f0fcf6e5a38af57))
+
 ## 2.2.0 (2025-01-31)
 
 Full Changelog: [v2.1.2...v2.2.0](https://github.com/PaymanAI/payman-node-sdk/compare/v2.1.2...v2.2.0)
