@@ -15,25 +15,32 @@ export class Payments extends APIResource {
     return this._client.post('/payments/destinations', {
       body,
       ...options,
-      headers: { Accept: 'application/vnd.payman.v1+json', ...options?.headers },
+      headers: {
+        Accept: 'application/vnd.payman.v1+json',
+        ...options?.headers,
+      },
     });
   }
 
   /**
-   * Initiates the creation of a checkout link, through which the customer can add
-   * funds to the agent's wallet. For example this could be used to have your
-   * customer pay for some activity the agent is going to undertake on their behalf.
-   * The returned JSON checkoutUrl property will contain a URL that the customer can
-   * visit to complete the payment.
+   * Initiates the creation of a checkout link, through which a user can add funds to
+   * the agent's wallet. For example this could be used to have your customer pay for
+   * some activity the agent is going to undertake on their behalf. The returned JSON
+   * checkoutUrl property will contain a URL that the customer can visit to complete
+   * the payment.Funds received in this way will be comingled with the agent's other
+   * funds. For a more segregated approach, consider using the Accounts API.
    */
-  initiateCustomerDeposit(
-    body: PaymentInitiateCustomerDepositParams,
+  getDepositLink(
+    body: PaymentGetDepositLinkParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<PaymentInitiateCustomerDepositResponse> {
-    return this._client.post('/payments/customer-deposit-link', {
+  ): Core.APIPromise<PaymentGetDepositLinkResponse> {
+    return this._client.post('/payments/deposit-link', {
       body,
       ...options,
-      headers: { Accept: 'application/vnd.payman.v1+json', ...options?.headers },
+      headers: {
+        Accept: 'application/vnd.payman.v1+json',
+        ...options?.headers,
+      },
     });
   }
 
@@ -41,22 +48,25 @@ export class Payments extends APIResource {
    * Searches existing payee for potential matches. Additional confirmation from the
    * user is required to verify the correct payment destination is selected.
    */
-  searchDestinations(
-    query?: PaymentSearchDestinationsParams,
+  searchPayees(
+    query?: PaymentSearchPayeesParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<PaymentSearchDestinationsResponse>;
-  searchDestinations(options?: Core.RequestOptions): Core.APIPromise<PaymentSearchDestinationsResponse>;
-  searchDestinations(
-    query: PaymentSearchDestinationsParams | Core.RequestOptions = {},
+  ): Core.APIPromise<PaymentSearchPayeesResponse>;
+  searchPayees(options?: Core.RequestOptions): Core.APIPromise<PaymentSearchPayeesResponse>;
+  searchPayees(
+    query: PaymentSearchPayeesParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<PaymentSearchDestinationsResponse> {
+  ): Core.APIPromise<PaymentSearchPayeesResponse> {
     if (isRequestOptions(query)) {
-      return this.searchDestinations({}, query);
+      return this.searchPayees({}, query);
     }
     return this._client.get('/payments/search-destinations', {
       query,
       ...options,
-      headers: { Accept: 'application/vnd.payman.v1+json', ...options?.headers },
+      headers: {
+        Accept: 'application/vnd.payman.v1+json',
+        ...options?.headers,
+      },
     });
   }
 
@@ -70,7 +80,10 @@ export class Payments extends APIResource {
     return this._client.post('/payments/send-payment', {
       body,
       ...options,
-      headers: { Accept: 'application/vnd.payman.v1+json', ...options?.headers },
+      headers: {
+        Accept: 'application/vnd.payman.v1+json',
+        ...options?.headers,
+      },
     });
   }
 }
@@ -98,11 +111,6 @@ export interface PaymentCreatePayeeResponse {
   createdAt?: string;
 
   createdBy?: string;
-
-  /**
-   * The ID of the customer this payment destination is associated with
-   */
-  customerId?: string;
 
   destinationDetails?: Record<string, unknown>;
 
@@ -157,14 +165,14 @@ export namespace PaymentCreatePayeeResponse {
   }
 }
 
-export interface PaymentInitiateCustomerDepositResponse {
+export interface PaymentGetDepositLinkResponse {
   /**
    * A URL that you can redirect the user to in order to complete the deposit.
    */
   checkoutUrl: string;
 }
 
-export type PaymentSearchDestinationsResponse =
+export type PaymentSearchPayeesResponse =
   Array<PaymentSearchDestinationsResponse.PaymentSearchDestinationsResponseItem>;
 
 export namespace PaymentSearchDestinationsResponse {
@@ -191,11 +199,6 @@ export namespace PaymentSearchDestinationsResponse {
     createdAt?: string;
 
     createdBy?: string;
-
-    /**
-     * The ID of the customer this payment destination is associated with
-     */
-    customerId?: string;
 
     destinationDetails?: Record<string, unknown>;
 
@@ -284,18 +287,12 @@ export declare namespace PaymentCreatePayeeParams {
     /**
      * Contact details for this payment destination
      */
-    contactDetails?: PaymentCreatePayeeParams.CryptoAddressPaymentDestinationDescriptor.ContactDetails;
+    contactDetails?: CryptoAddressPaymentDestinationDescriptor.ContactDetails;
 
     /**
      * The the blockchain to use for the transaction
      */
     currency?: string;
-
-    /**
-     * The ID of your customer who owns this payment destination. This is optional
-     * unless you are using the Account API, in which case it is required.
-     */
-    customerId?: string;
 
     /**
      * The name you wish to associate with this payment destination for future lookups.
@@ -344,7 +341,7 @@ export declare namespace PaymentCreatePayeeParams {
     /**
      * Contact details for this payment destination
      */
-    contactDetails?: PaymentCreatePayeeParams.PaymanAgentPaymentDestinationDescriptor.ContactDetails;
+    contactDetails?: PaymanAgentPaymentDestinationDescriptor.ContactDetails;
 
     /**
      * The name you wish to associate with this payment destination for future lookups.
@@ -418,13 +415,7 @@ export declare namespace PaymentCreatePayeeParams {
     /**
      * Contact details for this payment destination
      */
-    contactDetails?: PaymentCreatePayeeParams.UsachPaymentDestinationDescriptor.ContactDetails;
-
-    /**
-     * The ID of your customer who owns this payment destination. This is optional
-     * unless you are using the Account API, in which case it is required.
-     */
-    customerId?: string;
+    contactDetails?: UsachPaymentDestinationDescriptor.ContactDetails;
 
     /**
      * The name you wish to associate with this payment destination for future lookups.
@@ -470,28 +461,12 @@ export declare namespace PaymentCreatePayeeParams {
   }
 }
 
-export interface PaymentInitiateCustomerDepositParams {
+export interface PaymentGetDepositLinkParams {
   /**
    * The amount to generate a checkout link for. For example, '10.00' for USD is
    * $10.00 or '1.000000' USDCBASE is 1 USDC.
    */
   amountDecimal: number;
-
-  /**
-   * The ID of the customer to deposit funds for. This can be any unique ID as held
-   * within your system.
-   */
-  customerId: string;
-
-  /**
-   * An email address to associate with this customer.
-   */
-  customerEmail?: string;
-
-  /**
-   * A name to associate with this customer.
-   */
-  customerName?: string;
 
   /**
    * Determines whether to add any processing fees to the requested amount. If set to
@@ -516,7 +491,7 @@ export interface PaymentInitiateCustomerDepositParams {
   walletId?: string;
 }
 
-export interface PaymentSearchDestinationsParams {
+export interface PaymentSearchPayeesParams {
   /**
    * The US Bank account number to search for.
    */
@@ -536,13 +511,6 @@ export interface PaymentSearchDestinationsParams {
    * The contact tax id to search for.
    */
   contactTaxId?: string;
-
-  /**
-   * The ID of the customer who owns the payment destination. If the Account API is
-   * enabled, this is required to prevent unauthorized access to payment
-   * destinations.
-   */
-  customerId?: string;
 
   /**
    * The name of the payment destination to search for. This can be a partial,
@@ -567,33 +535,6 @@ export interface PaymentSendPaymentParams {
    * $10.00 or '1.000000' USDCBASE is 1 USDC.
    */
   amountDecimal: number;
-
-  /**
-   * An email address to associate with this customer.
-   */
-  customerEmail?: string;
-
-  /**
-   * The ID of the customer on whose behalf you're transferring funds. This can be
-   * any unique ID as held within your system. Providing this will limit the
-   * spendableamounts to what the customer has already deposited (unless
-   * ignoreCustomerSpendLimits is set to true).Note that if the Account API is
-   * enabled for your account, this field becomes mandatory to preventaccidental
-   * unauthorized transfers.
-   */
-  customerId?: string;
-
-  /**
-   * A name to associate with this customer.
-   */
-  customerName?: string;
-
-  /**
-   * By default Payman will limit spending on behalf of a customer to the amount they
-   * have deposited. If you wish to ignore this limit, set this to true. Note, if the
-   * Account API is enabled for your account, this field may not be used.
-   */
-  ignoreCustomerSpendLimits?: boolean;
 
   /**
    * A note or memo to associate with this payment.
@@ -649,12 +590,6 @@ export namespace PaymentSendPaymentParams {
      * The the blockchain to use for the transaction
      */
     currency?: string;
-
-    /**
-     * The ID of your customer who owns this payment destination. This is optional
-     * unless you are using the Account API, in which case it is required.
-     */
-    customerId?: string;
 
     /**
      * The name you wish to associate with this payment destination for future lookups.
@@ -786,12 +721,6 @@ export namespace PaymentSendPaymentParams {
     contactDetails?: UsachPaymentDestinationDescriptor.ContactDetails;
 
     /**
-     * The ID of your customer who owns this payment destination. This is optional
-     * unless you are using the Account API, in which case it is required.
-     */
-    customerId?: string;
-
-    /**
      * The name you wish to associate with this payment destination for future lookups.
      */
     name?: string;
@@ -838,12 +767,12 @@ export namespace PaymentSendPaymentParams {
 export declare namespace Payments {
   export {
     type PaymentCreatePayeeResponse as PaymentCreatePayeeResponse,
-    type PaymentInitiateCustomerDepositResponse as PaymentInitiateCustomerDepositResponse,
-    type PaymentSearchDestinationsResponse as PaymentSearchDestinationsResponse,
+    type PaymentGetDepositLinkResponse as PaymentGetDepositLinkResponse,
+    type PaymentSearchPayeesResponse as PaymentSearchPayeesResponse,
     type PaymentSendPaymentResponse as PaymentSendPaymentResponse,
     type PaymentCreatePayeeParams as PaymentCreatePayeeParams,
-    type PaymentInitiateCustomerDepositParams as PaymentInitiateCustomerDepositParams,
-    type PaymentSearchDestinationsParams as PaymentSearchDestinationsParams,
+    type PaymentGetDepositLinkParams as PaymentGetDepositLinkParams,
+    type PaymentSearchPayeesParams as PaymentSearchPayeesParams,
     type PaymentSendPaymentParams as PaymentSendPaymentParams,
   };
 }

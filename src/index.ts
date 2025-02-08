@@ -6,23 +6,19 @@ import * as Errors from './error';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
 import {
-  BalanceGetCustomerBalanceResponse,
-  BalanceGetSpendableBalanceResponse,
-  Balances,
-} from './resources/balances';
-import {
   PaymentCreatePayeeParams,
   PaymentCreatePayeeResponse,
-  PaymentInitiateCustomerDepositParams,
-  PaymentInitiateCustomerDepositResponse,
-  PaymentSearchDestinationsParams,
-  PaymentSearchDestinationsResponse,
+  PaymentGetDepositLinkParams,
+  PaymentGetDepositLinkResponse,
+  PaymentSearchPayeesParams,
+  PaymentSearchPayeesResponse,
   PaymentSendPaymentParams,
   PaymentSendPaymentResponse,
   Payments,
 } from './resources/payments';
+import { Balances } from './resources/balances';
 import { Version } from './resources/version';
-import { WalletGetWalletResponse, Wallets } from './resources/wallets';
+import { Wallets } from './resources/wallets';
 
 const environments = {
   sandbox: 'https://agent-sandbox.payman.ai/api',
@@ -208,25 +204,21 @@ Paymanai.Payments = Payments;
 export declare namespace Paymanai {
   export type RequestOptions = Core.RequestOptions;
 
-  export { Wallets as Wallets, type WalletGetWalletResponse as WalletGetWalletResponse };
+  export { Wallets as Wallets };
 
   export { Version as Version };
 
-  export {
-    Balances as Balances,
-    type BalanceGetCustomerBalanceResponse as BalanceGetCustomerBalanceResponse,
-    type BalanceGetSpendableBalanceResponse as BalanceGetSpendableBalanceResponse,
-  };
+  export { Balances as Balances };
 
   export {
     Payments as Payments,
     type PaymentCreatePayeeResponse as PaymentCreatePayeeResponse,
-    type PaymentInitiateCustomerDepositResponse as PaymentInitiateCustomerDepositResponse,
-    type PaymentSearchDestinationsResponse as PaymentSearchDestinationsResponse,
+    type PaymentGetDepositLinkResponse as PaymentGetDepositLinkResponse,
+    type PaymentSearchPayeesResponse as PaymentSearchPayeesResponse,
     type PaymentSendPaymentResponse as PaymentSendPaymentResponse,
     type PaymentCreatePayeeParams as PaymentCreatePayeeParams,
-    type PaymentInitiateCustomerDepositParams as PaymentInitiateCustomerDepositParams,
-    type PaymentSearchDestinationsParams as PaymentSearchDestinationsParams,
+    type PaymentGetDepositLinkParams as PaymentGetDepositLinkParams,
+    type PaymentSearchPayeesParams as PaymentSearchPayeesParams,
     type PaymentSendPaymentParams as PaymentSendPaymentParams,
   };
 }
