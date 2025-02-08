@@ -26,9 +26,29 @@ describe('resource payments', () => {
       address: 'address',
       contactDetails: { address: 'address', email: 'email', phoneNumber: 'phoneNumber', taxId: 'taxId' },
       currency: 'currency',
-      customerId: 'customerId',
       name: 'name',
       tags: ['string'],
+    });
+  });
+
+  test('getDepositLink: only required params', async () => {
+    const responsePromise = client.payments.getDepositLink({ amountDecimal: 0 });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('getDepositLink: required and optional params', async () => {
+    const response = await client.payments.getDepositLink({
+      amountDecimal: 0,
+      feeMode: 'INCLUDED_IN_AMOUNT',
+      memo: 'memo',
+      metadata: { foo: 'bar' },
+      walletId: 'walletId',
     });
   });
 
@@ -59,7 +79,6 @@ describe('resource payments', () => {
           contactEmail: 'contactEmail',
           contactPhoneNumber: 'contactPhoneNumber',
           contactTaxId: 'contactTaxId',
-          customerId: 'customerId',
           name: 'name',
           routingNumber: 'routingNumber',
           type: 'type',
@@ -83,10 +102,6 @@ describe('resource payments', () => {
   test('sendPayment: required and optional params', async () => {
     const response = await client.payments.sendPayment({
       amountDecimal: 0,
-      customerEmail: 'customerEmail',
-      customerId: 'customerId',
-      customerName: 'customerName',
-      ignoreCustomerSpendLimits: true,
       memo: 'memo',
       metadata: { foo: 'bar' },
       paymentDestination: {
@@ -94,7 +109,6 @@ describe('resource payments', () => {
         address: 'address',
         contactDetails: { address: 'address', email: 'email', phoneNumber: 'phoneNumber', taxId: 'taxId' },
         currency: 'currency',
-        customerId: 'customerId',
         name: 'name',
         tags: ['string'],
       },

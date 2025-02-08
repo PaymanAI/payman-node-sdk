@@ -4,11 +4,13 @@ export { Balances, type BalanceGetSpendableBalanceResponse } from './balances';
 export {
   Payments,
   type PaymentCreatePayeeResponse,
+  type PaymentGetDepositLinkResponse,
   type PaymentSearchPayeesResponse,
   type PaymentSendPaymentResponse,
   type PaymentCreatePayeeParams,
+  type PaymentGetDepositLinkParams,
   type PaymentSearchPayeesParams,
   type PaymentSendPaymentParams,
 } from './payments';
 export { Version } from './version';
-export { Wallets, type WalletGetWalletResponse } from './wallets';
+export { Wallets } from './wallets';
