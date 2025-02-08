@@ -6,12 +6,10 @@ import * as Errors from './error'
 import * as Uploads from './uploads'
 import * as API from './resources/index'
 import {
-	BalanceGetSpendableBalanceResponse,
-	Balances,
-} from './resources/balances'
-import {
 	PaymentCreatePayeeParams,
 	PaymentCreatePayeeResponse,
+	PaymentGetDepositLinkParams,
+	PaymentGetDepositLinkResponse,
 	PaymentSearchPayeesParams,
 	PaymentSearchPayeesResponse,
 	PaymentSendPaymentParams,
@@ -19,7 +17,7 @@ import {
 	Payments,
 } from './resources/payments'
 import { Version } from './resources/version'
-import { WalletGetWalletResponse, Wallets } from './resources/wallets'
+import { Wallets } from './resources/wallets'
 
 const environments = {
 	sandbox: 'https://agent-sandbox.payman.ai/api',
@@ -208,10 +206,7 @@ Paymanai.Payments = Payments
 export declare namespace Paymanai {
 	export type RequestOptions = Core.RequestOptions
 
-	export {
-		Wallets as Wallets,
-		type WalletGetWalletResponse as WalletGetWalletResponse,
-	}
+	export { Wallets as Wallets }
 
 	export { Version as Version }
 
@@ -223,9 +218,11 @@ export declare namespace Paymanai {
 	export {
 		Payments as Payments,
 		type PaymentCreatePayeeResponse as PaymentCreatePayeeResponse,
+		type PaymentGetDepositLinkResponse as PaymentGetDepositLinkResponse,
 		type PaymentSearchPayeesResponse as PaymentSearchPayeesResponse,
 		type PaymentSendPaymentResponse as PaymentSendPaymentResponse,
 		type PaymentCreatePayeeParams as PaymentCreatePayeeParams,
+		type PaymentGetDepositLinkParams as PaymentGetDepositLinkParams,
 		type PaymentSearchPayeesParams as PaymentSearchPayeesParams,
 		type PaymentSendPaymentParams as PaymentSendPaymentParams,
 	}

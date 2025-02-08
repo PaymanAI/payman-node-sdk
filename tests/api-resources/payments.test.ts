@@ -36,9 +36,29 @@ describe('resource payments', () => {
 				taxId: 'taxId',
 			},
 			currency: 'currency',
-			customerId: 'customerId',
 			name: 'name',
 			tags: ['string'],
+		})
+	})
+
+	test('getDepositLink: only required params', async () => {
+		const responsePromise = client.payments.getDepositLink({ amountDecimal: 0 })
+		const rawResponse = await responsePromise.asResponse()
+		expect(rawResponse).toBeInstanceOf(Response)
+		const response = await responsePromise
+		expect(response).not.toBeInstanceOf(Response)
+		const dataAndResponse = await responsePromise.withResponse()
+		expect(dataAndResponse.data).toBe(response)
+		expect(dataAndResponse.response).toBe(rawResponse)
+	})
+
+	test('getDepositLink: required and optional params', async () => {
+		const response = await client.payments.getDepositLink({
+			amountDecimal: 0,
+			feeMode: 'INCLUDED_IN_AMOUNT',
+			memo: 'memo',
+			metadata: { foo: 'bar' },
+			walletId: 'walletId',
 		})
 	})
 
@@ -60,16 +80,15 @@ describe('resource payments', () => {
 		).rejects.toThrow(Paymanai.NotFoundError)
 	})
 
-	test('searchDestinations: request options and params are passed correctly', async () => {
+	test('searchPayees: request options and params are passed correctly', async () => {
 		// ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
 		await expect(
-			client.payments.searchDestinations(
+			client.payments.searchPayees(
 				{
 					accountNumber: 'accountNumber',
 					contactEmail: 'contactEmail',
 					contactPhoneNumber: 'contactPhoneNumber',
 					contactTaxId: 'contactTaxId',
-					customerId: 'customerId',
 					name: 'name',
 					routingNumber: 'routingNumber',
 					type: 'type',
@@ -89,14 +108,9 @@ describe('resource payments', () => {
 		expect(dataAndResponse.data).toBe(response)
 		expect(dataAndResponse.response).toBe(rawResponse)
 	})
-
 	test('sendPayment: required and optional params', async () => {
 		const response = await client.payments.sendPayment({
 			amountDecimal: 0,
-			customerEmail: 'customerEmail',
-			customerId: 'customerId',
-			customerName: 'customerName',
-			ignoreCustomerSpendLimits: true,
 			memo: 'memo',
 			metadata: { foo: 'bar' },
 			paymentDestination: {
@@ -109,7 +123,6 @@ describe('resource payments', () => {
 					taxId: 'taxId',
 				},
 				currency: 'currency',
-				customerId: 'customerId',
 				name: 'name',
 				tags: ['string'],
 			},
