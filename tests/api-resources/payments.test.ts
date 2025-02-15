@@ -11,7 +11,7 @@ const client = new Paymanai({
 describe('resource payments', () => {
   test('createPayee: only required params', async () => {
     const responsePromise = client.payments.createPayee({
-      type: 'CRYPTO_ADDRESS',
+      type: 'PAYMAN_AGENT',
       address: 'address',
       currency: 'currency',
       name: 'name',
@@ -27,16 +27,15 @@ describe('resource payments', () => {
 
   test('createPayee: required and optional params', async () => {
     const response = await client.payments.createPayee({
-      type: 'CRYPTO_ADDRESS',
-      address: 'address',
+      type: 'PAYMAN_AGENT',
       contactDetails: {
         address: 'address',
         email: 'email',
         phoneNumber: 'phoneNumber',
         taxId: 'taxId',
       },
-      currency: 'currency',
       name: 'name',
+      paymanAgent: 'paymanAgent',
       tags: ['string'],
     });
   });
@@ -86,6 +85,7 @@ describe('resource payments', () => {
       client.payments.searchPayees(
         {
           accountNumber: 'accountNumber',
+          agentReference: 'agentReference',
           contactEmail: 'contactEmail',
           contactPhoneNumber: 'contactPhoneNumber',
           contactTaxId: 'contactTaxId',
@@ -114,16 +114,15 @@ describe('resource payments', () => {
       memo: 'memo',
       metadata: { foo: 'bar' },
       paymentDestination: {
-        type: 'CRYPTO_ADDRESS',
-        address: 'address',
+        type: 'PAYMAN_AGENT',
         contactDetails: {
           address: 'address',
           email: 'email',
           phoneNumber: 'phoneNumber',
           taxId: 'taxId',
         },
-        currency: 'currency',
         name: 'name',
+        paymanAgent: 'paymanAgent',
         tags: ['string'],
       },
       paymentDestinationId: 'paymentDestinationId',
