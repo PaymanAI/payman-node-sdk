@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.4.0 (2025-02-15)
+
+Full Changelog: [v2.3.0...v2.4.0](https://github.com/PaymanAI/payman-node-sdk/compare/v2.3.0...v2.4.0)
+
+### Features
+
+* **api:** update via SDK Studio ([#101](https://github.com/PaymanAI/payman-node-sdk/issues/101)) ([4cfc1d4](https://github.com/PaymanAI/payman-node-sdk/commit/4cfc1d40e2099e1c5e43125265af1bcf23f014fe))
+
+
+### Bug Fixes
+
+* **client:** fix export map for index exports ([#99](https://github.com/PaymanAI/payman-node-sdk/issues/99)) ([3b3d1f7](https://github.com/PaymanAI/payman-node-sdk/commit/3b3d1f76a41d3ae42ce2f21e23aba8974a79db2f))
+
 ## 2.3.0 (2025-02-08)
 
 Full Changelog: [v2.2.0...v2.3.0](https://github.com/PaymanAI/payman-node-sdk/compare/v2.2.0...v2.3.0)
