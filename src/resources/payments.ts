@@ -99,7 +99,7 @@ export interface PaymentCreatePayeeResponse {
   /**
    * The type of payment destination
    */
-  type: 'US_ACH' | 'CRYPTO_ADDRESS' | 'PAYMAN_AGENT';
+  type: 'US_ACH' | 'PAYMAN_AGENT';
 
   id?: string;
 
@@ -187,7 +187,7 @@ export namespace PaymentSearchDestinationsResponse {
     /**
      * The type of payment destination
      */
-    type: 'US_ACH' | 'CRYPTO_ADDRESS' | 'PAYMAN_AGENT';
+    type: 'US_ACH' | 'PAYMAN_AGENT';
 
     id?: string;
 
@@ -261,6 +261,11 @@ export interface PaymentSendPaymentResponse {
   reference: string;
 
   /**
+   * The status of the payment
+   */
+  status: 'INITIATED' | 'AWAITING_APPROVAL' | 'REJECTED';
+
+  /**
    * The external reference of the payment if applicable (e.g. a blockchain
    * transaction hash)
    */
@@ -268,70 +273,10 @@ export interface PaymentSendPaymentResponse {
 }
 
 export type PaymentCreatePayeeParams =
-  | PaymentCreatePayeeParams.CryptoAddressPaymentDestinationDescriptor
   | PaymentCreatePayeeParams.PaymanAgentPaymentDestinationDescriptor
   | PaymentCreatePayeeParams.UsachPaymentDestinationDescriptor;
 
 export declare namespace PaymentCreatePayeeParams {
-  export interface CryptoAddressPaymentDestinationDescriptor {
-    /**
-     * The type of payment destination
-     */
-    type: 'CRYPTO_ADDRESS';
-
-    /**
-     * The cryptocurrency address to send funds to
-     */
-    address?: string;
-
-    /**
-     * Contact details for this payment destination
-     */
-    contactDetails?: CryptoAddressPaymentDestinationDescriptor.ContactDetails;
-
-    /**
-     * The the blockchain to use for the transaction
-     */
-    currency?: string;
-
-    /**
-     * The name you wish to associate with this payment destination for future lookups.
-     */
-    name?: string;
-
-    /**
-     * Any additional labels you wish to assign to this payment destination
-     */
-    tags?: Array<string>;
-  }
-
-  export namespace CryptoAddressPaymentDestinationDescriptor {
-    /**
-     * Contact details for this payment destination
-     */
-    export interface ContactDetails {
-      /**
-       * The address string of the payment destination contact
-       */
-      address?: string;
-
-      /**
-       * The email address of the payment destination contact
-       */
-      email?: string;
-
-      /**
-       * The phone number of the payment destination contact
-       */
-      phoneNumber?: string;
-
-      /**
-       * The tax identification of the payment destination contact
-       */
-      taxId?: string;
-    }
-  }
-
   export interface PaymanAgentPaymentDestinationDescriptor {
     /**
      * The type of payment destination
@@ -349,9 +294,9 @@ export declare namespace PaymentCreatePayeeParams {
     name?: string;
 
     /**
-     * The Payman unique id assigned to the receiver agent
+     * The Payman handle or the id of the receiver agent
      */
-    paymanAgentId?: string;
+    paymanAgent?: string;
 
     /**
      * Any additional labels you wish to assign to this payment destination
@@ -498,6 +443,11 @@ export interface PaymentSearchPayeesParams {
   accountNumber?: string;
 
   /**
+   * The Payman agent reference (id or handle) to search for.
+   */
+  agentReference?: string;
+
+  /**
    * The contact email to search for.
    */
   contactEmail?: string;
@@ -544,10 +494,9 @@ export interface PaymentSendPaymentParams {
   metadata?: Record<string, unknown>;
 
   /**
-   * A cryptocurrency address-based payment destination
+   * A Payman Agent payment destination
    */
   paymentDestination?:
-    | PaymentSendPaymentParams.CryptoAddressPaymentDestinationDescriptor
     | PaymentSendPaymentParams.PaymanAgentPaymentDestinationDescriptor
     | PaymentSendPaymentParams.UsachPaymentDestinationDescriptor;
 
@@ -568,68 +517,6 @@ export interface PaymentSendPaymentParams {
 
 export namespace PaymentSendPaymentParams {
   /**
-   * A cryptocurrency address-based payment destination
-   */
-  export interface CryptoAddressPaymentDestinationDescriptor {
-    /**
-     * The type of payment destination
-     */
-    type: 'CRYPTO_ADDRESS';
-
-    /**
-     * The cryptocurrency address to send funds to
-     */
-    address?: string;
-
-    /**
-     * Contact details for this payment destination
-     */
-    contactDetails?: CryptoAddressPaymentDestinationDescriptor.ContactDetails;
-
-    /**
-     * The the blockchain to use for the transaction
-     */
-    currency?: string;
-
-    /**
-     * The name you wish to associate with this payment destination for future lookups.
-     */
-    name?: string;
-
-    /**
-     * Any additional labels you wish to assign to this payment destination
-     */
-    tags?: Array<string>;
-  }
-
-  export namespace CryptoAddressPaymentDestinationDescriptor {
-    /**
-     * Contact details for this payment destination
-     */
-    export interface ContactDetails {
-      /**
-       * The address string of the payment destination contact
-       */
-      address?: string;
-
-      /**
-       * The email address of the payment destination contact
-       */
-      email?: string;
-
-      /**
-       * The phone number of the payment destination contact
-       */
-      phoneNumber?: string;
-
-      /**
-       * The tax identification of the payment destination contact
-       */
-      taxId?: string;
-    }
-  }
-
-  /**
    * A Payman Agent payment destination
    */
   export interface PaymanAgentPaymentDestinationDescriptor {
@@ -649,9 +536,9 @@ export namespace PaymentSendPaymentParams {
     name?: string;
 
     /**
-     * The Payman unique id assigned to the receiver agent
+     * The Payman handle or the id of the receiver agent
      */
-    paymanAgentId?: string;
+    paymanAgent?: string;
 
     /**
      * Any additional labels you wish to assign to this payment destination
