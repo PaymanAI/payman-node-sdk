@@ -18,7 +18,6 @@ import {
 } from './resources/payments';
 import { Balances } from './resources/balances';
 import { Version } from './resources/version';
-import { Wallets } from './resources/wallets';
 
 const environments = {
   sandbox: 'https://agent-sandbox.payman.ai/api',
@@ -155,7 +154,6 @@ export class Paymanai extends Core.APIClient {
     this.xPaymanAPISecret = xPaymanAPISecret;
   }
 
-  wallets: API.Wallets = new API.Wallets(this);
   version: API.Version = new API.Version(this);
   balances: API.Balances = new API.Balances(this);
   payments: API.Payments = new API.Payments(this);
@@ -197,14 +195,11 @@ export class Paymanai extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-Paymanai.Wallets = Wallets;
 Paymanai.Version = Version;
 Paymanai.Balances = Balances;
 Paymanai.Payments = Payments;
 export declare namespace Paymanai {
   export type RequestOptions = Core.RequestOptions;
-
-  export { Wallets as Wallets };
 
   export { Version as Version };
 
