@@ -13,4 +13,3 @@ export {
   type PaymentSendPaymentParams,
 } from './payments';
 export { Version } from './version';
-export { Wallets } from './wallets';
