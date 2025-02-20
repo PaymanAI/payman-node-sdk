@@ -19,6 +19,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/payments.ts">PaymentCreatePayeeResponse</a></code>
+- <code><a href="./src/resources/payments.ts">PaymentDeletePayeeResponse</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentGetDepositLinkResponse</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentSearchPayeesResponse</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentSendPaymentResponse</a></code>
@@ -26,6 +27,7 @@ Types:
 Methods:
 
 - <code title="post /payments/destinations">client.payments.<a href="./src/resources/payments.ts">createPayee</a>({ ...params }) -> PaymentCreatePayeeResponse</code>
+- <code title="delete /payments/destinations/{id}">client.payments.<a href="./src/resources/payments.ts">deletePayee</a>(id) -> PaymentDeletePayeeResponse</code>
 - <code title="post /payments/deposit-link">client.payments.<a href="./src/resources/payments.ts">getDepositLink</a>({ ...params }) -> PaymentGetDepositLinkResponse</code>
 - <code title="get /payments/search-destinations">client.payments.<a href="./src/resources/payments.ts">searchPayees</a>({ ...params }) -> PaymentSearchPayeesResponse</code>
 - <code title="post /payments/send-payment">client.payments.<a href="./src/resources/payments.ts">sendPayment</a>({ ...params }) -> PaymentSendPaymentResponse</code>

@@ -20,6 +20,16 @@ export class Payments extends APIResource {
   }
 
   /**
+   * Delete a payee (aka payment destination)
+   */
+  deletePayee(id: string, options?: Core.RequestOptions): Core.APIPromise<PaymentDeletePayeeResponse> {
+    return this._client.delete(`/payments/destinations/${id}`, {
+      ...options,
+      headers: { Accept: 'application/vnd.payman.v1+json', ...options?.headers },
+    });
+  }
+
+  /**
    * Initiates the creation of a checkout link, through which a user can add funds to
    * the agent's wallet. For example this could be used to have your customer pay for
    * some activity the agent is going to undertake on their behalf. The returned JSON
@@ -151,6 +161,12 @@ export namespace PaymentCreatePayeeResponse {
      */
     taxId?: string;
   }
+}
+
+export interface PaymentDeletePayeeResponse {
+  message?: string;
+
+  success?: boolean;
 }
 
 export interface PaymentGetDepositLinkResponse {
@@ -474,26 +490,18 @@ export interface PaymentSendPaymentParams {
   amountDecimal: number;
 
   /**
+   * The id of the payment destination you want to send the funds to. This must have
+   * been created using the /payments/destinations endpoint or via the Payman
+   * dashboard before sending.
+   */
+  paymentDestinationId: string;
+
+  /**
    * A note or memo to associate with this payment.
    */
   memo?: string;
 
   metadata?: Record<string, unknown>;
-
-  /**
-   * A Payman Agent payment destination
-   */
-  paymentDestination?:
-    | PaymentSendPaymentParams.PaymanAgentPaymentDestinationDescriptor
-    | PaymentSendPaymentParams.UsachPaymentDestinationDescriptor;
-
-  /**
-   * The id of the payment destination you want to send the funds to. This must have
-   * been created using the /payments/destinations endpoint or via the Payman
-   * dashboard before sending. Exactly one of paymentDestination and
-   * paymentDestinationId must be provided.
-   */
-  paymentDestinationId?: string;
 
   /**
    * The ID of the specific wallet from which to send the funds. This is only
@@ -502,145 +510,10 @@ export interface PaymentSendPaymentParams {
   walletId?: string;
 }
 
-export namespace PaymentSendPaymentParams {
-  /**
-   * A Payman Agent payment destination
-   */
-  export interface PaymanAgentPaymentDestinationDescriptor {
-    /**
-     * The type of payment destination
-     */
-    type: 'PAYMAN_AGENT';
-
-    /**
-     * Contact details for this payment destination
-     */
-    contactDetails?: PaymanAgentPaymentDestinationDescriptor.ContactDetails;
-
-    /**
-     * The name you wish to associate with this payment destination for future lookups.
-     */
-    name?: string;
-
-    /**
-     * The Payman handle or the id of the receiver agent
-     */
-    paymanAgent?: string;
-
-    /**
-     * Any additional labels you wish to assign to this payment destination
-     */
-    tags?: Array<string>;
-  }
-
-  export namespace PaymanAgentPaymentDestinationDescriptor {
-    /**
-     * Contact details for this payment destination
-     */
-    export interface ContactDetails {
-      /**
-       * The address string of the payment destination contact
-       */
-      address?: string;
-
-      /**
-       * The email address of the payment destination contact
-       */
-      email?: string;
-
-      /**
-       * The phone number of the payment destination contact
-       */
-      phoneNumber?: string;
-
-      /**
-       * The tax identification of the payment destination contact
-       */
-      taxId?: string;
-    }
-  }
-
-  /**
-   * A US ACH payment destination
-   */
-  export interface UsachPaymentDestinationDescriptor {
-    /**
-     * The type of payment destination
-     */
-    type: 'US_ACH';
-
-    /**
-     * The name of the account holder
-     */
-    accountHolderName?: string;
-
-    /**
-     * The type of the account holder
-     */
-    accountHolderType?: 'individual' | 'business';
-
-    /**
-     * The bank account number for the account
-     */
-    accountNumber?: string;
-
-    /**
-     * The type of account it is (checking or savings)
-     */
-    accountType?: string;
-
-    /**
-     * Contact details for this payment destination
-     */
-    contactDetails?: UsachPaymentDestinationDescriptor.ContactDetails;
-
-    /**
-     * The name you wish to associate with this payment destination for future lookups.
-     */
-    name?: string;
-
-    /**
-     * The routing number of the bank
-     */
-    routingNumber?: string;
-
-    /**
-     * Any additional labels you wish to assign to this payment destination
-     */
-    tags?: Array<string>;
-  }
-
-  export namespace UsachPaymentDestinationDescriptor {
-    /**
-     * Contact details for this payment destination
-     */
-    export interface ContactDetails {
-      /**
-       * The address string of the payment destination contact
-       */
-      address?: string;
-
-      /**
-       * The email address of the payment destination contact
-       */
-      email?: string;
-
-      /**
-       * The phone number of the payment destination contact
-       */
-      phoneNumber?: string;
-
-      /**
-       * The tax identification of the payment destination contact
-       */
-      taxId?: string;
-    }
-  }
-}
-
 export declare namespace Payments {
   export {
     type PaymentCreatePayeeResponse as PaymentCreatePayeeResponse,
+    type PaymentDeletePayeeResponse as PaymentDeletePayeeResponse,
     type PaymentGetDepositLinkResponse as PaymentGetDepositLinkResponse,
     type PaymentSearchPayeesResponse as PaymentSearchPayeesResponse,
     type PaymentSendPaymentResponse as PaymentSendPaymentResponse,
