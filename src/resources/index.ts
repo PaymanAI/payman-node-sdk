@@ -4,6 +4,7 @@ export { Balances, type BalanceGetSpendableBalanceResponse } from './balances';
 export {
   Payments,
   type PaymentCreatePayeeResponse,
+  type PaymentDeletePayeeResponse,
   type PaymentGetDepositLinkResponse,
   type PaymentSearchPayeesResponse,
   type PaymentSendPaymentResponse,
