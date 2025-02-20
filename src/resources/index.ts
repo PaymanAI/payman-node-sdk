@@ -1,6 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+export { Agents } from './agents';
 export { Balances, type BalanceGetSpendableBalanceResponse } from './balances';
+export { Description, type DescriptionGetAPIDescriptionResponse } from './description';
+export { Me } from './me';
 export {
   Payments,
   type PaymentCreatePayeeResponse,
