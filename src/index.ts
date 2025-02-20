@@ -8,6 +8,7 @@ import * as API from './resources/index';
 import {
   PaymentCreatePayeeParams,
   PaymentCreatePayeeResponse,
+  PaymentDeletePayeeResponse,
   PaymentGetDepositLinkParams,
   PaymentGetDepositLinkResponse,
   PaymentSearchPayeesParams,
@@ -208,6 +209,7 @@ export declare namespace Paymanai {
   export {
     Payments as Payments,
     type PaymentCreatePayeeResponse as PaymentCreatePayeeResponse,
+    type PaymentDeletePayeeResponse as PaymentDeletePayeeResponse,
     type PaymentGetDepositLinkResponse as PaymentGetDepositLinkResponse,
     type PaymentSearchPayeesResponse as PaymentSearchPayeesResponse,
     type PaymentSendPaymentResponse as PaymentSendPaymentResponse,
