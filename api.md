@@ -4,6 +4,28 @@ Methods:
 
 - <code title="get /version">client.version.<a href="./src/resources/version.ts">getServerVersion</a>() -> Response</code>
 
+# Description
+
+Types:
+
+- <code><a href="./src/resources/description.ts">DescriptionGetAPIDescriptionResponse</a></code>
+
+Methods:
+
+- <code title="get /description">client.description.<a href="./src/resources/description.ts">getAPIDescription</a>() -> DescriptionGetAPIDescriptionResponse</code>
+
+# Agents
+
+Methods:
+
+- <code title="get /agents/{ref}">client.agents.<a href="./src/resources/agents.ts">getAgentByReference</a>(ref) -> Response</code>
+
+# Me
+
+Methods:
+
+- <code title="get /me">client.me.<a href="./src/resources/me.ts">me</a>() -> Response</code>
+
 # Balances
 
 Types:
