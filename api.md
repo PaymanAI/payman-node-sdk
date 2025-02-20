@@ -4,16 +4,6 @@ Methods:
 
 - <code title="get /version">client.version.<a href="./src/resources/version.ts">getServerVersion</a>() -> Response</code>
 
-# Description
-
-Types:
-
-- <code><a href="./src/resources/description.ts">DescriptionGetAPIDescriptionResponse</a></code>
-
-Methods:
-
-- <code title="get /description">client.description.<a href="./src/resources/description.ts">getAPIDescription</a>() -> DescriptionGetAPIDescriptionResponse</code>
-
 # Agents
 
 Methods:
