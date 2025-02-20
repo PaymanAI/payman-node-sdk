@@ -12,9 +12,8 @@ describe('resource payments', () => {
   test('createPayee: only required params', async () => {
     const responsePromise = client.payments.createPayee({
       type: 'PAYMAN_AGENT',
-      address: 'address',
-      currency: 'currency',
       name: 'name',
+      paymanAgent: 'paymanAgent',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -132,21 +131,9 @@ describe('resource payments', () => {
   test('sendPayment: required and optional params', async () => {
     const response = await client.payments.sendPayment({
       amountDecimal: 0,
-      paymentDestinationId: 'paymentDestinationId'
+      paymentDestinationId: 'paymentDestinationId',
       memo: 'memo',
       metadata: { foo: 'bar' },
-      paymentDestination: {
-        type: 'PAYMAN_AGENT',
-        contactDetails: {
-          address: 'address',
-          email: 'email',
-          phoneNumber: 'phoneNumber',
-          taxId: 'taxId',
-        },
-        name: 'name',
-        paymanAgent: 'paymanAgent',
-        tags: ['string'],
-      },
       walletId: 'walletId',
     });
   });
