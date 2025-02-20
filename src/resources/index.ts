@@ -2,7 +2,6 @@
 
 export { Agents } from './agents';
 export { Balances, type BalanceGetSpendableBalanceResponse } from './balances';
-export { Description, type DescriptionGetAPIDescriptionResponse } from './description';
 export { Me } from './me';
 export {
   Payments,
