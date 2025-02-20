@@ -5,9 +5,12 @@ import * as Core from './core';
 import * as Errors from './error';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
+import { Agents } from './resources/agents';
+import { Me } from './resources/me';
 import {
   PaymentCreatePayeeParams,
   PaymentCreatePayeeResponse,
+  PaymentDeletePayeeResponse,
   PaymentGetDepositLinkParams,
   PaymentGetDepositLinkResponse,
   PaymentSearchPayeesParams,
@@ -155,6 +158,8 @@ export class Paymanai extends Core.APIClient {
   }
 
   version: API.Version = new API.Version(this);
+  agents: API.Agents = new API.Agents(this);
+  me: API.Me = new API.Me(this);
   balances: API.Balances = new API.Balances(this);
   payments: API.Payments = new API.Payments(this);
 
@@ -196,6 +201,8 @@ export class Paymanai extends Core.APIClient {
 }
 
 Paymanai.Version = Version;
+Paymanai.Agents = Agents;
+Paymanai.Me = Me;
 Paymanai.Balances = Balances;
 Paymanai.Payments = Payments;
 export declare namespace Paymanai {
@@ -203,11 +210,16 @@ export declare namespace Paymanai {
 
   export { Version as Version };
 
+  export { Agents as Agents };
+
+  export { Me as Me };
+
   export { Balances as Balances };
 
   export {
     Payments as Payments,
     type PaymentCreatePayeeResponse as PaymentCreatePayeeResponse,
+    type PaymentDeletePayeeResponse as PaymentDeletePayeeResponse,
     type PaymentGetDepositLinkResponse as PaymentGetDepositLinkResponse,
     type PaymentSearchPayeesResponse as PaymentSearchPayeesResponse,
     type PaymentSendPaymentResponse as PaymentSendPaymentResponse,

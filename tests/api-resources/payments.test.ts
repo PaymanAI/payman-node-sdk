@@ -12,9 +12,8 @@ describe('resource payments', () => {
   test('createPayee: only required params', async () => {
     const responsePromise = client.payments.createPayee({
       type: 'PAYMAN_AGENT',
-      address: 'address',
-      currency: 'currency',
       name: 'name',
+      paymanAgent: 'paymanAgent',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -38,6 +37,24 @@ describe('resource payments', () => {
       paymanAgent: 'paymanAgent',
       tags: ['string'],
     });
+  });
+
+  test('deletePayee', async () => {
+    const responsePromise = client.payments.deletePayee('id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('deletePayee: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(client.payments.deletePayee('id', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Paymanai.NotFoundError,
+    );
   });
 
   test('getDepositLink: only required params', async () => {
@@ -99,7 +116,10 @@ describe('resource payments', () => {
   });
 
   test('sendPayment: only required params', async () => {
-    const responsePromise = client.payments.sendPayment({ amountDecimal: 0 });
+    const responsePromise = client.payments.sendPayment({
+      amountDecimal: 0,
+      paymentDestinationId: 'paymentDestinationId',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -111,21 +131,9 @@ describe('resource payments', () => {
   test('sendPayment: required and optional params', async () => {
     const response = await client.payments.sendPayment({
       amountDecimal: 0,
+      paymentDestinationId: 'paymentDestinationId',
       memo: 'memo',
       metadata: { foo: 'bar' },
-      paymentDestination: {
-        type: 'PAYMAN_AGENT',
-        contactDetails: {
-          address: 'address',
-          email: 'email',
-          phoneNumber: 'phoneNumber',
-          taxId: 'taxId',
-        },
-        name: 'name',
-        paymanAgent: 'paymanAgent',
-        tags: ['string'],
-      },
-      paymentDestinationId: 'paymentDestinationId',
       walletId: 'walletId',
     });
   });
