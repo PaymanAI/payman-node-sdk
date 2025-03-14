@@ -4,13 +4,12 @@ import { APIResource } from '../resource';
 import * as Core from '../core';
 import { type Response } from '../_shims/index';
 
-export class Agents extends APIResource {
+export class SpendLimits extends APIResource {
   /**
-   * Returns identity of the agent represented by the id or handle matching the input
-   * 'ref'
+   * Returns wallet spend limit details of the current agent
    */
-  getAgentByReference(ref: string, options?: Core.RequestOptions): Core.APIPromise<Response> {
-    return this._client.get(`/agents/${ref}`, {
+  getSpendLimits(options?: Core.RequestOptions): Core.APIPromise<Response> {
+    return this._client.get('/spend-limits', {
       ...options,
       headers: { Accept: '*/*', ...options?.headers },
       __binaryResponse: true,
