@@ -1,6 +1,6 @@
 {
   "name": "paymanai",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "description": "The official TypeScript library for the Paymanai API",
   "author": "Paymanai <support@paymanai.com>",
   "types": "dist/index.d.ts",
