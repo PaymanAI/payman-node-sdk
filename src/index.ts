@@ -5,42 +5,17 @@ import * as Core from './core';
 import * as Errors from './error';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
-import { Agents } from './resources/agents';
+import { BalanceGetSpendableBalanceResponse, Balances } from './resources/balances';
 import { Me } from './resources/me';
-import {
-  PaymentCreatePayeeParams,
-  PaymentCreatePayeeResponse,
-  PaymentDeletePayeeResponse,
-  PaymentGetDepositLinkParams,
-  PaymentGetDepositLinkResponse,
-  PaymentSearchPayeesParams,
-  PaymentSearchPayeesResponse,
-  PaymentSendPaymentParams,
-  PaymentSendPaymentResponse,
-  Payments,
-} from './resources/payments';
-import { Balances } from './resources/balances';
+import { PaymentSendPaymentParams, PaymentSendPaymentResponse, Payments } from './resources/payments';
+import { SpendLimits } from './resources/spend-limits';
 import { Version } from './resources/version';
 
-const environments = {
-  sandbox: 'https://agent-sandbox.payman.ai/api',
-  production: 'https://agent.payman.ai/api',
-};
-type Environment = keyof typeof environments;
 export interface ClientOptions {
   /**
    * Defaults to process.env['PAYMAN_API_SECRET'].
    */
   xPaymanAPISecret?: string | undefined;
-
-  /**
-   * Specifies the environment to use for the API.
-   *
-   * Each environment maps to a different base URL:
-   * - `sandbox` corresponds to `https://agent-sandbox.payman.ai/api`
-   * - `production` corresponds to `https://agent.payman.ai/api`
-   */
-  environment?: Environment | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -111,8 +86,7 @@ export class Paymanai extends Core.APIClient {
    * API Client for interfacing with the Paymanai API.
    *
    * @param {string | undefined} [opts.xPaymanAPISecret=process.env['PAYMAN_API_SECRET'] ?? undefined]
-   * @param {Environment} [opts.environment=sandbox] - Specifies the environment URL to use for the API.
-   * @param {string} [opts.baseURL=process.env['PAYMANAI_BASE_URL'] ?? https://agent-sandbox.payman.ai/api] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['PAYMANAI_BASE_URL'] ?? https://agent.payman.ai/api] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
    * @param {Core.Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -134,18 +108,11 @@ export class Paymanai extends Core.APIClient {
     const options: ClientOptions = {
       xPaymanAPISecret,
       ...opts,
-      baseURL,
-      environment: opts.environment ?? 'sandbox',
+      baseURL: baseURL || `https://agent.payman.ai/api`,
     };
 
-    if (baseURL && opts.environment) {
-      throw new Errors.PaymanaiError(
-        'Ambiguous URL; The `baseURL` option (or PAYMANAI_BASE_URL env var) and the `environment` option are given. If you want to use the environment you must pass baseURL: null',
-      );
-    }
-
     super({
-      baseURL: options.baseURL || environments[options.environment || 'sandbox'],
+      baseURL: options.baseURL!,
       timeout: options.timeout ?? 60000 /* 1 minute */,
       httpAgent: options.httpAgent,
       maxRetries: options.maxRetries,
@@ -158,10 +125,10 @@ export class Paymanai extends Core.APIClient {
   }
 
   version: API.Version = new API.Version(this);
-  agents: API.Agents = new API.Agents(this);
   me: API.Me = new API.Me(this);
   balances: API.Balances = new API.Balances(this);
   payments: API.Payments = new API.Payments(this);
+  spendLimits: API.SpendLimits = new API.SpendLimits(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -201,16 +168,14 @@ export class Paymanai extends Core.APIClient {
 }
 
 Paymanai.Version = Version;
-Paymanai.Agents = Agents;
 Paymanai.Me = Me;
 Paymanai.Balances = Balances;
 Paymanai.Payments = Payments;
+Paymanai.SpendLimits = SpendLimits;
 export declare namespace Paymanai {
   export type RequestOptions = Core.RequestOptions;
 
   export { Version as Version };
-
-  export { Agents as Agents };
 
   export { Me as Me };
 
@@ -218,16 +183,11 @@ export declare namespace Paymanai {
 
   export {
     Payments as Payments,
-    type PaymentCreatePayeeResponse as PaymentCreatePayeeResponse,
-    type PaymentDeletePayeeResponse as PaymentDeletePayeeResponse,
-    type PaymentGetDepositLinkResponse as PaymentGetDepositLinkResponse,
-    type PaymentSearchPayeesResponse as PaymentSearchPayeesResponse,
     type PaymentSendPaymentResponse as PaymentSendPaymentResponse,
-    type PaymentCreatePayeeParams as PaymentCreatePayeeParams,
-    type PaymentGetDepositLinkParams as PaymentGetDepositLinkParams,
-    type PaymentSearchPayeesParams as PaymentSearchPayeesParams,
     type PaymentSendPaymentParams as PaymentSendPaymentParams,
   };
+
+  export { SpendLimits as SpendLimits };
 }
 
 export { toFile, fileFromPath } from './uploads';

@@ -24,11 +24,10 @@ import Paymanai from 'paymanai';
 
 const client = new Paymanai({
   xPaymanAPISecret: process.env['PAYMAN_API_SECRET'], // This is the default and can be omitted
-  environment: 'production', // defaults to 'sandbox'
 });
 
 async function main() {
-  const response = await client.payments.sendPayment({ amountDecimal: 0 });
+  const response = await client.payments.sendPayment({ amountDecimal: 10, payeeId: 'payeeId' });
 
   console.log(response.reference);
 }
@@ -46,11 +45,10 @@ import Paymanai from 'paymanai';
 
 const client = new Paymanai({
   xPaymanAPISecret: process.env['PAYMAN_API_SECRET'], // This is the default and can be omitted
-  environment: 'production', // defaults to 'sandbox'
 });
 
 async function main() {
-  const response: Paymanai.PaymentSearchPayeesResponse = await client.payments.searchPayees();
+  const response: Response = await client.version.getServerVersion();
 }
 
 main();
@@ -67,7 +65,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const response = await client.payments.searchPayees().catch(async (err) => {
+  const response = await client.version.getServerVersion().catch(async (err) => {
     if (err instanceof Paymanai.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -110,7 +108,7 @@ const client = new Paymanai({
 });
 
 // Or, configure per-request:
-await client.payments.searchPayees({
+await client.version.getServerVersion({
   maxRetries: 5,
 });
 ```
@@ -127,7 +125,7 @@ const client = new Paymanai({
 });
 
 // Override per-request:
-await client.payments.searchPayees({
+await client.version.getServerVersion({
   timeout: 5 * 1000,
 });
 ```
@@ -147,7 +145,10 @@ import Paymanai from 'paymanai';
 
 const client = new Paymanai();
 
-const response = await client.payments.searchPayees({ headers: { Accept: 'My-Custom-Value' } });
+const response = await client.version.getServerVersion({ headers: { Accept: 'My-Custom-Value' } });
+
+const content = await response.blob();
+console.log(content);
 ```
 
 ## Advanced Usage
@@ -162,11 +163,11 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Paymanai();
 
-const response = await client.payments.searchPayees().asResponse();
+const response = await client.version.getServerVersion().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: response, response: raw } = await client.payments.searchPayees().withResponse();
+const { data: response, response: raw } = await client.version.getServerVersion().withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(response);
 ```
@@ -272,7 +273,7 @@ const client = new Paymanai({
 });
 
 // Override per-request:
-await client.payments.searchPayees({
+await client.version.getServerVersion({
   httpAgent: new http.Agent({ keepAlive: false }),
 });
 ```
