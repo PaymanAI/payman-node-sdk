@@ -11,9 +11,11 @@ const client = new Paymanai({
 describe('resource payments', () => {
   test('createPayee: only required params', async () => {
     const responsePromise = client.payments.createPayee({
-      type: 'PAYMAN_AGENT',
+      type: 'CRYPTO_ADDRESS',
       name: 'name',
-      paymanAgent: 'paymanAgent',
+      address: 'address',
+      chain: 'chain',
+      currency: 'currency',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -26,15 +28,26 @@ describe('resource payments', () => {
 
   test('createPayee: required and optional params', async () => {
     const response = await client.payments.createPayee({
-      type: 'PAYMAN_AGENT',
+      type: 'CRYPTO_ADDRESS',
+      address: 'address',
+      chain: 'chain',
       contactDetails: {
-        address: 'address',
+        address: {
+          addressLine1: 'addressLine1',
+          addressLine2: 'addressLine2',
+          addressLine3: 'addressLine3',
+          addressLine4: 'addressLine4',
+          country: 'country',
+          locality: 'locality',
+          postcode: 'postcode',
+          region: 'region',
+        },
         email: 'email',
         phoneNumber: 'phoneNumber',
         taxId: 'taxId',
       },
+      currency: 'currency',
       name: 'name',
-      paymanAgent: 'paymanAgent',
       tags: ['string'],
     });
   });
@@ -57,27 +70,6 @@ describe('resource payments', () => {
     );
   });
 
-  test('getDepositLink: only required params', async () => {
-    const responsePromise = client.payments.getDepositLink({ amountDecimal: 0 });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('getDepositLink: required and optional params', async () => {
-    const response = await client.payments.getDepositLink({
-      amountDecimal: 0,
-      feeMode: 'INCLUDED_IN_AMOUNT',
-      memo: 'memo',
-      metadata: { foo: 'bar' },
-      walletId: 'walletId',
-    });
-  });
-
   test('searchPayees', async () => {
     const responsePromise = client.payments.searchPayees();
     const rawResponse = await responsePromise.asResponse();
@@ -89,7 +81,7 @@ describe('resource payments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('searchDestinations: request options instead of params are passed correctly', async () => {
+  test('searchPayees: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(client.payments.searchPayees({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Paymanai.NotFoundError,
@@ -106,9 +98,11 @@ describe('resource payments', () => {
           contactEmail: 'contactEmail',
           contactPhoneNumber: 'contactPhoneNumber',
           contactTaxId: 'contactTaxId',
+          cryptoAddress: 'cryptoAddress',
+          cryptoChain: 'cryptoChain',
+          cryptoCurrency: 'cryptoCurrency',
           name: 'name',
           routingNumber: 'routingNumber',
-          type: 'type',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -116,10 +110,7 @@ describe('resource payments', () => {
   });
 
   test('sendPayment: only required params', async () => {
-    const responsePromise = client.payments.sendPayment({
-      amountDecimal: 0,
-      paymentDestinationId: 'paymentDestinationId',
-    });
+    const responsePromise = client.payments.sendPayment({ amountDecimal: 0, payeeId: 'payeeId' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -131,7 +122,7 @@ describe('resource payments', () => {
   test('sendPayment: required and optional params', async () => {
     const response = await client.payments.sendPayment({
       amountDecimal: 0,
-      paymentDestinationId: 'paymentDestinationId',
+      payeeId: 'payeeId',
       memo: 'memo',
       metadata: { foo: 'bar' },
       walletId: 'walletId',

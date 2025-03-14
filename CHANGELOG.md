@@ -1,5 +1,27 @@
 # Changelog
 
+## 2.7.0 (2025-03-14)
+
+Full Changelog: [v2.6.0...v2.7.0](https://github.com/PaymanAI/payman-node-sdk/compare/v2.6.0...v2.7.0)
+
+### Features
+
+* add SKIP_BREW env var to ./scripts/bootstrap ([#115](https://github.com/PaymanAI/payman-node-sdk/issues/115)) ([0979395](https://github.com/PaymanAI/payman-node-sdk/commit/0979395c846a001476616604a75b796944cab6fc))
+* **api:** update via SDK Studio ([#118](https://github.com/PaymanAI/payman-node-sdk/issues/118)) ([c7ab312](https://github.com/PaymanAI/payman-node-sdk/commit/c7ab312fb63f2b1fc9d6ed3abce06ea2e8067d32))
+* **api:** update via SDK Studio ([#120](https://github.com/PaymanAI/payman-node-sdk/issues/120)) ([ad3b2d6](https://github.com/PaymanAI/payman-node-sdk/commit/ad3b2d6cfb1265ba5a83b479d408f57ed2d3fdb2))
+* **client:** accept RFC6838 JSON content types ([#116](https://github.com/PaymanAI/payman-node-sdk/issues/116)) ([61c1a65](https://github.com/PaymanAI/payman-node-sdk/commit/61c1a65598486a2bbc23c972f4b74e6f888bea05))
+
+
+### Chores
+
+* **internal:** fix devcontainers setup ([#112](https://github.com/PaymanAI/payman-node-sdk/issues/112)) ([68350b7](https://github.com/PaymanAI/payman-node-sdk/commit/68350b74ccea75562eb35a26c5ec628d9935d245))
+* **internal:** remove extra empty newlines ([#117](https://github.com/PaymanAI/payman-node-sdk/issues/117)) ([32c442c](https://github.com/PaymanAI/payman-node-sdk/commit/32c442cadcdf78cd412236f7e322ff785d1b6604))
+
+
+### Documentation
+
+* update URLs from stainlessapi.com to stainless.com ([#114](https://github.com/PaymanAI/payman-node-sdk/issues/114)) ([ec5a26f](https://github.com/PaymanAI/payman-node-sdk/commit/ec5a26f8fa4508462964f813b1f21abbb9682b12))
+
 ## 2.6.0 (2025-02-20)
 
 Full Changelog: [v2.5.0...v2.6.0](https://github.com/PaymanAI/payman-node-sdk/compare/v2.5.0...v2.6.0)

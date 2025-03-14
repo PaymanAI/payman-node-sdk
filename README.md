@@ -6,7 +6,7 @@ This library provides convenient access to the Paymanai REST API from server-sid
 
 The REST API documentation can be found on [docs.paymanai.com](https://docs.paymanai.com). The full API of this library can be found in [api.md](api.md).
 
-It is generated with [Stainless](https://www.stainlessapi.com/).
+It is generated with [Stainless](https://www.stainless.com/).
 
 ## Installation
 
@@ -24,11 +24,10 @@ import Paymanai from 'paymanai';
 
 const client = new Paymanai({
   xPaymanAPISecret: process.env['PAYMAN_API_SECRET'], // This is the default and can be omitted
-  environment: 'production', // defaults to 'sandbox'
 });
 
 async function main() {
-  const response = await client.payments.sendPayment({ amountDecimal: 0 });
+  const response = await client.payments.sendPayment({ amountDecimal: 10, payeeId: 'payeeId' });
 
   console.log(response.reference);
 }
@@ -46,7 +45,6 @@ import Paymanai from 'paymanai';
 
 const client = new Paymanai({
   xPaymanAPISecret: process.env['PAYMAN_API_SECRET'], // This is the default and can be omitted
-  environment: 'production', // defaults to 'sandbox'
 });
 
 async function main() {
