@@ -2,6 +2,15 @@
 
 export { Balances, type BalanceGetSpendableBalanceResponse } from './balances';
 export { Me } from './me';
-export { Payments, type PaymentSendPaymentResponse, type PaymentSendPaymentParams } from './payments';
+export {
+  Payments,
+  type PaymentCreatePayeeResponse,
+  type PaymentDeletePayeeResponse,
+  type PaymentSearchPayeesResponse,
+  type PaymentSendPaymentResponse,
+  type PaymentCreatePayeeParams,
+  type PaymentSearchPayeesParams,
+  type PaymentSendPaymentParams,
+} from './payments';
 export { SpendLimits } from './spend-limits';
 export { Version } from './version';

@@ -7,7 +7,16 @@ import * as Uploads from './uploads';
 import * as API from './resources/index';
 import { BalanceGetSpendableBalanceResponse, Balances } from './resources/balances';
 import { Me } from './resources/me';
-import { PaymentSendPaymentParams, PaymentSendPaymentResponse, Payments } from './resources/payments';
+import {
+  PaymentCreatePayeeParams,
+  PaymentCreatePayeeResponse,
+  PaymentDeletePayeeResponse,
+  PaymentSearchPayeesParams,
+  PaymentSearchPayeesResponse,
+  PaymentSendPaymentParams,
+  PaymentSendPaymentResponse,
+  Payments,
+} from './resources/payments';
 import { SpendLimits } from './resources/spend-limits';
 import { Version } from './resources/version';
 
@@ -183,7 +192,12 @@ export declare namespace Paymanai {
 
   export {
     Payments as Payments,
+    type PaymentCreatePayeeResponse as PaymentCreatePayeeResponse,
+    type PaymentDeletePayeeResponse as PaymentDeletePayeeResponse,
+    type PaymentSearchPayeesResponse as PaymentSearchPayeesResponse,
     type PaymentSendPaymentResponse as PaymentSendPaymentResponse,
+    type PaymentCreatePayeeParams as PaymentCreatePayeeParams,
+    type PaymentSearchPayeesParams as PaymentSearchPayeesParams,
     type PaymentSendPaymentParams as PaymentSendPaymentParams,
   };
 
