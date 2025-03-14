@@ -5,7 +5,7 @@ import * as Core from './core';
 import * as Errors from './error';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
-import { BalanceGetSpendableBalanceResponse, Balances } from './resources/balances';
+import { Balances } from './resources/balances';
 import { Me } from './resources/me';
 import {
   PaymentCreatePayeeParams,
