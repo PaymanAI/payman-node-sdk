@@ -48,7 +48,7 @@ const client = new Paymanai({
 });
 
 async function main() {
-  const response: Response = await client.version.getServerVersion();
+  const response: Paymanai.PaymentSearchPayeesResponse = await client.payments.searchPayees();
 }
 
 main();
@@ -65,7 +65,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const response = await client.version.getServerVersion().catch(async (err) => {
+  const response = await client.payments.searchPayees().catch(async (err) => {
     if (err instanceof Paymanai.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -108,7 +108,7 @@ const client = new Paymanai({
 });
 
 // Or, configure per-request:
-await client.version.getServerVersion({
+await client.payments.searchPayees({
   maxRetries: 5,
 });
 ```
@@ -125,7 +125,7 @@ const client = new Paymanai({
 });
 
 // Override per-request:
-await client.version.getServerVersion({
+await client.payments.searchPayees({
   timeout: 5 * 1000,
 });
 ```
@@ -145,10 +145,7 @@ import Paymanai from 'paymanai';
 
 const client = new Paymanai();
 
-const response = await client.version.getServerVersion({ headers: { Accept: 'My-Custom-Value' } });
-
-const content = await response.blob();
-console.log(content);
+const response = await client.payments.searchPayees({ headers: { Accept: 'My-Custom-Value' } });
 ```
 
 ## Advanced Usage
@@ -163,11 +160,11 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Paymanai();
 
-const response = await client.version.getServerVersion().asResponse();
+const response = await client.payments.searchPayees().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: response, response: raw } = await client.version.getServerVersion().withResponse();
+const { data: response, response: raw } = await client.payments.searchPayees().withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(response);
 ```
@@ -273,7 +270,7 @@ const client = new Paymanai({
 });
 
 // Override per-request:
-await client.version.getServerVersion({
+await client.payments.searchPayees({
   httpAgent: new http.Agent({ keepAlive: false }),
 });
 ```
