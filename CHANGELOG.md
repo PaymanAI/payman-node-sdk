@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.7.1 (2025-03-22)
+
+Full Changelog: [v2.7.0...v2.7.1](https://github.com/PaymanAI/payman-node-sdk/compare/v2.7.0...v2.7.1)
+
+### Bug Fixes
+
+* avoid type error in certain environments ([#125](https://github.com/PaymanAI/payman-node-sdk/issues/125)) ([84ed52e](https://github.com/PaymanAI/payman-node-sdk/commit/84ed52e78da42bb0f2df6f55d792fcaf1099d909))
+
+
+### Chores
+
+* **exports:** cleaner resource index imports ([#122](https://github.com/PaymanAI/payman-node-sdk/issues/122)) ([43572cb](https://github.com/PaymanAI/payman-node-sdk/commit/43572cbb172334d2601033114dec2324f8dbc006))
+* **exports:** stop using path fallbacks ([#124](https://github.com/PaymanAI/payman-node-sdk/issues/124)) ([6cf4c4c](https://github.com/PaymanAI/payman-node-sdk/commit/6cf4c4c12a3fe32310da17a8aac43cf89a18cefc))
+
 ## 2.7.0 (2025-03-14)
 
 Full Changelog: [v2.6.0...v2.7.0](https://github.com/PaymanAI/payman-node-sdk/compare/v2.6.0...v2.7.0)
