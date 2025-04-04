@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.7.1 (2025-04-04)
+
+Full Changelog: [v2.7.0...v2.7.1](https://github.com/PaymanAI/payman-node-sdk/compare/v2.7.0...v2.7.1)
+
+### Bug Fixes
+
+* **api:** improve type resolution when importing as a package ([#129](https://github.com/PaymanAI/payman-node-sdk/issues/129)) ([aa24286](https://github.com/PaymanAI/payman-node-sdk/commit/aa242864214a4e3a579694dcdba4fd0b226b0176))
+* avoid type error in certain environments ([#125](https://github.com/PaymanAI/payman-node-sdk/issues/125)) ([84ed52e](https://github.com/PaymanAI/payman-node-sdk/commit/84ed52e78da42bb0f2df6f55d792fcaf1099d909))
+* **client:** send `X-Stainless-Timeout` in seconds ([#127](https://github.com/PaymanAI/payman-node-sdk/issues/127)) ([416fdd3](https://github.com/PaymanAI/payman-node-sdk/commit/416fdd380a2e084078bcc52e0b4d59d40f79c6c5))
+* **internal:** work around https://github.com/vercel/next.js/issues/76881 ([#126](https://github.com/PaymanAI/payman-node-sdk/issues/126)) ([7b2b5b8](https://github.com/PaymanAI/payman-node-sdk/commit/7b2b5b88f27f6f0f082fd18fb925e75eeb60079c))
+
+
+### Chores
+
+* **exports:** cleaner resource index imports ([#122](https://github.com/PaymanAI/payman-node-sdk/issues/122)) ([43572cb](https://github.com/PaymanAI/payman-node-sdk/commit/43572cbb172334d2601033114dec2324f8dbc006))
+* **exports:** stop using path fallbacks ([#124](https://github.com/PaymanAI/payman-node-sdk/issues/124)) ([6cf4c4c](https://github.com/PaymanAI/payman-node-sdk/commit/6cf4c4c12a3fe32310da17a8aac43cf89a18cefc))
+* **internal:** add aliases for Record and Array ([#128](https://github.com/PaymanAI/payman-node-sdk/issues/128)) ([a5d6713](https://github.com/PaymanAI/payman-node-sdk/commit/a5d6713e9b5dc445960b14e39f655c8bbb0bbccb))
+
 ## 2.7.0 (2025-03-14)
 
 Full Changelog: [v2.6.0...v2.7.0](https://github.com/PaymanAI/payman-node-sdk/compare/v2.6.0...v2.7.0)
