@@ -27,7 +27,7 @@ const client = new Paymanai({
 });
 
 async function main() {
-  const response = await client.payments.sendPayment({ amountDecimal: 10, payeeId: 'payeeId' });
+  const response = await client.payments.sendPayment({ amountDecimal: 0, payeeId: 'payeeId' });
 
   console.log(response.reference);
 }
@@ -79,7 +79,7 @@ async function main() {
 main();
 ```
 
-Error codes are as followed:
+Error codes are as follows:
 
 | Status Code | Error Type                 |
 | ----------- | -------------------------- |
