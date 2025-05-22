@@ -1,5 +1,38 @@
 # Changelog
 
+## 2.7.1 (2025-05-22)
+
+Full Changelog: [v2.7.0...v2.7.1](https://github.com/PaymanAI/payman-node-sdk/compare/v2.7.0...v2.7.1)
+
+### Bug Fixes
+
+* **api:** improve type resolution when importing as a package ([#129](https://github.com/PaymanAI/payman-node-sdk/issues/129)) ([aa24286](https://github.com/PaymanAI/payman-node-sdk/commit/aa242864214a4e3a579694dcdba4fd0b226b0176))
+* avoid type error in certain environments ([#125](https://github.com/PaymanAI/payman-node-sdk/issues/125)) ([84ed52e](https://github.com/PaymanAI/payman-node-sdk/commit/84ed52e78da42bb0f2df6f55d792fcaf1099d909))
+* **client:** send `X-Stainless-Timeout` in seconds ([#127](https://github.com/PaymanAI/payman-node-sdk/issues/127)) ([416fdd3](https://github.com/PaymanAI/payman-node-sdk/commit/416fdd380a2e084078bcc52e0b4d59d40f79c6c5))
+* **internal:** work around https://github.com/vercel/next.js/issues/76881 ([#126](https://github.com/PaymanAI/payman-node-sdk/issues/126)) ([7b2b5b8](https://github.com/PaymanAI/payman-node-sdk/commit/7b2b5b88f27f6f0f082fd18fb925e75eeb60079c))
+* **mcp:** remove unused tools.ts ([#130](https://github.com/PaymanAI/payman-node-sdk/issues/130)) ([2ab9e7f](https://github.com/PaymanAI/payman-node-sdk/commit/2ab9e7fab3e2cbb99d0e88db0f925694c9052ba6))
+
+
+### Chores
+
+* **ci:** add timeout thresholds for CI jobs ([d37663c](https://github.com/PaymanAI/payman-node-sdk/commit/d37663c7a9f9dcda324a17f45066f6f5c2ed1ecc))
+* **ci:** bump node version for release workflows ([7577590](https://github.com/PaymanAI/payman-node-sdk/commit/75775905ecafbd666bbc973cfac6c62cda463689))
+* **ci:** only use depot for staging repos ([94073ca](https://github.com/PaymanAI/payman-node-sdk/commit/94073ca12f6807eb8beaf6957697396fdc370f64))
+* **client:** minor internal fixes ([0d68440](https://github.com/PaymanAI/payman-node-sdk/commit/0d684408dc8128a2554a4af9c2b97e6d29a36eac))
+* **docs:** grammar improvements ([7a21d3a](https://github.com/PaymanAI/payman-node-sdk/commit/7a21d3a1da2b2cea460736452c4a37e86b16e277))
+* **exports:** cleaner resource index imports ([#122](https://github.com/PaymanAI/payman-node-sdk/issues/122)) ([43572cb](https://github.com/PaymanAI/payman-node-sdk/commit/43572cbb172334d2601033114dec2324f8dbc006))
+* **exports:** stop using path fallbacks ([#124](https://github.com/PaymanAI/payman-node-sdk/issues/124)) ([6cf4c4c](https://github.com/PaymanAI/payman-node-sdk/commit/6cf4c4c12a3fe32310da17a8aac43cf89a18cefc))
+* **internal:** add aliases for Record and Array ([#128](https://github.com/PaymanAI/payman-node-sdk/issues/128)) ([a5d6713](https://github.com/PaymanAI/payman-node-sdk/commit/a5d6713e9b5dc445960b14e39f655c8bbb0bbccb))
+* **internal:** codegen related update ([28a6ee1](https://github.com/PaymanAI/payman-node-sdk/commit/28a6ee1783e70455adda5b60e75a069a333ea79c))
+* **internal:** reduce CI branch coverage ([c50e5c1](https://github.com/PaymanAI/payman-node-sdk/commit/c50e5c1cf529858c67d2c42702c0540ebb2e2b56))
+* **internal:** upload builds and expand CI branch coverage ([1dc33a4](https://github.com/PaymanAI/payman-node-sdk/commit/1dc33a4c14516728e400aae3671b9185297370f8))
+
+
+### Documentation
+
+* **readme:** fix typo ([94fd721](https://github.com/PaymanAI/payman-node-sdk/commit/94fd7218478f4b1ebc95d59ebef951cc12a4be05))
+* remove or fix invalid readme examples ([3e94f97](https://github.com/PaymanAI/payman-node-sdk/commit/3e94f97a79159fb0385e375a406e174ef9db190f))
+
 ## 2.7.0 (2025-03-14)
 
 Full Changelog: [v2.6.0...v2.7.0](https://github.com/PaymanAI/payman-node-sdk/compare/v2.6.0...v2.7.0)
